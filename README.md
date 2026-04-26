@@ -2,7 +2,7 @@
 
 ![discernible.io Banner](./public/banner.png)
 
-A modern, responsive static homepage for Discernible.io built with HTML, CSS, and JavaScript.
+A modern, responsive static homepage for Discernible.io built with HTML, CSS, and JavaScript
 
 ## 🚀 Features
 
