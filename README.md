@@ -45,13 +45,13 @@ Every push to the `main` branch automatically triggers deployment via the GitHub
 
 ### Initial Setup
 
-1. Go to your repository on GitHub: `https://github.com/rodit-org/homepage-discernible-io`
+1. Go to your repository on GitHub: `https://github.com/discernible-io/homepage-discernible-io`
 2. Navigate to **Settings** → **Pages**
 3. Under **Source**, select **GitHub Actions**
 4. Push your changes to the `main` branch
 5. The workflow will automatically deploy your site
 
-Your site will be available at: `https://rodit-org.github.io/homepage-discernible-io/`
+Your site will be available at: `https://discernible-io.github.io/homepage-discernible-io/`
 
 ### Custom Domain (Optional)
 
@@ -64,7 +64,7 @@ To use a custom domain like `discernible.io`:
    - `A` record: `185.199.109.153`
    - `A` record: `185.199.110.153`
    - `A` record: `185.199.111.153`
-   - `CNAME` record for `www`: `rodit-org.github.io`
+   - `CNAME` record for `www`: `discernible-io.github.io`
 4. Wait for DNS propagation (can take up to 24 hours)
 5. Enable **Enforce HTTPS** in GitHub Pages settings
 
@@ -110,7 +110,7 @@ php -S localhost:8080
 2. Commit your changes: `git add . && git commit -m "Your message"`
 3. Push to GitHub: `git push origin main`
 4. GitHub Actions automatically deploys to GitHub Pages
-5. Site is live at `https://rodit-org.github.io/homepage-discernible-io/`
+5. Site is live at `https://discernible-io.github.io/homepage-discernible-io/`
 
 ### Legacy Apache Deployment
 The `deploy.sh` script and Apache configuration are kept for reference but are no longer the primary deployment method.
