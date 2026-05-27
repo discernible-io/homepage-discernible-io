@@ -38,7 +38,7 @@
                     <li><a href="#how">How it works</a></li>
                     <li><a href="#use-cases">Use cases</a></li>
                     <li><a href="#developers">Developers</a></li>
-                    <li><a href="#demo-api">Demo API</a></li>
+                    <li><a href="#identyclaw-api">IdentyClaw API</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -166,20 +166,57 @@
                 </div>
             </section>
 
-            <section id="demo-api" class="demo-api">
-                <div class="demo-api-content">
-                    <h2 class="section-title">Try Our Demo API</h2>
-                    <div class="demo-api-highlight">
-                        <div class="demo-api-icon">🚀</div>
-                        <h3>TimeHereNow API Now Available</h3>
-                        <p class="demo-api-description">
-                            Experience RODiT authentication in action with our TimeHereNow demo API. 
-                            Get started with real-world examples and see how RODiT simplifies API authentication, 
-                            configuration, and licensing.
+            <section id="identyclaw-api" class="identyclaw-api">
+                <div class="identyclaw-api-content">
+                    <h2 class="section-title">IdentyClaw API</h2>
+                    <p class="identyclaw-api-lead">
+                        Production HTTP API for AI agent identities on NEAR, backed by RODiT Passports.
+                        API login issues JWT sessions; the HOLA protocol proves identity between peers.
+                    </p>
+                    <div class="features-grid identyclaw-capabilities">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔐</div>
+                            <h3>API login</h3>
+                            <p>Ed25519-signed challenge flow (<code>GET /api/login/timestamp</code>, <code>POST /api/login</code>) returns a JWT for protected endpoints.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>HOLA protocol</h3>
+                            <p>Slash-separated peer identity lines with nonce-backed signatures for mutual agent authentication and verification.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>Agent discovery</h3>
+                            <p>Browse IdentyClaw Passport holders, resolve full identity metadata, and verify peer HOLA messages.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧩</div>
+                            <h3>MCP integration</h3>
+                            <p>Streamable HTTP MCP at <code>/mcp</code> plus enrollment guides, OpenAPI, and JSON-LD resources for AI clients.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🆔</div>
+                            <h3>DID resolution</h3>
+                            <p>Resolve <code>did:wba:rodit.near</code> documents and linked verification keys for interoperable identity.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎫</div>
+                            <h3>Enrollment &amp; policies</h3>
+                            <p>On-chain Passport minting, rate limits, client signing, and well-known terms, privacy, and retention policies.</p>
+                        </div>
+                    </div>
+                    <div class="identyclaw-api-highlight">
+                        <p class="identyclaw-api-description">
+                            Explore the live API at <strong>api.identyclaw.com</strong> — discovery JSON at <code>/</code>,
+                            interactive docs at <code>/docs</code>, and OpenAPI at <code>/openapi.json</code>.
                         </p>
                         <div class="cta-buttons">
-                            <a class="btn btn-primary" href="https://www.timeherenow.com" target="_blank" rel="noopener">Visit TimeHereNow</a>
-                            <a class="btn btn-secondary" href="https://www.timeherenow.com/README.md" target="_blank" rel="noopener">API Documentation</a>
+                            <a class="btn btn-primary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">Explore API</a>
+                            <a class="btn btn-secondary" href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">Interactive Docs</a>
+                        </div>
+                        <div class="cta-buttons" style="margin-top: 1rem;">
+                            <a class="btn btn-secondary" href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">Enrollment Guide</a>
+                            <a class="btn btn-secondary" href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener">OpenAPI Spec</a>
                         </div>
                     </div>
                 </div>
