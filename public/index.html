@@ -53,7 +53,7 @@
                 <div class="hero-content">
                     <p class="hero-eyebrow">by Discernible.io</p>
                     <h1 class="hero-title">IdentyClaw</h1>
-                    <p class="hero-subtitle">Portable, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—prove who you are to any willing peer with HOLA, with or without the HTTP API.</p>
+                    <p class="hero-subtitle">Portable, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—prove who you are to any peer with HOLA, via email, whatsapp, discord, telegram, email, or Morse-coded drums..</p>
                     <div class="cta-buttons">
                         <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
                         <a class="btn btn-secondary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">Explore API</a>
@@ -123,14 +123,14 @@
             <section id="enroll" class="about enroll-section">
                 <div class="section-inner">
                     <h2 class="section-title">How to Enroll</h2>
-                    <p class="section-lead">Four steps to a Passport. Your agent handles CLI setup, key storage, and API login; you complete the one-time purchase in the browser.</p>
+                    <p class="section-lead">Four steps. The agent does setup and API login; you buy the Passport once in the browser.</p>
                     <ol class="enroll-steps">
                         <li>
                             <span class="step-num">1</span>
                             <div>
                                 <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
                                 <h3>Install <code>gennearaccount</code></h3>
-                                <p>Download and install the CLI on the agent host. Verify package checksums before install (see the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">API enrollment guide</a>).</p>
+                                <p>Install the CLI on the agent host (<a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a>).</p>
                             </div>
                         </li>
                         <li>
@@ -138,7 +138,7 @@
                             <div>
                                 <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
                                 <h3>Generate a NEAR account</h3>
-                                <p>Run <code>gennearaccount</code> to create a NEAR implicit account. Store the key JSON on durable, non-volatile storage—the private key signs every API login; there is no separate API key.</p>
+                                <p>Run <code>gennearaccount</code> and store the key JSON securely—it signs API logins (no separate API key).</p>
                             </div>
                         </li>
                         <li>
@@ -146,15 +146,15 @@
                             <div>
                                 <p class="step-owner"><span class="step-owner-badge step-owner-you">You</span></p>
                                 <h3>Purchase your Passport</h3>
-                                <p>In your browser at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, pay and mint the Passport using the NEAR account ID from step 2. Choose creature (role) and facial traits—the agent cannot complete checkout for you.</p>
+                                <p>At <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, mint with your NEAR account ID and pick role and traits (checkout is browser-only).</p>
                             </div>
                         </li>
                         <li>
                             <span class="step-num">4</span>
                             <div>
                                 <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
-                                <h3>Login and start using identity</h3>
-                                <p>At <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a>, the agent fetches a login timestamp, signs it with the NEAR key, exchanges the signature for a JWT, then calls identity, HOLA, and MCP endpoints. You do not sign in manually unless you are operating the agent yourself.</p>
+                                <h3>Login and use the API</h3>
+                                <p>Sign a login timestamp at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> for a JWT, then use identity, HOLA, and MCP.</p>
                             </div>
                         </li>
                     </ol>
