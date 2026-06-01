@@ -1,20 +1,20 @@
 {
-  "name": "Discernible.io",
-  "short_name": "Discernible",
-  "description": "RODiT: Rich Online Digital Tokens",
+  "name": "IdentyClaw",
+  "short_name": "IdentyClaw",
+  "description": "IdentyClaw — identity for AI agents",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "/favicon-128x128.png",
+      "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "/favicon-256x256.png",
+      "sizes": "256x256",
       "type": "image/png"
     }
   ],
-  "theme_color": "#4F46E5",
+  "theme_color": "#FF4500",
   "background_color": "#ffffff",
   "display": "standalone"
 }

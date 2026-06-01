@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discernible.io — RODiT: Rich Online Digital Tokens. Unify authentication, configuration, and licensing for APIs and online services.">
-    <title>Discernible.io — RODiT: Rich Online Digital Tokens</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <meta name="description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove yourself with HOLA, and use the IdentyClaw API when you need it.">
+    <title>IdentyClaw — Identity for AI Agents</title>
+
+    <link rel="icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256x256.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/favicon-128x128.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#4F46E5">
-    
+    <meta name="theme-color" content="#FF4500">
+
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Privacy-friendly analytics by Plausible -->
+
     <script async src="https://plausible.io/js/pa--UB1zsv0P6psIu_MTgJOy.js"></script>
     <script>
       window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
@@ -29,215 +28,237 @@
 <body>
     <div class="container">
         <header>
-            <nav class="navbar">
+            <nav class="navbar" aria-label="Main">
                 <div class="logo">
-                    <img src="logo.png" alt="Discernible.io">
+                    <a href="#top"><img src="logo.png" alt="Discernible.io"></a>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how">How it works</a></li>
-                    <li><a href="#use-cases">Use cases</a></li>
-                    <li><a href="#developers">Developers</a></li>
-                    <li><a href="#identyclaw-api">IdentyClaw API</a></li>
+                <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
+                <ul class="nav-links" id="site-nav">
+                    <li><a href="#ask-agent">Ask your Agent</a></li>
+                    <li><a href="#why">Why IdentyClaw</a></li>
+                    <li><a href="#enroll">How to Enroll</a></li>
+                    <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#rodit">RODiT</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </header>
 
-        <main>
+        <main id="top">
             <section class="hero">
                 <div class="hero-content">
-                    <h2 class="hero-title">RODiT — Rich Online Digital Tokens</h2>
-                    <p class="hero-subtitle">Unify authentication, configuration, and licensing in a single token. Stateless mutual authentication, local keys, and flexible subscriptions — built on NEAR Protocol blockchain.</p>
+                    <p class="hero-eyebrow">by Discernible.io</p>
+                    <h1 class="hero-title">IdentyClaw</h1>
+                    <p class="hero-subtitle">Portable, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—prove who you are to any willing peer with HOLA, with or without the HTTP API.</p>
                     <div class="cta-buttons">
-                        <a class="btn btn-primary" href="#features">Explore Features</a>
-                        <a class="btn btn-secondary" href="https://dev.to/discernible-io/rich-online-digital-tokens-whitepaper-1gpg" target="_blank" rel="noopener">Read Whitepaper</a>
+                        <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
+                        <a class="btn btn-secondary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">Explore API</a>
                     </div>
                 </div>
             </section>
 
-            <section id="features" class="features">
-                <h2 class="section-title">RODiT Key Capabilities</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🧩</div>
-                        <h3>Unified credential</h3>
-                        <p>Authentication, configuration, and licensing converge in one token—no user DB required.</p>
+            <section id="ask-agent" class="ask-agent">
+                <div class="section-inner">
+                    <h2 class="section-title">Ask your Agent how IdentyClaw works for you</h2>
+                    <p class="section-lead">Connect your AI client to the IdentyClaw MCP server. Your agent can read enrollment guides, API specs, and policies—then walk you through setup step by step.</p>
+                    <div class="prompt-card">
+                        <p class="prompt-label">Example prompts</p>
+                        <ul class="prompt-list">
+                            <li>“What MCP resources are available from IdentyClaw?”</li>
+                            <li>“How do I enroll my agent in IdentyClaw?”</li>
+                            <li>“Explain the HOLA protocol for agent-to-agent authentication.”</li>
+                        </ul>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔐</div>
-                        <h3>Mutual authentication</h3>
-                        <p>Default mutual auth for clients, servers, and webhooks. Strong MiTM resistance.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚙️</div>
-                        <h3>Stateless enforcement</h3>
-                        <p>Permissions, rate limits, and geofencing enforced without maintaining backend sessions.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔑</div>
-                        <h3>Local keys & rotation</h3>
-                        <p>Keys generated on endpoints. Rotate asynchronously—decoupled from license expiration.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✅</div>
-                        <h3>Verifiable trust</h3>
-                        <p>DNS-based issuer authorization prevents rogue issuance and enforces trust boundaries.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🛍️</div>
-                        <h3>Commerce-ready</h3>
-                        <p>Resell, swap, and white‑label subscriptions. Flexible pricing and distribution models.</p>
+                    <p class="mcp-endpoint">MCP endpoint: <code>https://api.identyclaw.com/mcp</code></p>
+                    <div class="cta-buttons">
+                        <a class="btn btn-primary" href="https://api.identyclaw.com/api/mcp/resources" target="_blank" rel="noopener">Browse MCP Resources</a>
+                        <a class="btn btn-secondary" href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">Enrollment Guide</a>
                     </div>
                 </div>
             </section>
 
-            <section id="how" class="about">
-                <div class="about-content">
-                    <h2 class="section-title">How RODiT works</h2>
+            <section id="why" class="features why-section">
+                <div class="section-inner">
+                    <h2 class="section-title">Why IdentyClaw</h2>
+                    <p class="section-lead">Identity infrastructure for software that must prove itself—consistently, portably, and on terms the holder controls.</p>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">1️⃣</div>
-                            <h3>Issue & deliver</h3>
-                            <p>Endpoints generate keys locally. On purchase, a RODiT is minted and sent to the endpoint’s NEAR Protocol blockchain address—no CSRs or file transfers.</p>
+                            <div class="feature-icon" aria-hidden="true">🎫</div>
+                            <h3>Mint once, recognize everywhere</h3>
+                            <p>One on-chain Passport replaces repeated vendor onboarding. Any service that implements RODiT recognition can verify you without a separate account.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">2️⃣</div>
-                            <h3>Mutual authentication</h3>
-                            <p>Peers verify Live/Revoked, Genuine, Possession, Issuer trust (DNS), and Active/Expired before exchanging data.</p>
+                            <div class="feature-icon" aria-hidden="true">🔑</div>
+                            <h3>Sovereign ownership</h3>
+                            <p>Your NEAR account holds and controls the Passport. Keys stay with you—not in a central identity database.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">3️⃣</div>
-                            <h3>Rotate keys anytime</h3>
-                            <p>Move the RODiT to a new address to rotate keys independently of license expiration—no coordination required.</p>
+                            <div class="feature-icon" aria-hidden="true">🤝</div>
+                            <h3>HOLA mutual authentication</h3>
+                            <p>Prove identity to peer agents with nonce-backed cryptographic handshakes—directly on-chain or via API verify helpers.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🌐</div>
+                            <h3>Optional HTTP API</h3>
+                            <p>Use api.identyclaw.com for login, discovery, nonces, and verification—or verify peers locally without routing through the API.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🤖</div>
+                            <h3>Built for autonomous agents</h3>
+                            <p>Move from disposable API keys toward persistent, accountable actors that collaborate across services and channels.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">⏳</div>
+                            <h3>Identity with a lifecycle</h3>
+                            <p>Passports expire by design—renew intent instead of reusing abandoned credentials. One-time payment per lifecycle period.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="use-cases" class="features">
-                <h2 class="section-title">Use cases</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🔌</div>
-                        <h3>API authentication & metering</h3>
-                        <p>Stateless subscriptions, permissions, rate limits and geolocation—webhooks included.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>VPN & secure networking</h3>
-                        <p>Reference implementation via Cableguard demonstrates RODiT‑based mutual authentication.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📦</div>
-                        <h3>IoT & device provisioning</h3>
-                        <p>Deliver credentials remotely; endpoints self‑configure from the token.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏦</div>
-                        <h3>Finance & healthcare APIs</h3>
-                        <p>Stronger auth for regulated environments and sensitive data flows.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">☁️</div>
-                        <h3>Cloud services</h3>
-                        <p>Authenticate access to storage, compute and internal APIs without a user database.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💬</div>
-                        <h3>Messaging & P2P</h3>
-                        <p>Peer‑to‑peer verification for secure communications.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="developers" class="about">
-                <div class="about-content">
-                    <h2 class="section-title">Developers</h2>
-                    <p class="about-text">
-                        Read the whitepaper and the API announcement to get started. Follow updates on X or reach out to join the beta.
-                    </p>
+            <section id="enroll" class="about enroll-section">
+                <div class="section-inner">
+                    <h2 class="section-title">How to Enroll</h2>
+                    <p class="section-lead">Get your AI agent identity in four steps. Agents can automate CLI steps; a human completes checkout at the purchase portal.</p>
+                    <ol class="enroll-steps">
+                        <li>
+                            <span class="step-num">1</span>
+                            <div>
+                                <h3>Install <code>gennearaccount</code></h3>
+                                <p>Create a NEAR implicit account. Verify package checksums before install (see the API enrollment guide).</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <div>
+                                <h3>Generate a NEAR account</h3>
+                                <p>Store credentials on durable, non-volatile storage. The account private key signs every API login—there is no separate API key.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <div>
+                                <h3>Purchase your Passport</h3>
+                                <p>Mint your IdentyClaw Passport at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> with your NEAR account ID, creature (role), and facial traits.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">4</span>
+                            <div>
+                                <h3>Login and start using identity</h3>
+                                <p>Sign the login challenge at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a>, receive a JWT, then use HOLA, discovery, and MCP resources.</p>
+                            </div>
+                        </li>
+                    </ol>
                     <div class="cta-buttons">
-                        <a class="btn btn-primary" href="https://dev.to/discernible-io/rich-online-digital-tokens-whitepaper-1gpg" target="_blank" rel="noopener">Whitepaper</a>
-                    </div>
-                    <div class="cta-buttons" style="margin-top: 1rem;">
-                        <a class="btn btn-secondary" href="https://x.com/Dscernble" target="_blank" rel="noopener">Follow on X</a>
+                        <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
+                        <a class="btn btn-secondary" href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener">OpenAPI Spec</a>
                     </div>
                 </div>
             </section>
 
-            <section id="identyclaw-api" class="identyclaw-api">
-                <div class="identyclaw-api-content">
-                    <h2 class="section-title">IdentyClaw API</h2>
-                    <p class="identyclaw-api-lead">
-                        Production HTTP API for AI agent identities on NEAR, backed by RODiT Passports.
-                        API login issues JWT sessions; the HOLA protocol proves identity between peers.
-                    </p>
-                    <div class="features-grid identyclaw-capabilities">
+            <section id="use-cases" class="features use-cases-section">
+                <div class="section-inner">
+                    <h2 class="section-title">Use Cases</h2>
+                    <p class="section-lead">Where portable agent identity changes how software coordinates.</p>
+                    <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">🔐</div>
-                            <h3>API login</h3>
-                            <p>Ed25519-signed challenge flow (<code>GET /api/login/timestamp</code>, <code>POST /api/login</code>) returns a JWT for protected endpoints.</p>
+                            <div class="feature-icon" aria-hidden="true">🔍</div>
+                            <h3>Agent-to-agent verification</h3>
+                            <p>Prove Passport identity to peers before sharing data, tools, or delegated work.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🤝</div>
-                            <h3>HOLA protocol</h3>
-                            <p>Slash-separated peer identity lines with nonce-backed signatures for mutual agent authentication and verification.</p>
+                            <div class="feature-icon" aria-hidden="true">🧩</div>
+                            <h3>Multi-agent orchestration</h3>
+                            <p>Coordinate teams of agents across products and organizations with shared proof format.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🔍</div>
-                            <h3>Agent discovery</h3>
-                            <p>Browse IdentyClaw Passport holders, resolve full identity metadata, and verify peer HOLA messages.</p>
+                            <div class="feature-icon" aria-hidden="true">📋</div>
+                            <h3>Discovery &amp; marketplaces</h3>
+                            <p>List and browse Passport holders by creature (role). Build agent directories and hiring flows.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🧩</div>
-                            <h3>MCP integration</h3>
-                            <p>Streamable HTTP MCP at <code>/mcp</code> plus enrollment guides, OpenAPI, and JSON-LD resources for AI clients.</p>
+                            <div class="feature-icon" aria-hidden="true">🔗</div>
+                            <h3>Delegation &amp; subagents</h3>
+                            <p>Authorize child agents with scoped keys and auditable parent–child delegation chains.</p>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🆔</div>
+                            <div class="feature-icon" aria-hidden="true">🛰️</div>
+                            <h3>Cross-channel identity</h3>
+                            <p>One Passport across API, messaging, and peer protocols—same 12-letter identity everywhere.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🧠</div>
+                            <h3>AI client integration</h3>
+                            <p>Connect Cursor, Claude, or OpenClaw to MCP docs—let your agent handle enrollment and HOLA setup.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="rodit" class="features rodit-section">
+                <div class="section-inner">
+                    <h2 class="section-title">Powered by RODiT</h2>
+                    <p class="section-lead">IdentyClaw Passports are built on <strong>RODiT</strong> (Rich Online Digital Tokens)—the underlying authentication technology on NEAR. Features of the stack:</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🧩</div>
+                            <h3>Unified credential</h3>
+                            <p>Authentication, configuration, and licensing in one on-chain token.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🔐</div>
+                            <h3>Mutual authentication</h3>
+                            <p>Default mutual auth for clients, servers, and webhooks with strong MITM resistance.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">⚙️</div>
+                            <h3>Stateless enforcement</h3>
+                            <p>Permissions, rate limits, and policy checks without backend session state.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🔑</div>
+                            <h3>Local keys &amp; rotation</h3>
+                            <p>Keys generated on endpoints; rotate by transferring the Passport to a new NEAR account.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">✅</div>
+                            <h3>Verifiable trust</h3>
+                            <p>DNS-based issuer authorization and on-chain validity checks before data exchange.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" aria-hidden="true">🆔</div>
                             <h3>DID resolution</h3>
-                            <p>Resolve <code>did:wba:rodit.near</code> documents and linked verification keys for interoperable identity.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🎫</div>
-                            <h3>Enrollment &amp; policies</h3>
-                            <p>On-chain Passport minting, rate limits, client signing, and well-known terms, privacy, and retention policies.</p>
+                            <p>Resolve <code>did:rodit</code> documents for interoperable decentralized identity.</p>
                         </div>
                     </div>
-                    <div class="identyclaw-api-highlight">
-                        <p class="identyclaw-api-description">
-                            Explore the live API at <strong>api.identyclaw.com</strong> — discovery JSON at <code>/</code>
-                            and OpenAPI at <code>/openapi.json</code>.
-                        </p>
-                        <div class="cta-buttons">
-                            <a class="btn btn-primary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">Explore API</a>
-                            <a class="btn btn-secondary" href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener">OpenAPI JSON</a>
-                        </div>
-                        <div class="cta-buttons" style="margin-top: 1rem;">
-                            <a class="btn btn-secondary" href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">Enrollment Guide</a>
-                        </div>
-                    </div>
+                    <p class="rodit-note">
+                        <a href="https://dev.to/discernible-io/rich-online-digital-tokens-whitepaper-1gpg" target="_blank" rel="noopener">RODiT whitepaper</a>
+                    </p>
                 </div>
             </section>
 
             <section id="contact" class="contact">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="about-text" style="text-align: center; margin-bottom: 1.5rem;">
-                    <a href="mailto:support@discernible.io">support@discernible.io</a> • 
-                    <a href="mailto:sales@discernible.io">sales@discernible.io</a> • 
-                    <a href="mailto:iwantin@discernible.io">iwantin@discernible.io</a>
-                </p>
+                <div class="section-inner">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="contact-email">
+                        <a href="mailto:iwantin@discernible.io">iwantin@discernible.io</a>
+                    </p>
+                </div>
             </section>
         </main>
 
         <footer>
             <div class="footer-content">
-                <p>&copy; 2025 Discernible.io. All rights reserved.</p>
+                <p>&copy; 2026 Discernible.io. All rights reserved.</p>
                 <div class="footer-links">
-                    <a href="https://x.com/Dscernble" target="_blank" rel="noopener">X</a>
-                    <a href="https://dev.to/discernible-io/rich-online-digital-tokens-whitepaper-1gpg" target="_blank" rel="noopener">Whitepaper</a>
-                    <a href="mailto:support@discernible.io">Support</a>
+                    <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">API</a>
+                    <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase</a>
+                    <a href="mailto:iwantin@discernible.io">Contact</a>
                 </div>
             </div>
         </footer>
