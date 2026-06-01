@@ -147,21 +147,21 @@ body {
     text-align: center;
 }
 
+.hero-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+    color: var(--secondary-color);
+}
+
 .hero-eyebrow {
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--text-muted);
-    margin-bottom: 0.5rem;
-}
-
-.hero-title {
-    font-size: 2.25rem;
-    font-weight: 800;
-    line-height: 1.15;
     margin-bottom: 1rem;
-    color: var(--secondary-color);
 }
 
 .hero-subtitle {
@@ -262,7 +262,8 @@ body {
 }
 
 .section-inner > .cta-buttons {
-    max-width: 22rem;
+    max-width: 100%;
+    width: min(100%, 40rem);
     margin: 1.5rem auto 0;
 }
 
@@ -611,9 +612,9 @@ footer {
         align-items: center;
     }
 
-    .section-inner > .cta-buttons .btn {
-        flex: 0 1 auto;
-        min-width: 11rem;
+    .cta-buttons .btn {
+        flex: 1 1 0;
+        min-width: 0;
     }
 
     .features-grid {
