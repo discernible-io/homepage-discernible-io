@@ -17,22 +17,22 @@ A modern, responsive static homepage for Discernible.io built with HTML, CSS, an
 ```
 homepage-discernible-io/
 ├── .github/
-│   └── workflows/
-│       └── deploy.yml  # GitHub Actions deployment workflow
+│ └── workflows/
+│ └── deploy.yml # GitHub Actions deployment workflow
 ├── public/
-│   ├── index.html      # Main HTML file
-│   ├── styles.css      # CSS styling
-│   ├── script.js       # JavaScript functionality
-│   ├── logo.png        # Logo image
-│   ├── banner.png      # Banner image (1200x630px)
-│   └── banner.svg      # Banner source (SVG)
-├── certs/              # SSL/TLS certificate management (legacy)
-│   ├── README.md       # Complete certificate setup guide
-│   ├── setup-all.sh    # Automated setup script
-│   └── ...             # Management scripts and configs
-├── generate-banner.js  # Script to generate banner.png from banner.svg
-├── package.json        # Node.js package configuration
-└── README.md          # This file
+│ ├── index.html # Main HTML file
+│ ├── styles.css # CSS styling
+│ ├── script.js # JavaScript functionality
+│ ├── logo.png # Logo image
+│ ├── banner.png # Banner image (1200x630px)
+│ └── banner.svg # Banner source (SVG)
+├── certs/ # SSL/TLS certificate management (legacy)
+│ ├── README.md # Complete certificate setup guide
+│ ├── setup-all.sh # Automated setup script
+│ └── ... # Management scripts and configs
+├── generate-banner.js # Script to generate banner.png from banner.svg
+├── package.json # Node.js package configuration
+└── README.md # This file
 ```
 
 ## 🌐 Deployment on GitHub Pages
@@ -60,11 +60,11 @@ To use a custom domain like `discernible.io`:
 1. In your repository, go to **Settings** → **Pages**
 2. Under **Custom domain**, enter `discernible.io`
 3. Add the following DNS records at your domain registrar:
-   - `A` record: `185.199.108.153`
-   - `A` record: `185.199.109.153`
-   - `A` record: `185.199.110.153`
-   - `A` record: `185.199.111.153`
-   - `CNAME` record for `www`: `discernible-io.github.io`
+ - `A` record: `185.199.108.153`
+ - `A` record: `185.199.109.153`
+ - `A` record: `185.199.110.153`
+ - `A` record: `185.199.111.153`
+ - `CNAME` record for `www`: `discernible-io.github.io`
 4. Wait for DNS propagation (can take up to 24 hours)
 5. Enable **Enforce HTTPS** in GitHub Pages settings
 
@@ -97,9 +97,9 @@ php -S localhost:8080
 ## 🎨 Customization
 
 - **Colors**: Edit CSS variables in `public/styles.css` under `:root`
-  - Primary: `#FF4500` (Orange from logo)
-  - Secondary: `#000000` (Black from logo)
-  - Accent: `#FF6B35` (Lighter orange)
+ - Primary: `#FF4500` (Orange from logo)
+ - Secondary: `#000000` (Black from logo)
+ - Accent: `#FF6B35` (Lighter orange)
 - **Content**: Modify text and structure in `public/index.html`
 - **Functionality**: Add or modify JavaScript in `public/script.js`
 
@@ -143,8 +143,8 @@ This will:
 ### Prerequisites
 - Ubuntu/Debian server with sudo access
 - DNS records pointing to your server:
-  - `discernible.io` → your_server_ip
-  - `www.discernible.io` → your_server_ip
+ - `discernible.io` → your_server_ip
+ - `www.discernible.io` → your_server_ip
 - Ports 80 and 443 open
 
 ### Features

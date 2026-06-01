@@ -1,20 +1,20 @@
 {
-  "name": "homepage-discernible-io",
-  "version": "1.0.0",
-  "description": "Static homepage for discernible.io",
-  "scripts": {
-    "start": "npx http-server ./public -p 8080",
-    "build": "echo 'No build step required for static site'",
-    "generate-banner": "node generate-banner.js",
-    "generate-favicon": "node generate-favicon.js"
-  },
-  "devDependencies": {
-    "sharp": "^0.33.5"
-  },
-  "keywords": [
-    "static",
-    "homepage"
-  ],
-  "author": "",
-  "license": "MIT"
+ "name": "homepage-discernible-io",
+ "version": "1.0.0",
+ "description": "Static homepage for discernible.io",
+ "scripts": {
+ "start": "npx http-server ./public -p 8080",
+ "build": "echo 'No build step required for static site'",
+ "generate-banner": "node generate-banner.js",
+ "generate-favicon": "node generate-favicon.js"
+ },
+ "devDependencies": {
+ "sharp": "^0.33.5"
+ },
+ "keywords": [
+ "static",
+ "homepage"
+ ],
+ "author": "",
+ "license": "MIT"
 }
