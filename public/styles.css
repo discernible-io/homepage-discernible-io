@@ -424,17 +424,6 @@ body {
     font-weight: 600;
 }
 
-.rodit-note {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.9375rem;
-}
-
-.rodit-note a {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
 /* Contact */
 .contact-email {
     text-align: center;
