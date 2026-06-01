@@ -217,6 +217,10 @@ body {
     background: var(--bg-alt);
 }
 
+#contact.contact {
+    padding-bottom: 0;
+}
+
 /* CTA buttons */
 .cta-buttons {
     display: flex;
@@ -424,16 +428,16 @@ body {
     font-weight: 600;
 }
 
-/* Contact / Mailchimp signup */
-.contact.newsletter .section-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
+/* Mailchimp newsletter */
+.newsletter {
+    padding: 0 0 var(--section-pad-y);
+    background: var(--bg-alt);
+    border-top: none;
 }
 
-.contact.newsletter .section-title {
-    margin-bottom: 0;
+.newsletter .section-inner {
+    display: flex;
+    justify-content: center;
 }
 
 #mc_embed_shell {
