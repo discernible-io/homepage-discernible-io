@@ -425,19 +425,93 @@ body {
 }
 
 /* Contact */
-.contact-email {
-    text-align: center;
-    font-size: 1.125rem;
+/* Mailchimp newsletter */
+.newsletter {
+    padding: var(--section-pad-y) 0;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
 }
 
-.contact-email a {
-    color: var(--primary-color);
+.newsletter .section-inner {
+    display: flex;
+    justify-content: center;
+}
+
+#mc_embed_shell {
+    width: 100%;
+    max-width: 36rem;
+}
+
+#mc_embed_signup {
+    background: var(--white);
+    clear: left;
+    font: inherit;
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+#mc_embed_signup h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+}
+
+#mc_embed_signup .indicates-required {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+#mc_embed_signup .mc-field-group {
+    margin-bottom: 1rem;
+}
+
+#mc_embed_signup label {
+    display: block;
     font-weight: 600;
-    text-decoration: none;
+    margin-bottom: 0.35rem;
+    color: var(--text-dark);
 }
 
-.contact-email a:hover {
-    text-decoration: underline;
+#mc_embed_signup input[type="email"] {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#mc_embed_signup input[type="email"]:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+    border-color: var(--primary-color);
+}
+
+#mc_embed_signup .button,
+#mc_embed_signup input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#mc_embed_signup .button:hover,
+#mc_embed_signup input[type="submit"]:hover {
+    filter: brightness(0.92);
+}
+
+#mc_embed_signup .asterisk {
+    color: var(--primary-color);
 }
 
 /* Footer */
