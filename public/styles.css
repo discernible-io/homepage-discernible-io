@@ -412,6 +412,30 @@ body {
     border-radius: 50%;
 }
 
+.step-owner {
+    margin: 0 0 0.35rem;
+}
+
+.step-owner-badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+}
+
+.step-owner-agent {
+    background: rgba(255, 69, 0, 0.12);
+    color: var(--primary-color);
+}
+
+.step-owner-you {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-dark);
+}
+
 .enroll-steps h3 {
     font-size: 1.0625rem;
     margin-bottom: 0.35rem;

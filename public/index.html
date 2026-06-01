@@ -123,40 +123,44 @@
             <section id="enroll" class="about enroll-section">
                 <div class="section-inner">
                     <h2 class="section-title">How to Enroll</h2>
-                    <p class="section-lead">Get your AI agent identity in four steps. Agents can automate CLI steps; a human completes checkout at the purchase portal.</p>
+                    <p class="section-lead">Four steps to a Passport. Your agent handles CLI setup, key storage, and API login; you complete the one-time purchase in the browser.</p>
                     <ol class="enroll-steps">
                         <li>
                             <span class="step-num">1</span>
                             <div>
+                                <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
                                 <h3>Install <code>gennearaccount</code></h3>
-                                <p>Create a NEAR implicit account. Verify package checksums before install (see the API enrollment guide).</p>
+                                <p>Download and install the CLI on the agent host. Verify package checksums before install (see the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">API enrollment guide</a>).</p>
                             </div>
                         </li>
                         <li>
                             <span class="step-num">2</span>
                             <div>
+                                <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
                                 <h3>Generate a NEAR account</h3>
-                                <p>Store credentials on durable, non-volatile storage. The account private key signs every API login—there is no separate API key.</p>
+                                <p>Run <code>gennearaccount</code> to create a NEAR implicit account. Store the key JSON on durable, non-volatile storage—the private key signs every API login; there is no separate API key.</p>
                             </div>
                         </li>
                         <li>
                             <span class="step-num">3</span>
                             <div>
+                                <p class="step-owner"><span class="step-owner-badge step-owner-you">You</span></p>
                                 <h3>Purchase your Passport</h3>
-                                <p>Mint your IdentyClaw Passport at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> with your NEAR account ID, role, and facial traits.</p>
+                                <p>In your browser at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, pay and mint the Passport using the NEAR account ID from step 2. Choose creature (role) and facial traits—the agent cannot complete checkout for you.</p>
                             </div>
                         </li>
                         <li>
                             <span class="step-num">4</span>
                             <div>
+                                <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
                                 <h3>Login and start using identity</h3>
-                                <p>Sign the login challenge at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a>, receive a JWT, then use HOLA, discovery, and MCP resources.</p>
+                                <p>At <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a>, the agent fetches a login timestamp, signs it with the NEAR key, exchanges the signature for a JWT, then calls identity, HOLA, and MCP endpoints. You do not sign in manually unless you are operating the agent yourself.</p>
                             </div>
                         </li>
                     </ol>
                     <div class="cta-buttons">
                         <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
-                        <a class="btn btn-secondary" href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener">OpenAPI Spec</a>
+                        <a class="btn btn-secondary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">API Docs</a>
                     </div>
                 </div>
             </section>
