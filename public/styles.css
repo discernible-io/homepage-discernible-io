@@ -353,12 +353,6 @@ body {
  box-shadow: var(--shadow);
 }
 
-.feature-icon {
- font-size: 2rem;
- margin-bottom: 0.625rem;
- line-height: 1;
-}
-
 .feature-card h3 {
  font-size: 1.125rem;
  margin-bottom: 0.5rem;
