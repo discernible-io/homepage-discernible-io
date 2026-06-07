@@ -1,7 +1,7 @@
 {
  "name": "IdentyClaw",
  "short_name": "IdentyClaw",
- "description": "IdentyClaw — identity for AI agents",
+ "description": "Portable cryptographic identity for AI agents",
  "icons": [
  {
  "src": "/favicon-128x128.png",
