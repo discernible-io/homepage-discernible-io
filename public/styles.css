@@ -394,7 +394,11 @@ body {
 
 .enroll-path-title {
  font-size: 1.125rem;
- margin-bottom: 0.5rem;
+ margin-bottom: 0;
+}
+
+.enroll-path > .enroll-steps > li:first-child {
+ padding-top: 0.75rem;
 }
 
 .enroll-path-lead {
