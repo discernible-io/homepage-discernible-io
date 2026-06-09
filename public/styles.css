@@ -370,11 +370,50 @@ body {
  word-break: break-word;
 }
 
+/* Enrollment paths */
+.enroll-paths {
+ display: grid;
+ gap: 2rem;
+ margin: 0 auto 1.5rem;
+}
+
+@media (min-width: 56rem) {
+ .enroll-paths {
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+ }
+}
+
+.enroll-path {
+ background: var(--bg-alt);
+ border: 1px solid var(--border);
+ border-radius: 12px;
+ padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.enroll-path-title {
+ font-size: 1.125rem;
+ margin-bottom: 0.5rem;
+}
+
+.enroll-path-lead {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin-bottom: 0.75rem;
+}
+
+.enroll-path-lead a {
+ color: var(--primary-color);
+ font-weight: 600;
+}
+
 /* Enrollment steps */
 .enroll-steps {
  list-style: none;
- max-width: 36rem;
- margin: 0 auto;
+ max-width: none;
+ margin: 0;
 }
 
 .enroll-steps li {

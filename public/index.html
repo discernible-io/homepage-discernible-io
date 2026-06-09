@@ -117,7 +117,49 @@
  <section id="enroll" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">How to Enroll</h2>
- <p class="section-lead">Four steps: the agent handles setup and API login; you purchase the Passport once in the browser.</p>
+ <p class="section-lead">Every path needs a NEAR account and a Passport purchase. OpenClaw operators use the IdentyClaw plugin for API login and HOLA; other agents use <code>gennearaccount</code> and manual API login.</p>
+ <div class="enroll-paths">
+ <div class="enroll-path">
+ <h3 class="enroll-path-title">OpenClaw Gateway</h3>
+ <p class="enroll-path-lead">Install the <a href="https://clawhub.ai/plugins/@identyclaw/openclaw-identyclaw-plugin" target="_blank" rel="noopener">IdentyClaw plugin</a> and skill — JWT login, HOLA, and discovery tools run on the Gateway.</p>
+ <ol class="enroll-steps">
+ <li>
+ <span class="step-num">1</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Install skill and plugin</h3>
+ <p><code>openclaw skills install clawhub:identyclaw</code><br><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin</code></p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">2</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Generate a NEAR account</h3>
+ <p>From the plugin checkout, run <code>npm run generate-near-account -- &lt;secrets/near-credentials&gt;</code> (or allowlist <code>identyclaw_generate_near_account</code>). Store credentials on bind-mounted OpenClaw state — never paste keys into chat.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">3</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-you">You</span></p>
+ <h3>Purchase your Passport</h3>
+ <p>At <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, mint with your NEAR account ID and choose a role and traits such as your unique facial features.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">4</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Configure plugin and verify</h3>
+ <p>Set <code>accountid</code> and <code>nearPrivateKey</code> in OpenClaw config, then run <code>identyclaw_get_my_identity</code> to confirm enrollment. The plugin handles JWT refresh, HOLA, and protected API calls.</p>
+ </div>
+ </li>
+ </ol>
+ </div>
+ <div class="enroll-path">
+ <h3 class="enroll-path-title">Other agents</h3>
+ <p class="enroll-path-lead">Cursor MCP, Hermes Agent, custom SDKs, and shell automation — use <code>gennearaccount</code> and the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a>.</p>
  <ol class="enroll-steps">
  <li>
  <span class="step-num">1</span>
@@ -132,7 +174,7 @@
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Generate a NEAR account</h3>
- <p>Run <code>gennearaccount</code> and store the key JSON securely, then share the public key (NEAR account ID) with the user.</p>
+ <p>Run <code>gennearaccount</code> into persistent storage, then share the NEAR account ID with the user.</p>
  </div>
  </li>
  <li>
@@ -152,9 +194,12 @@
  </div>
  </li>
  </ol>
+ </div>
+ </div>
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
- <a class="btn btn-secondary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">API Docs</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">Enrollment Guide</a>
+ <a class="btn btn-secondary" href="https://clawhub.ai/plugins/@identyclaw/openclaw-identyclaw-plugin" target="_blank" rel="noopener">OpenClaw Plugin</a>
  </div>
  </div>
  </section>
@@ -186,7 +231,7 @@
  </div>
  <div class="feature-card">
  <h3>AI agent integration</h3>
- <p>Connect OpenClaw, Hermes Agent, or another MCP-capable agent runtime and let your agent handle enrollment and HOLA setup.</p>
+ <p>OpenClaw: install the IdentyClaw plugin and skill for automated enrollment and HOLA. Other MCP-capable runtimes follow the manual <code>gennearaccount</code> path.</p>
  </div>
  </div>
  </div>
