@@ -372,17 +372,11 @@ body {
 
 /* Enrollment paths */
 .enroll-paths {
- display: grid;
- gap: 2rem;
+ display: flex;
+ flex-direction: column;
+ gap: 2.5rem;
+ max-width: 40rem;
  margin: 0 auto 1.5rem;
-}
-
-@media (min-width: 56rem) {
- .enroll-paths {
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-  align-items: start;
- }
 }
 
 .enroll-path {
@@ -393,7 +387,7 @@ body {
 }
 
 .enroll-path-title {
- font-size: 1.125rem;
+ font-size: 1.25rem;
  margin-bottom: 0;
 }
 
