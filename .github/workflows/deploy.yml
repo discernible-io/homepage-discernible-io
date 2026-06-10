@@ -37,6 +37,7 @@ jobs:
           cp public/styles.css gh-pages/
           cp public/script.js gh-pages/
           cp public/logo.png gh-pages/
+          cp public/og-image.png gh-pages/
           cp public/banner.png gh-pages/
           cp public/CNAME gh-pages/
           cp public/.htaccess gh-pages/
