@@ -102,31 +102,31 @@
  <section id="why" class="features why-section">
  <div class="section-inner">
  <h2 class="section-title">Why IdentyClaw</h2>
- <p class="section-lead">Identity infrastructure for AI agents that prove themselves—consistently, portably, and on terms the holder controls.</p>
+ <p class="section-lead">Identity infrastructure for autonomous agents—persistent, verifiable, and self-sovereign. Prove who you are consistently and portably, on terms the holder controls.</p>
  <div class="features-grid">
  <div class="feature-card">
  <h3>Mint once, recognize everywhere</h3>
- <p>Mint one on-chain Passport on NEAR—a sovereign act, not enrollment in a central registry. Any service that adopts RODiT recognition can verify you without repeated vendor onboarding or per-platform identity API keys.</p>
+ <p>Mint one on-chain Passport on NEAR—a sovereign act, not enrollment in a central registry. The same 12-letter identity, keys, and delegation chain travel with your agent. Services that adopt RODiT recognition verify you without repeated vendor onboarding—and you may interact peer-to-peer without any broker in the path.</p>
  </div>
  <div class="feature-card">
  <h3>Sovereign ownership</h3>
- <p>Your NEAR account holds and controls the Passport. Signing keys stay with you—not in a central identity database. You mint your identity; you do not register with IdentyClaw to exist.</p>
+ <p>Your NEAR account holds and controls the Passport. Signing keys stay with you—not in a central identity database. Persistent identity outlives any single key: rotate keys or transfer custody on your schedule while the Passport entity continues. You mint your identity; you do not register with IdentyClaw to exist.</p>
  </div>
  <div class="feature-card">
  <h3>Channel-agnostic HOLA</h3>
- <p>Prove identity to peer agents with compact, signed HOLA proof strings—embedded in API payloads, email, messaging, or any channel that carries text. Mutual authentication works without a shared broker or always-on identity endpoint.</p>
+ <p>Prove identity with compact, signed HOLA proof strings embedded in API payloads, email, messaging, or any channel that carries text. Mutual authentication uses recipient binding—each proof tied to the intended peer—without a shared broker or always-on endpoint. Verify before you execute.</p>
  </div>
  <div class="feature-card">
  <h3>Built for autonomous agents</h3>
- <p>The internet authenticates accounts; IdentyClaw authenticates autonomous entities. Move from disposable tool instances toward persistent, accountable actors with cryptographic continuity across sessions, services, and delegations.</p>
+ <p>The internet authenticates accounts; IdentyClaw authenticates autonomous entities. Move from disposable instances toward persistent, accountable actors with cryptographic continuity across sessions, services, and delegations. Collaborate based on who you are, not platform membership—and renew credentials by intent when they expire.</p>
  </div>
  <div class="feature-card">
- <h3>Optional API, peer-to-peer by default</h3>
- <p>Verify HOLA and on-chain Passport state locally—no IdentyClaw HTTP call required. When you use the API, sign a login challenge for a short-lived JWT session; routine calls stay fast without per-request chain reads.</p>
+ <h3>Three layers, optional API</h3>
+ <p>Your on-chain Passport, the RODiT/HOLA protocol any peer can verify, and an optional HTTP API for nonces, discovery, and delegation checks. Verify HOLA locally with no IdentyClaw call required. When you use the API, sign a login challenge with your NEAR key for a short-lived JWT—routine calls stay fast without per-request chain reads.</p>
  </div>
  <div class="feature-card">
- <h3>Delegation &amp; portable trust</h3>
- <p>Parent Passports authorize subagents with provable, scoped delegation chains any willing verifier can check. IdentyClaw supplies proof primitives—not a global reputation score; applications and communities interpret trust locally.</p>
+ <h3>Delegation &amp; human recognition</h3>
+ <p>Parent Passports authorize subagents with provable delegation chains—suited to multi-tenant fleets where each isolated instance needs verifiable identity without per-vendor re-enrollment. Publish your canonical Passport ID and ContactURI on channels you control so humans and agents recognize who they are dealing with. Proof primitives, not a global reputation score.</p>
  </div>
  </div>
  <p class="mcp-endpoint">Full value proposition: <a href="https://api.identyclaw.com/api/mcp/resource/doc:policy:why-identyclaw" target="_blank" rel="noopener">Why IdentyClaw</a> (MCP resource)</p>
@@ -230,27 +230,27 @@
  <div class="features-grid">
  <div class="feature-card">
  <h3>Agent-to-agent verification</h3>
- <p>Prove Passport identity to peers before sharing data, tools, or delegated work.</p>
+ <p>Mutual HOLA authentication with recipient binding—verify signature, on-chain state, and delegation before sharing data, tools, or executing delegated work.</p>
  </div>
  <div class="feature-card">
  <h3>Multi-agent orchestration</h3>
- <p>Assemble on-demand teams of agents across products and organizations using a shared proof format.</p>
+ <p>Multi-tenant fleets: give each isolated agent a verifiable Passport or delegated subagent identity. Parent→child chains prove authorization without contacting the parent in real time.</p>
  </div>
  <div class="feature-card">
  <h3>Discovery &amp; marketplaces</h3>
- <p>List and browse Passport holders by role. Build agent directories and hiring flows.</p>
+ <p>List and browse Passport holders by role. Build agent directories and hiring flows—with risk-weighted access instead of one-size-fits-all API keys.</p>
  </div>
  <div class="feature-card">
  <h3>Delegation &amp; subagents</h3>
- <p>Authorize child agents with scoped keys and auditable parent–child delegation chains.</p>
+ <p>Authorize child agents with scoped keys and auditable parent–child delegation chains. Cryptographic assurance beyond configuration allowlists.</p>
  </div>
  <div class="feature-card">
  <h3>Cross-channel identity</h3>
- <p>One Passport across API, messaging, and peer protocols—same 12-letter identity everywhere.</p>
+ <p>One Passport across API, messaging, email, and peer protocols—the same 12-letter identity and HOLA proof wherever the conversation travels.</p>
  </div>
  <div class="feature-card">
- <h3>AI agent integration</h3>
- <p>OpenClaw: install the IdentyClaw plugin and skill for automated enrollment and HOLA. Other MCP-capable runtimes follow the manual <code>gennearaccount</code> path.</p>
+ <h3>OpenClaw &amp; collaboration</h3>
+ <p>Plugin and skill wrap inter-agent messages with HOLA before execution. The <code>identyclaw.collaboration.v1</code> envelope standardizes task payloads plus trust proof for verify-before-execute discipline.</p>
  </div>
  </div>
  </div>
