@@ -58,8 +58,11 @@
  <ul class="nav-links" id="site-nav">
  <li><a href="#ask-agent">Ask your Agent</a></li>
  <li><a href="#why">Why IdentyClaw</a></li>
+ <li><a href="#trust">Trust &amp; Verify</a></li>
+ <li><a href="#continuity">Continuity</a></li>
  <li><a href="#enroll">How to Enroll</a></li>
  <li><a href="#use-cases">Use Cases</a></li>
+ <li><a href="#docs">Docs</a></li>
  <li><a href="#rodit">RODiT</a></li>
  <li><a href="#contact">Contact</a></li>
  </ul>
@@ -71,9 +74,10 @@
  <div class="hero-content">
  <h1 class="hero-title">IdentyClaw</h1>
  <p class="hero-eyebrow">by Discernible.io</p>
- <p class="hero-subtitle">Portable, unique, persistent, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—then prove who you are to any peer with HOLA, whether over A2A, email, WhatsApp, Discord, Telegram, or Morse-coded drums.</p>
+ <p class="hero-subtitle">Portable, unique, persistent, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—prove who you are with HOLA on any channel, verify peers as <strong>genuine, current, and not revoked</strong>, and use the IdentyClaw API only when you want convenience—not because you must.</p>
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/api/mcp/resource/guide:onboarding-ladder" target="_blank" rel="noopener">Onboarding Ladder</a>
  <a class="btn btn-secondary" href="https://api.identyclaw.com/" target="_blank" rel="noopener">Explore API</a>
  </div>
  </div>
@@ -86,9 +90,9 @@
  <div class="prompt-card">
  <p class="prompt-label">Example prompts</p>
  <ul class="prompt-list">
- <li>“How do I verify another agent’s identity before we share data or tools?”</li>
- <li>“How can I delegate work to a subagent with scoped, auditable keys?”</li>
- <li>“How do I discover IdentyClaw agents by role for orchestration or hiring?”</li>
+ <li>“How do I verify another agent is genuine, current, and not revoked before we share data?”</li>
+ <li>“How can I verify HOLA peer-to-peer without calling the IdentyClaw API?”</li>
+ <li>“How do I follow the onboarding ladder from mint to first collaboration envelope?”</li>
  </ul>
  </div>
  <p class="mcp-endpoint">MCP endpoint: <code>https://api.identyclaw.com/mcp</code></p>
@@ -110,11 +114,11 @@
  </div>
  <div class="feature-card">
  <h3>Sovereign ownership</h3>
- <p>Your NEAR account holds and controls the Passport. Signing keys stay with you—not in a central identity database. Persistent identity outlives any single key: rotate keys or transfer custody on your schedule while the Passport entity continues. You mint your identity; you do not register with IdentyClaw to exist.</p>
+ <p>Your NEAR account holds and controls the Passport. Signing keys stay with you—not in a central identity database. Persistent identity outlives any single key: rotate via <code>rodit_transfer</code> to a new wallet or transfer custody on your schedule while the Passport entity continues. You mint your identity; you do not register with IdentyClaw to exist.</p>
  </div>
  <div class="feature-card">
  <h3>Channel-agnostic HOLA</h3>
- <p>Prove identity with compact, signed HOLA proof strings embedded in API payloads, email, messaging, or any channel that carries text. Mutual authentication uses recipient binding—each proof tied to the intended peer—without a shared broker or always-on endpoint. Verify before you execute.</p>
+ <p>Prove identity with compact, signed HOLA proof strings embedded in API payloads, email, messaging, or any channel that carries text. <strong>Mutual authentication</strong> requires both peers to exchange HOLA on the same channel—recipient binding ties each proof to the intended peer, without a shared broker or always-on endpoint. Verify before you execute.</p>
  </div>
  <div class="feature-card">
  <h3>Built for autonomous agents</h3>
@@ -125,6 +129,10 @@
  <p>Your on-chain Passport, the RODiT/HOLA protocol any peer can verify, and an optional HTTP API for nonces, discovery, and delegation checks. Verify HOLA locally with no IdentyClaw call required. When you use the API, sign a login challenge with your NEAR key for a short-lived JWT—routine calls stay fast without per-request chain reads.</p>
  </div>
  <div class="feature-card">
+ <h3>Identity proof, not IAM</h3>
+ <p>IdentyClaw answers <em>which verifiable entity signed this, and who authorized it</em>—not org directories, RBAC groups, or platform membership. Your app still applies local policy after verification: sandboxing, tool allowlists, and rate limits remain yours. Orchestration allowlists and cryptographic HOLA proof are complementary, not either/or.</p>
+ </div>
+ <div class="feature-card">
  <h3>Delegation &amp; human recognition</h3>
  <p>Parent Passports authorize subagents with provable delegation chains—suited to multi-tenant fleets where each isolated instance needs verifiable identity without per-vendor re-enrollment. Publish your canonical Passport ID and ContactURI on channels you control so humans and agents recognize who they are dealing with. Proof primitives, not a global reputation score.</p>
  </div>
@@ -133,10 +141,140 @@
  </div>
  </section>
 
+ <!-- P0: trust decision; P1: P2P verifier — links active after API publication -->
+ <section id="trust" class="features trust-section">
+ <div class="section-inner">
+ <h2 class="section-title">Trust &amp; Verify</h2>
+ <p class="section-lead">Before you share tools, secrets, or execute a task, decide whether a Passport holder is <strong>genuine</strong>, <strong>current</strong>, and <strong>not revoked</strong>. Verification is anchored on-chain; the API returns a normalized trust decision you can act on.</p>
+
+ <div class="trust-status-row" aria-label="Trust decision fields">
+ <div class="trust-status">
+ <span class="trust-status-label trust-status-genuine">Genuine</span>
+ <p>Passport exists on the trusted RODiT contract; Ed25519 signature verifies against the current on-chain owner (or valid subagent delegation).</p>
+ </div>
+ <div class="trust-status">
+ <span class="trust-status-label trust-status-current">Current</span>
+ <p>Lifecycle is active: within <code>not_before</code> / <code>not_after</code>; HOLA timestamp and nonce are fresh and not replayed.</p>
+ </div>
+ <div class="trust-status">
+ <span class="trust-status-label trust-status-revoked">Not revoked</span>
+ <p>Token is live on-chain—not expired, revoked, or from an untrusted issuer family.</p>
+ </div>
+ </div>
+
+ <div class="trust-verify-card">
+ <h3 class="trust-verify-title">Normalized verify response</h3>
+ <p><code>POST /api/identity/verify</code> returns explicit booleans—<code>genuine</code>, <code>current</code>, <code>notRevoked</code>—alongside <code>verified</code> and blocking <code>failureReasons</code>. Subagent lines also require <code>POST /api/isauthorizedsigner</code> before you authorize work.</p>
+ <p class="trust-verify-note">DN fields (display name, ContactURI) are self-declared. Cryptographic verification proves continuity for a <code>tokenId</code>; combine with published canonical ID attestation for human-meaningful recognition.</p>
+ <div class="cta-buttons trust-cta">
+ <a class="btn btn-primary" href="https://api.identyclaw.com/api/mcp/resource/doc:reference:trust-decision" target="_blank" rel="noopener">Trust Decision Reference</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/api/mcp/resource/doc:reference:identity-verification-policy" target="_blank" rel="noopener">Verification Policy</a>
+ </div>
+ </div>
+
+ <div class="features-grid trust-grid">
+ <div class="feature-card">
+ <h3>Verify with or without the API</h3>
+ <p>Peers apply the <strong>same proof bar</strong> two ways: locally via NEAR RPC and <code>@rodit/rodit-auth-be</code> (no IdentyClaw in the trust path), or via <code>POST /api/identity/verify</code> when you already hold a JWT session. Bare checksum checks alone do not satisfy policy.</p>
+ </div>
+ <div class="feature-card">
+ <h3>P2P verifier tutorial (no API)</h3>
+ <p>Cross-org handshakes, air-gapped verify, and first contact over email: read the step-by-step guide for chain-anchored HOLA verification using only your chosen NEAR RPC and the RODiT SDK—no call to <code>api.identyclaw.com</code> required.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:p2p-verifier-tutorial" target="_blank" rel="noopener">P2P verifier tutorial →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>Client vs server roles</h3>
+ <p><strong>Client</strong> agents sign login challenges and HOLA lines on the host that holds NEAR keys. <strong>Server</strong> integrators validate inbound proofs and apply post-verify authorization. Partner vs peer <code>LOGIN_MODE</code> gates who may obtain a JWT from a given API host—agent-to-agent HOLA does not use login mode.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- P1: continuity vs mortality; P2: on-chain history -->
+ <section id="continuity" class="about continuity-section">
+ <div class="section-inner">
+ <h2 class="section-title">Continuity &amp; History</h2>
+ <p class="section-lead">Persistent identity is not the same as an immortal key pair. Your Passport <code>tokenId</code> and delegation chain provide continuity; lifecycle expiry and renewal provide hygiene.</p>
+
+ <div class="continuity-compare">
+ <div class="continuity-col">
+ <h3>What persists</h3>
+ <ul>
+ <li>Same 12-letter <code>tokenId</code> until expiry or transfer</li>
+ <li>Recognizable entity across sessions, channels, and delegations</li>
+ <li>Signing keys rotate or custody transfers via <code>rodit_transfer</code>—entity continues</li>
+ <li>Collectible tier: immortal on-chain record for long-term provenance</li>
+ </ul>
+ </div>
+ <div class="continuity-col">
+ <h3>What expires</h3>
+ <ul>
+ <li>Passport <code>not_after</code>—inactive Passports cannot issue new HOLA proofs</li>
+ <li>Renewal is intentional: mint a successor Passport when purpose continues</li>
+ <li>Expired tokens remain on-chain as historical record, not live credentials</li>
+ <li>Successor <code>tokenId</code> is a new entity—link attribution in your own logs if needed</li>
+ </ul>
+ </div>
+ </div>
+
+ <div class="trust-verify-card">
+ <h3 class="trust-verify-title">On-chain history &amp; attribution</h3>
+ <p><code>GET /api/identity/token/{tokenId}/events</code> exposes mint, transfer, and lifecycle events for provenance and audit trails—without IdentyClaw becoming a reputation engine. Attach stable <code>tokenId</code>, HOLA nonce, and delegation checks to your operational logs for EU AI Act–style traceability.</p>
+ <div class="cta-buttons trust-cta">
+ <a class="btn btn-primary" href="https://api.identyclaw.com/api/mcp/resource/doc:reference:continuity-vs-mortality" target="_blank" rel="noopener">Continuity vs Mortality</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/api/mcp/resource/doc:reference:identity-events" target="_blank" rel="noopener">Identity Events API</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
  <section id="enroll" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">How to Enroll</h2>
- <p class="section-lead">Every path needs a NEAR account and a Passport purchase. OpenClaw operators use the IdentyClaw plugin for API login and HOLA; other agents use <code>gennearaccount</code> and manual API login.</p>
+ <p class="section-lead">Every path needs a NEAR account and a Passport purchase. Follow the <a href="https://api.identyclaw.com/api/mcp/resource/guide:onboarding-ladder" target="_blank" rel="noopener">onboarding ladder</a> from docs → mint → login → first HOLA → first collaboration envelope—or use the paths below.</p>
+
+ <div class="onboarding-ladder">
+ <h3 class="enroll-path-title">Onboarding ladder</h3>
+ <ol class="ladder-steps">
+ <li>
+ <span class="step-num">1</span>
+ <div>
+ <h4>Read MCP docs</h4>
+ <p>Connect to <code>https://api.identyclaw.com/mcp</code> or browse resources—understand mint vs register and the three layers.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">2</span>
+ <div>
+ <h4>Mint your Passport</h4>
+ <p>Generate a NEAR account, purchase at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, choose role and traits.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">3</span>
+ <div>
+ <h4>API login</h4>
+ <p>Sign a login timestamp for a short-lived JWT—credentials replace per-vendor developer API keys for identity proof.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">4</span>
+ <div>
+ <h4>First HOLA</h4>
+ <p>Fetch a nonce, sign a recipient-bound HOLA line, verify a peer—or complete the P2P tutorial without the API.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">5</span>
+ <div>
+ <h4>First collaboration envelope</h4>
+ <p>Send <code>identyclaw.collaboration.v1</code> with task payload + trust proof; receiver verifies <strong>genuine, current, not revoked</strong> before execute.</p>
+ </div>
+ </li>
+ </ol>
+ <p class="ladder-link"><a href="https://api.identyclaw.com/api/mcp/resource/guide:onboarding-ladder" target="_blank" rel="noopener">Full onboarding ladder (MCP) →</a></p>
+ </div>
+
  <div class="enroll-paths">
  <div class="enroll-path">
  <h3 class="enroll-path-title">How to Enroll with OpenClaw</h3>
@@ -230,7 +368,7 @@
  <div class="features-grid">
  <div class="feature-card">
  <h3>Agent-to-agent verification</h3>
- <p>Mutual HOLA authentication with recipient binding—verify signature, on-chain state, and delegation before sharing data, tools, or executing delegated work.</p>
+ <p>Mutual HOLA authentication with recipient binding—confirm <strong>genuine, current, and not revoked</strong> before sharing data, tools, or executing delegated work. Both peers exchange HOLA on the same channel.</p>
  </div>
  <div class="feature-card">
  <h3>Multi-agent orchestration</h3>
@@ -242,7 +380,7 @@
  </div>
  <div class="feature-card">
  <h3>Delegation &amp; subagents</h3>
- <p>Authorize child agents with scoped keys and auditable parent–child delegation chains. Cryptographic assurance beyond configuration allowlists.</p>
+ <p>Authorize child agents with scoped keys and auditable parent–child delegation chains. Cryptographic assurance beyond configuration allowlists—verification proves <em>who</em>; your orchestrator still enforces <em>what</em> they may do.</p>
  </div>
  <div class="feature-card">
  <h3>Cross-channel identity</h3>
@@ -253,6 +391,47 @@
  <p>Plugin and skill wrap inter-agent messages with HOLA before execution. The <code>identyclaw.collaboration.v1</code> envelope standardizes task payloads plus trust proof for verify-before-execute discipline.</p>
  </div>
  </div>
+ </div>
+ </section>
+
+ <!-- P2: WIMSE/HOLA profile, interoperability docs -->
+ <section id="docs" class="features docs-section">
+ <div class="section-inner">
+ <h2 class="section-title">Documentation</h2>
+ <p class="section-lead">Credentials and portable proof replace hard per-vendor identification—integrate once against RODiT/HOLA, then apply your own authorization layer.</p>
+ <div class="features-grid docs-grid">
+ <div class="feature-card">
+ <h3>Onboarding ladder</h3>
+ <p>Progressive path from MCP discovery through mint, JWT login, first HOLA, and first collaboration envelope—for operators, agents, and integrators.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/guide:onboarding-ladder" target="_blank" rel="noopener">guide:onboarding-ladder →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>Trust decision reference</h3>
+ <p>Normalized <code>genuine</code>, <code>current</code>, <code>notRevoked</code> fields on verify responses; maps to failure reasons and policy actions.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:trust-decision" target="_blank" rel="noopener">doc:reference:trust-decision →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>P2P verifier tutorial</h3>
+ <p>Chain-anchored verification with NEAR RPC and <code>@rodit/rodit-auth-be</code> only—verifiable independently, no API in the trust path.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:p2p-verifier-tutorial" target="_blank" rel="noopener">doc:reference:p2p-verifier-tutorial →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>Continuity vs mortality</h3>
+ <p>What persists across key rotation and transfer vs what expires; successor Passports, collectible tier, and attribution in your logs.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:continuity-vs-mortality" target="_blank" rel="noopener">doc:reference:continuity-vs-mortality →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>Identity events</h3>
+ <p>On-chain mint, transfer, and lifecycle events for provenance—<code>GET /api/identity/token/{tokenId}/events</code>.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:identity-events" target="_blank" rel="noopener">doc:reference:identity-events →</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>HOLA / WIMSE profile</h3>
+ <p>Map HOLA proof-of-possession to IETF WIMSE concepts for enterprise reviewers—credentials vs hard ID, client vs server bootstrap.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:hola-wimse-profile" target="_blank" rel="noopener">doc:reference:hola-wimse-profile →</a></p>
+ </div>
+ </div>
+ <p class="mcp-endpoint">All resources: <a href="https://api.identyclaw.com/api/mcp/resources" target="_blank" rel="noopener">api.identyclaw.com/api/mcp/resources</a> · MCP: <code>https://api.identyclaw.com/mcp</code></p>
  </div>
  </section>
 
@@ -275,7 +454,8 @@
  </div>
  <div class="feature-card">
  <h3>Local keys &amp; rotation</h3>
- <p>Keys never leave your endpoints. Rotate them as often as you like by transferring your IdentyClaw Passport to a new NEAR account.</p>
+ <p>Keys never leave your endpoints. Rotate on your schedule: create a new NEAR wallet, fund it, and transfer the Passport with <code>near-cli-rs</code> via <code>rodit_transfer</code>—same 12-letter ID, new signing keys, no IdentyClaw coordination.</p>
+ <p><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:key-rotation" target="_blank" rel="noopener">Key rotation guide →</a></p>
  </div>
  </div>
  </div>
@@ -320,6 +500,7 @@
  <a href="https://x.com/Dscernble" target="_blank" rel="noopener noreferrer">Twitter/X</a>
  <a href="https://dev.to/discernible-io" target="_blank" rel="noopener noreferrer">Blog</a>
  <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">API</a>
+ <a href="https://api.identyclaw.com/api/mcp/resources" target="_blank" rel="noopener">Docs (MCP)</a>
  <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase an IdentyClaw Passport</a>
  </nav>
  </div>

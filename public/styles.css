@@ -204,12 +204,15 @@ body {
 }
 
 .why-section,
-.use-cases-section {
+.use-cases-section,
+.trust-section,
+.docs-section {
  background: var(--bg-alt);
 }
 
 .enroll-section,
-.rodit-section {
+.rodit-section,
+.continuity-section {
  background: var(--white);
 }
 
@@ -480,6 +483,224 @@ body {
  font-weight: 600;
 }
 
+/* Trust & verify */
+.trust-status-row {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 1rem;
+ margin-bottom: 1.5rem;
+}
+
+.trust-status {
+ background: var(--white);
+ border: 2px solid var(--border);
+ border-radius: 12px;
+ padding: 1.25rem;
+}
+
+.trust-status-label {
+ display: inline-block;
+ font-size: 0.75rem;
+ font-weight: 700;
+ letter-spacing: 0.05em;
+ text-transform: uppercase;
+ padding: 0.2rem 0.55rem;
+ border-radius: 4px;
+ margin-bottom: 0.5rem;
+}
+
+.trust-status-genuine {
+ background: rgba(2, 122, 72, 0.12);
+ color: #027a48;
+}
+
+.trust-status-current {
+ background: rgba(255, 69, 0, 0.12);
+ color: var(--primary-color);
+}
+
+.trust-status-revoked {
+ background: rgba(0, 0, 0, 0.06);
+ color: var(--text-dark);
+}
+
+.trust-status p {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin: 0;
+}
+
+.trust-verify-card {
+ background: var(--white);
+ border: 2px solid var(--border);
+ border-radius: 12px;
+ padding: 1.25rem 1.25rem 0.25rem;
+ margin-bottom: 1.5rem;
+ max-width: 48rem;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.trust-verify-title {
+ font-size: 1.125rem;
+ margin-bottom: 0.5rem;
+ text-align: center;
+}
+
+.trust-verify-card > p {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin-bottom: 0.75rem;
+ text-align: center;
+}
+
+.trust-verify-note {
+ font-size: 0.875rem !important;
+ color: var(--text-muted) !important;
+}
+
+.trust-cta {
+ margin-top: 0.5rem;
+ margin-bottom: 1rem;
+}
+
+.trust-grid {
+ margin-top: 0.25rem;
+}
+
+.trust-grid .feature-card a {
+ color: var(--primary-color);
+ font-weight: 600;
+ font-size: 0.9375rem;
+ text-decoration: none;
+}
+
+.trust-grid .feature-card a:hover {
+ text-decoration: underline;
+}
+
+/* Continuity vs mortality */
+.continuity-compare {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 1rem;
+ margin-bottom: 1.5rem;
+ max-width: 48rem;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.continuity-col {
+ background: var(--bg-alt);
+ border: 1px solid var(--border);
+ border-radius: 12px;
+ padding: 1.25rem;
+}
+
+.continuity-col h3 {
+ font-size: 1.0625rem;
+ margin-bottom: 0.75rem;
+}
+
+.continuity-col ul {
+ list-style: none;
+ margin: 0;
+}
+
+.continuity-col li {
+ position: relative;
+ padding: 0.4rem 0 0.4rem 1.1rem;
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.5;
+ border-bottom: 1px solid var(--border);
+}
+
+.continuity-col li:last-child {
+ border-bottom: none;
+}
+
+.continuity-col li::before {
+ content: "•";
+ position: absolute;
+ left: 0;
+ color: var(--primary-color);
+ font-weight: 700;
+}
+
+/* Onboarding ladder */
+.onboarding-ladder {
+ max-width: 40rem;
+ margin: 0 auto 2rem;
+ background: var(--bg-alt);
+ border: 1px solid var(--border);
+ border-radius: 12px;
+ padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.ladder-steps {
+ list-style: none;
+ margin: 0;
+}
+
+.ladder-steps li {
+ display: flex;
+ gap: 1rem;
+ align-items: flex-start;
+ padding: 0.875rem 0;
+ border-bottom: 1px solid var(--border);
+}
+
+.ladder-steps li:last-child {
+ border-bottom: none;
+}
+
+.ladder-steps h4 {
+ font-size: 1rem;
+ margin-bottom: 0.25rem;
+}
+
+.ladder-steps p {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin: 0;
+}
+
+.ladder-steps a {
+ color: var(--primary-color);
+ font-weight: 600;
+}
+
+.ladder-link {
+ text-align: center;
+ margin-top: 0.75rem;
+ font-size: 0.9375rem;
+}
+
+.ladder-link a {
+ color: var(--primary-color);
+ font-weight: 600;
+ text-decoration: none;
+}
+
+.ladder-link a:hover {
+ text-decoration: underline;
+}
+
+.docs-grid .feature-card a {
+ color: var(--primary-color);
+ font-weight: 600;
+ font-size: 0.9375rem;
+ text-decoration: none;
+}
+
+.docs-grid .feature-card a:hover {
+ text-decoration: underline;
+}
+
 /* Mailchimp newsletter */
 .newsletter {
  padding: var(--section-pad-y) 0;
@@ -651,6 +872,14 @@ footer {
  .features-grid {
  grid-template-columns: repeat(2, 1fr);
  gap: 1.25rem;
+ }
+
+ .trust-status-row {
+ grid-template-columns: repeat(3, 1fr);
+ }
+
+ .continuity-compare {
+ grid-template-columns: repeat(2, 1fr);
  }
 }
 
