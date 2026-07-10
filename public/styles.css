@@ -618,23 +618,10 @@ footer {
  color: var(--primary-color);
 }
 
-.footer-concierge {
- display: flex;
- flex-direction: column;
- gap: 0.5rem;
- padding: 0.75rem 0;
- border-top: 1px solid rgba(255, 255, 255, 0.15);
- border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
 .footer-concierge-label {
  margin: 0;
  font-weight: 600;
  color: rgba(255, 255, 255, 0.9);
-}
-
-.footer-concierge-links {
- gap: 1rem;
 }
 
 /* Tablet and up */
