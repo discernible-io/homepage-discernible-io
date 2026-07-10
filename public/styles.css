@@ -609,14 +609,16 @@ footer {
  width: 100%;
 }
 
-.footer-line a {
- color: var(--white);
+.footer-line a:link,
+.footer-line a:visited {
+ color: var(--primary-color);
  text-decoration: none;
  font-weight: 500;
 }
 
-.footer-line a:hover {
- color: var(--primary-color);
+.footer-line a:hover,
+.footer-line a:focus-visible {
+ color: var(--white);
 }
 
 .footer-line--concierge {
