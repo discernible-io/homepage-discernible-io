@@ -619,9 +619,14 @@ footer {
 }
 
 .footer-concierge-label {
- margin: 0;
  font-weight: 600;
  color: rgba(255, 255, 255, 0.9);
+ white-space: nowrap;
+}
+
+.footer-concierge {
+ flex-wrap: nowrap;
+ gap: 1rem;
 }
 
 /* Tablet and up */
