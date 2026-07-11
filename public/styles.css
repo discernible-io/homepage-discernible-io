@@ -192,15 +192,9 @@ body {
  margin-right: auto;
 }
 
-.ask-agent,
 .features,
-.about,
-.contact {
+.about {
  padding: var(--section-pad-y) 0;
-}
-
-.ask-agent {
- background: var(--bg-alt);
 }
 
 .why-section,
@@ -213,8 +207,14 @@ body {
  background: var(--white);
 }
 
-.contact {
- background: var(--bg-alt);
+.contact-section {
+ padding: var(--section-pad-y) 0;
+ background: var(--secondary-color);
+ color: var(--white);
+}
+
+.contact-section-title {
+ color: var(--white);
 }
 
 /* CTA buttons */
@@ -267,64 +267,82 @@ body {
  margin: 1.5rem auto 0;
 }
 
-/* Ask your Agent */
-.prompt-card {
- background: var(--white);
- border: 2px solid var(--border);
- border-radius: 12px;
- padding: 1.25rem 1.25rem 1rem;
- margin-bottom: 1.25rem;
+/* Contact section */
+.contact-newsletter {
+ width: 100%;
+ max-width: 36rem;
+ margin: 0 auto 2.5rem;
 }
 
-.prompt-label {
- font-size: 0.8125rem;
- font-weight: 700;
- text-transform: uppercase;
- letter-spacing: 0.05em;
- color: var(--text-muted);
- margin-bottom: 0.75rem;
-}
-
-.prompt-list {
- list-style: none;
-}
-
-.prompt-list li {
- position: relative;
- padding: 0.625rem 0 0.625rem 1.25rem;
- font-size: 0.9375rem;
- color: var(--text-light);
- border-bottom: 1px solid var(--border);
- line-height: 1.5;
-}
-
-.prompt-list li:last-child {
- border-bottom: none;
- padding-bottom: 0;
-}
-
-.prompt-list li::before {
- content: "→";
- position: absolute;
- left: 0;
- color: var(--primary-color);
- font-weight: 700;
-}
-
-.mcp-endpoint {
+.contact-group-title {
  font-size: 0.875rem;
- color: var(--text-muted);
+ font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: 0.06em;
+ color: rgba(255, 255, 255, 0.75);
  text-align: center;
- margin-bottom: 1.25rem;
- word-break: break-all;
+ margin-bottom: 1rem;
 }
 
-.mcp-endpoint code {
- font-size: 0.8125rem;
- background: var(--white);
- padding: 0.2em 0.4em;
- border-radius: 4px;
- border: 1px solid var(--border);
+.contact-groups {
+ display: flex;
+ flex-direction: column;
+ gap: 2rem;
+ max-width: 40rem;
+ margin: 0 auto 2rem;
+}
+
+.contact-icons {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 1rem;
+}
+
+.contact-icon-link {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0.5rem;
+ min-width: 4.5rem;
+ padding: 0.75rem 0.5rem;
+ border-radius: 12px;
+ text-decoration: none;
+ color: var(--white);
+ transition: background 0.2s ease, color 0.2s ease;
+}
+
+.contact-icon-link:hover,
+.contact-icon-link:focus-visible {
+ background: rgba(255, 255, 255, 0.08);
+ color: var(--primary-color);
+}
+
+.contact-icon {
+ width: 1.75rem;
+ height: 1.75rem;
+}
+
+.contact-icon-label {
+ font-size: 0.75rem;
+ font-weight: 500;
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.contact-icon-link:hover .contact-icon-label,
+.contact-icon-link:focus-visible .contact-icon-label {
+ color: var(--primary-color);
+}
+
+.contact-copyright {
+ text-align: center;
+ font-size: 0.875rem;
+ color: rgba(255, 255, 255, 0.6);
+ margin-top: 0.5rem;
+}
+
+.contact-section .section-lead {
+ color: rgba(255, 255, 255, 0.8);
 }
 
 /* Feature grid — single column on mobile */
@@ -480,23 +498,7 @@ body {
  font-weight: 600;
 }
 
-/* Mailchimp newsletter */
-.newsletter {
- padding: var(--section-pad-y) 0;
- background: var(--bg-alt);
- border-top: none;
-}
-
-.newsletter .section-title {
- margin-bottom: 1.5rem;
-}
-
-.newsletter .section-inner {
- display: flex;
- flex-direction: column;
- align-items: center;
-}
-
+/* Mailchimp newsletter (within contact section) */
 #mc_embed_shell {
  width: 100%;
  max-width: 36rem;
@@ -583,56 +585,6 @@ body {
 #mce-success-response {
  color: #027a48;
  background: #ecfdf3;
-}
-
-/* Footer */
-footer {
- background: var(--secondary-color);
- color: var(--white);
- padding: 1.5rem var(--section-pad-x);
- text-align: center;
-}
-
-.footer-content {
- display: flex;
- flex-direction: column;
- gap: 0.75rem;
- font-size: 0.875rem;
-}
-
-.footer-line {
- display: flex;
- flex-wrap: nowrap;
- justify-content: center;
- align-items: center;
- gap: 1.25rem;
- width: 100%;
-}
-
-.footer-line a:link,
-.footer-line a:visited {
- color: var(--primary-color);
- text-decoration: none;
- font-weight: 500;
-}
-
-.footer-line a:hover,
-.footer-line a:focus-visible {
- color: var(--white);
-}
-
-.footer-line--concierge {
- gap: 1rem;
- white-space: nowrap;
-}
-
-.footer-line--site {
- flex-wrap: wrap;
-}
-
-.footer-concierge-label {
- font-weight: 600;
- color: rgba(255, 255, 255, 0.9);
 }
 
 /* Tablet and up */
