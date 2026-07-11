@@ -74,3 +74,20 @@ window.addEventListener('scroll', () => {
  }
  });
 }, { passive: true });
+
+// Telegram concierge: t.me shows a broken "Start bot" interstitial in Telegram Web.
+// Open the bot chat directly in Web K on desktop, and use t.me with /start on mobile.
+const TELEGRAM_CONCIERGE_BOT = 'identyclawconcierge_bot';
+const telegramConciergeLinks = document.querySelectorAll('[data-telegram-concierge]');
+
+function getTelegramConciergeUrl() {
+ const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+ if (isMobile) {
+ return `https://t.me/${TELEGRAM_CONCIERGE_BOT}?start=discernible`;
+ }
+ return `https://web.telegram.org/k/#@${TELEGRAM_CONCIERGE_BOT}`;
+}
+
+telegramConciergeLinks.forEach((link) => {
+ link.href = getTelegramConciergeUrl();
+});
