@@ -255,8 +255,21 @@ body {
 .hero-subtitle {
  font-size: 1.0625rem;
  color: var(--text-light);
- margin-bottom: 1.75rem;
+ margin-bottom: 0.75rem;
  line-height: 1.65;
+}
+
+.hero-intro {
+ font-size: 0.9375rem;
+ color: var(--text-muted);
+ margin-bottom: 1.75rem;
+ line-height: 1.55;
+}
+
+.hero-subtitle abbr {
+ text-decoration: underline dotted;
+ text-underline-offset: 0.15em;
+ cursor: help;
 }
 
 /* Sections */
@@ -491,6 +504,26 @@ body {
  font-size: 0.9375rem;
  color: var(--text-light);
  line-height: 1.55;
+}
+
+.feature-card .feature-list {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin: 0 0 0.75rem 1.125rem;
+ padding: 0;
+}
+
+.feature-card .feature-list li {
+ margin-bottom: 0.35rem;
+}
+
+.feature-card .feature-list li:last-child {
+ margin-bottom: 0;
+}
+
+.feature-card .feature-list + p {
+ margin-top: 0;
 }
 
 .feature-card code {
