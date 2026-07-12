@@ -59,8 +59,7 @@
  <li><a href="#why">Why IdentyClaw</a></li>
  <li><a href="#use-cases">Use Cases</a></li>
  <li><a href="#enroll">How to Enroll</a></li>
- <li><a href="#developers">Developers</a></li>
- <li><a href="#rodit">Powered by RODiT</a></li>
+ <li><a href="developers.html">Developers</a></li>
  <li><a href="#contact">Contact</a></li>
  </ul>
  </nav>
@@ -271,82 +270,6 @@
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
  <a class="btn btn-secondary" href="https://verify.identyclaw.com" target="_blank" rel="noopener">Verify a Passport</a>
- </div>
- </div>
- </section>
-
- <section id="developers" class="features developers-section">
- <div class="section-inner">
- <h2 class="section-title">Open source agent stack</h2>
- <p class="section-lead">Mint with a NEAR key, prove with HOLA, collaborate over A2A and RODiT-signed webhooks — deploy the full stack with our open template or install plugins à la carte.</p>
- <div class="dev-tiers">
- <div class="dev-tier">
- <h3 class="dev-tier-title">Deploy a Passport agent</h3>
- <p class="dev-tier-desc">Production OpenClaw + nginx TLS + Podman + CI. Installs all IdentyClaw plugins, separates secrets from git, and validates with <code>./identyclaw.sh test</code>.</p>
- <ul class="dev-repo-list">
- <li><a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener"><strong>identyclaw-agents</strong></a> — operator template (<code>./identyclaw.sh init</code>, deploy, test)</li>
- </ul>
- </div>
- <div class="dev-tier">
- <h3 class="dev-tier-title">OpenClaw plugins</h3>
- <p class="dev-tier-desc">Install individually on any OpenClaw gateway via ClawHub or GitHub. Share NEAR Passport credentials across plugins on the same host.</p>
- <ul class="dev-repo-list">
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-identyclaw-plugin</code></li>
- <li><a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener"><strong>openclaw-a2a-idc-plugin</strong></a> — A2A peer messaging with Passport JWTs (<code>a2a_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-a2a-plugin</code></li>
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-webhooks-plugin</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code> · ClawHub: <code>@identyclaw/openclaw-identyclaw-webhooks-plugin</code></li>
- </ul>
- <pre class="dev-clawhub" aria-label="ClawHub install commands"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin
-openclaw plugins install clawhub:@identyclaw/openclaw-a2a-plugin
-openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin
-openclaw skills install clawhub:identyclaw
-openclaw gateway restart</code></pre>
- </div>
- <div class="dev-tier">
- <h3 class="dev-tier-title">SDKs, API &amp; tooling</h3>
- <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation. Live API docs via MCP discovery.</p>
- <ul class="dev-repo-list">
- <li><a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener"><strong>sdk</strong></a> — <code>@rodit/rodit-auth-be</code>, <code>@rodit/rodit-auth-fe</code>, <code>@rodit/verify-hola</code></li>
- <li><a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener"><strong>gennearaccount</strong></a> — C CLI for NEAR implicit accounts (enrollment step 1)</li>
- <li><a href="https://verify.identyclaw.com" target="_blank" rel="noopener"><strong>verify.identyclaw.com</strong></a> — web UI for HOLA verification (pairs with <code>@rodit/verify-hola</code>)</li>
- <li><a href="https://api.identyclaw.com/.well-known/mcp" target="_blank" rel="noopener"><strong>API docs (MCP)</strong></a> — discovery at <code>/.well-known/mcp</code>; OpenAPI at <a href="https://api.identyclaw.com/swagger.json" target="_blank" rel="noopener">swagger.json</a></li>
- <li><a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><strong>Enrollment guide</strong></a> — NEAR account + Passport minting for non-OpenClaw agents</li>
- </ul>
- </div>
- </div>
- <pre class="dev-arch" aria-label="Production gateway layout"><code>Internet → nginx :9443 (TLS)
-  ├── GET  /.well-known/agent-card.json
-  ├── POST /a2a                 ← Passport JWT (A2A plugin)
-  └── POST /hooks/wake|agent    ← RODiT signature (webhooks plugin)
-        ↓
-  OpenClaw gateway + IdentyClaw tools plugin (HOLA, API login)</code></pre>
- <div class="cta-buttons">
- <a class="btn btn-primary" href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">View deploy template</a>
- <a class="btn btn-secondary" href="https://github.com/discernible-io" target="_blank" rel="noopener">All repos on GitHub</a>
- </div>
- </div>
- </section>
-
- <section id="rodit" class="features rodit-section">
- <div class="section-inner">
- <h2 class="section-title">Powered by RODiT</h2>
- <p class="section-lead">IdentyClaw Passports are built on <strong>RODiT</strong> (Rich Online Digital Tokens)—the authentication layer on NEAR. Backend and browser SDKs, plus CLI HOLA verification, live in our <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">sdk monorepo</a>. Key capabilities include:</p>
- <div class="features-grid">
- <div class="feature-card">
- <h3>Unified credential</h3>
- <p>Authentication, configuration, and licensing in one on-chain token.</p>
- </div>
- <div class="feature-card">
- <h3>Mutual authentication</h3>
- <p>Default mutual auth for clients, servers, and webhooks with strong MITM resistance.</p>
- </div>
- <div class="feature-card">
- <h3>Stateless enforcement</h3>
- <p>Permissions, rate limits, and policy checks without backend session state.</p>
- </div>
- <div class="feature-card">
- <h3>Local keys &amp; rotation</h3>
- <p>Keys never leave your endpoints. Rotate on your schedule: create a new NEAR wallet, fund it, and transfer the Passport with <code>near-cli-rs</code> via <code>rodit_transfer</code>—same 12-letter ID, new signing keys, no IdentyClaw coordination.</p>
- </div>
  </div>
  </div>
  </section>

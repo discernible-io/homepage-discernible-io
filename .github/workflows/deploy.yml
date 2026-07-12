@@ -34,6 +34,7 @@ jobs:
         run: |
           mkdir -p gh-pages
           cp public/index.html gh-pages/
+          cp public/developers.html gh-pages/
           cp public/styles.css gh-pages/
           cp public/script.js gh-pages/
           cp public/logo.png gh-pages/
