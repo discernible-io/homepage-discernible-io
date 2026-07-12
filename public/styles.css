@@ -142,9 +142,97 @@ body {
 }
 
 .hero-content {
- max-width: var(--content-max);
+ max-width: var(--grid-max);
  margin: 0 auto;
+}
+
+.hero-layout {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 2rem;
+}
+
+.hero-agent {
+ flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
  text-align: center;
+}
+
+.hero-agent-photo {
+ width: 10rem;
+ height: 10rem;
+ border-radius: 50%;
+ object-fit: cover;
+ box-shadow: var(--shadow-lg);
+ border: 3px solid var(--white);
+ outline: 1px solid var(--border);
+}
+
+.hero-agent-name {
+ font-size: 1.125rem;
+ font-weight: 700;
+ color: var(--text-dark);
+ margin-top: 1rem;
+ margin-bottom: 0.15rem;
+}
+
+.hero-agent-role {
+ font-size: 0.8125rem;
+ font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: 0.06em;
+ color: var(--text-muted);
+ margin-bottom: 1rem;
+}
+
+.hero-concierge {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 0.75rem;
+}
+
+.hero-concierge-link {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0.35rem;
+ min-width: 4rem;
+ padding: 0.5rem 0.4rem;
+ border-radius: 10px;
+ text-decoration: none;
+ color: var(--text-dark);
+ transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hero-concierge-link:hover,
+.hero-concierge-link:focus-visible {
+ background: var(--bg-alt);
+ color: var(--primary-color);
+}
+
+.hero-concierge-icon {
+ width: 1.5rem;
+ height: 1.5rem;
+}
+
+.hero-concierge-label {
+ font-size: 0.6875rem;
+ font-weight: 600;
+ color: var(--text-muted);
+}
+
+.hero-concierge-link:hover .hero-concierge-label,
+.hero-concierge-link:focus-visible .hero-concierge-label {
+ color: var(--primary-color);
+}
+
+.hero-message {
+ text-align: center;
+ width: 100%;
 }
 
 .hero-title {
@@ -789,9 +877,31 @@ body {
  height: 32px;
  }
 
- .hero-content {
- max-width: 44rem;
- }
+ .hero-layout {
+ flex-direction: row;
+ align-items: flex-start;
+ gap: 3rem;
+}
+
+ .hero-agent {
+ width: 13rem;
+}
+
+ .hero-agent-photo {
+ width: 11rem;
+ height: 11rem;
+}
+
+ .hero-message {
+ flex: 1;
+ text-align: left;
+}
+
+ .hero-message .hero-cta {
+ justify-content: flex-start;
+ margin-left: 0;
+ margin-right: 0;
+}
 
  .hero-title {
  font-size: 3.25rem;
