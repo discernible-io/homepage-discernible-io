@@ -753,16 +753,6 @@ body {
  grid-template-columns: repeat(2, 1fr);
  gap: 1.25rem;
  }
-
- .dev-tiers {
- display: grid;
- grid-template-columns: repeat(2, 1fr);
- gap: 1.25rem;
- }
-
- .dev-tier:last-child {
- grid-column: 1 / -1;
- }
 }
 
 /* Desktop nav */
@@ -805,14 +795,6 @@ body {
 
  .features-grid {
  grid-template-columns: repeat(3, 1fr);
- }
-
- .dev-tiers {
- grid-template-columns: repeat(3, 1fr);
- }
-
- .dev-tier:last-child {
- grid-column: auto;
  }
 }
 
