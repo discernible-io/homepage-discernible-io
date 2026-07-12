@@ -207,6 +207,10 @@ body {
  background: var(--white);
 }
 
+.developers-section {
+ background: var(--bg-alt);
+}
+
 .contact-section {
  padding: var(--section-pad-y) 0;
  background: var(--secondary-color);
@@ -259,6 +263,24 @@ body {
 .btn-secondary:hover {
  background: var(--white);
  color: var(--secondary-color);
+}
+
+.btn-outline {
+ background: transparent;
+ color: var(--secondary-color);
+ border: 2px solid var(--border);
+}
+
+.btn-outline:hover {
+ border-color: var(--primary-color);
+ color: var(--primary-color);
+ background: var(--white);
+}
+
+.hero-cta {
+ max-width: 52rem;
+ margin-left: auto;
+ margin-right: auto;
 }
 
 .section-inner > .cta-buttons {
@@ -386,6 +408,98 @@ body {
 .feature-card code {
  font-size: 0.85em;
  word-break: break-word;
+}
+
+.feature-card a,
+.section-lead a,
+.rodit-section .section-lead a {
+ color: var(--primary-color);
+ font-weight: 600;
+ text-decoration: none;
+}
+
+.feature-card a:hover,
+.section-lead a:hover,
+.rodit-section .section-lead a:hover {
+ text-decoration: underline;
+}
+
+/* Developer stack section */
+.dev-tiers {
+ display: flex;
+ flex-direction: column;
+ gap: 1.25rem;
+ margin-bottom: 1.5rem;
+}
+
+.dev-tier {
+ padding: 1.25rem;
+ background: var(--white);
+ border-radius: 12px;
+ border: 2px solid var(--border);
+}
+
+.dev-tier-title {
+ font-size: 1.125rem;
+ margin-bottom: 0.5rem;
+ color: var(--text-dark);
+}
+
+.dev-tier-desc {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin-bottom: 0.75rem;
+}
+
+.dev-repo-list {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+}
+
+.dev-repo-list li {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ padding: 0.35rem 0;
+ border-top: 1px solid var(--border);
+}
+
+.dev-repo-list li:first-child {
+ border-top: none;
+ padding-top: 0;
+}
+
+.dev-repo-list a {
+ color: var(--primary-color);
+ text-decoration: none;
+}
+
+.dev-repo-list a:hover {
+ text-decoration: underline;
+}
+
+.dev-repo-list code {
+ font-size: 0.85em;
+ word-break: break-word;
+}
+
+.dev-arch {
+ max-width: 40rem;
+ margin: 0 auto 1.5rem;
+ padding: 1rem 1.25rem;
+ background: var(--secondary-color);
+ color: rgba(255, 255, 255, 0.92);
+ border-radius: 12px;
+ font-size: 0.8125rem;
+ line-height: 1.5;
+ overflow-x: auto;
+}
+
+.dev-arch code {
+ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+ white-space: pre;
 }
 
 /* Enrollment paths */
@@ -621,6 +735,16 @@ body {
  grid-template-columns: repeat(2, 1fr);
  gap: 1.25rem;
  }
+
+ .dev-tiers {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 1.25rem;
+ }
+
+ .dev-tier:last-child {
+ grid-column: 1 / -1;
+ }
 }
 
 /* Desktop nav */
@@ -663,6 +787,14 @@ body {
 
  .features-grid {
  grid-template-columns: repeat(3, 1fr);
+ }
+
+ .dev-tiers {
+ grid-template-columns: repeat(3, 1fr);
+ }
+
+ .dev-tier:last-child {
+ grid-column: auto;
  }
 }
 

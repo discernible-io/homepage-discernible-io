@@ -59,6 +59,7 @@
  <li><a href="#why">Why IdentyClaw</a></li>
  <li><a href="#use-cases">Use Cases</a></li>
  <li><a href="#enroll">How to Enroll</a></li>
+ <li><a href="#developers">Developers</a></li>
  <li><a href="#rodit">Powered by RODiT</a></li>
  <li><a href="#contact">Contact</a></li>
  </ul>
@@ -71,9 +72,10 @@
  <h1 class="hero-title">IdentyClaw</h1>
  <p class="hero-eyebrow">by Discernible.io</p>
  <p class="hero-subtitle">Portable, unique, persistent, cryptographically verifiable identity for autonomous agents. Mint an IdentyClaw Passport once on NEAR—prove who you are with HOLA on any channel, verify peers as <strong>genuine, current, and not revoked</strong>, and use the IdentyClaw API only when you want convenience—not because you must.</p>
- <div class="cta-buttons">
+ <div class="cta-buttons hero-cta">
         <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
         <a class="btn btn-secondary" href="https://verify.identyclaw.com" target="_blank" rel="noopener">Verify a Passport</a>
+        <a class="btn btn-outline" href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">Deploy an agent</a>
  </div>
  </div>
  </section>
@@ -118,7 +120,7 @@
  <div class="features-grid">
  <div class="feature-card">
  <h3>Agent-to-agent verification</h3>
- <p>Mutual HOLA authentication with recipient binding—confirm <strong>genuine, current, and not revoked</strong> before sharing data, tools, or executing delegated work. Both peers exchange HOLA on the same channel.</p>
+ <p>Mutual HOLA authentication with recipient binding—confirm <strong>genuine, current, and not revoked</strong> before sharing data, tools, or executing delegated work. OpenClaw operators add the <a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener">A2A plugin</a> for Passport JWT peer messaging on <code>POST /a2a</code>.</p>
  </div>
  <div class="feature-card">
  <h3>Multi-agent orchestration</h3>
@@ -138,7 +140,7 @@
  </div>
  <div class="feature-card">
  <h3>OpenClaw &amp; collaboration</h3>
- <p>Plugin and skill wrap inter-agent messages with HOLA before execution. The <code>identyclaw.collaboration.v1</code> envelope standardizes task payloads plus trust proof for verify-before-execute discipline.</p>
+ <p>The <a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener">IdentyClaw tools plugin</a> handles API login and HOLA; the <a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener">A2A plugin</a> carries peer tasks; the <a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks plugin</a> verifies RODiT-signed ingress. Deploy all three with TLS via the <a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">identyclaw-agents</a> template.</p>
  </div>
  </div>
  </div>
@@ -147,11 +149,12 @@
  <section id="enroll" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">How to Enroll</h2>
- <p class="section-lead">Every path needs a NEAR account and a Passport purchase. OpenClaw operators use the IdentyClaw plugin for API login and HOLA; other agents use <code>gennearaccount</code> and manual API login.</p>
+ <p class="section-lead">Every path needs a NEAR account and a Passport purchase. OpenClaw operators add plugins à la carte or deploy the full production template; Hermes, MCP, and custom agents use <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> and the <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">RODiT SDK</a>.</p>
 
  <div class="enroll-paths">
  <div class="enroll-path">
- <h3 class="enroll-path-title">How to Enroll with OpenClaw</h3>
+ <h3 class="enroll-path-title">OpenClaw — quick start (plugins)</h3>
+ <p class="enroll-path-lead">Add IdentyClaw to an existing OpenClaw gateway. Source: <a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener">openclaw-identyclaw-plugin</a> on GitHub; install via ClawHub below.</p>
  <ol class="enroll-steps">
  <li>
  <span class="step-num">1</span>
@@ -167,7 +170,7 @@
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Generate a NEAR account</h3>
- <p>From the plugin checkout, run <code>npm run generate-near-account -- &lt;secrets/near-credentials&gt;</code> (or allowlist <code>identyclaw_generate_near_account</code>). Store credentials on bind-mounted OpenClaw state — never paste keys into chat.</p>
+ <p>From the <a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener">plugin checkout</a>, run <code>npm run generate-near-account -- &lt;secrets/near-credentials&gt;</code> (or allowlist <code>identyclaw_generate_near_account</code>). On hosts without Node, use <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> — same JSON credential layout. Never paste keys into chat.</p>
  </div>
  </li>
  <li>
@@ -189,15 +192,45 @@
  </ol>
  </div>
  <div class="enroll-path">
- <h3 class="enroll-path-title">How to Enroll with Hermes</h3>
- <p class="enroll-path-lead">Cursor MCP, Hermes Agent, custom SDKs, and shell automation — use <code>gennearaccount</code> and the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a>.</p>
+ <h3 class="enroll-path-title">OpenClaw — production deploy</h3>
+ <p class="enroll-path-lead">Podman template with nginx TLS, A2A peer messaging, signed webhooks, and GitHub Actions CI — <a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">identyclaw-agents</a>.</p>
  <ol class="enroll-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
- <h3>Install <code>gennearaccount</code></h3>
- <p>Install the CLI on the agent host (<a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a>).</p>
+ <h3>Clone and initialize</h3>
+ <p><code>git clone https://github.com/discernible-io/identyclaw-agents</code><br><code>./identyclaw.sh init</code> — scaffolds app dir, OpenClaw config, and pinned plugin versions.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">2</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Deploy the stack</h3>
+ <p><code>./scripts/deploy-local-podman.sh</code> installs the IdentyClaw, <a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener">A2A</a>, and <a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks</a> plugins, renders nginx on <code>:9443</code>, and runs smoke tests.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">3</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Generate NEAR account, purchase Passport</h3>
+ <p><code>./identyclaw.sh generate-near-account &lt;agent-id&gt;</code>, then mint at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>. Set Passport <code>metadata.webhook_url</code> to your public HTTPS base (scheme, host, port — no path suffix).</p>
+ </div>
+ </li>
+ </ol>
+ </div>
+ <div class="enroll-path">
+ <h3 class="enroll-path-title">Hermes, MCP &amp; custom agents</h3>
+ <p class="enroll-path-lead">Cursor MCP, Hermes Agent, custom SDKs, and shell automation — <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a>, the <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">RODiT SDK monorepo</a>, and the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a>.</p>
+ <ol class="enroll-steps">
+ <li>
+ <span class="step-num">1</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Install <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a></h3>
+ <p>Build from source or install the <a href="https://github.com/discernible-io/gennearaccount/releases" target="_blank" rel="noopener">release package</a>. See the <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">enrollment guide</a> for full steps.</p>
  </div>
  </li>
  <li>
@@ -221,7 +254,7 @@
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Login and use the API</h3>
- <p>Sign a login timestamp at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> for a JWT, then use your Passport to collaborate securely with other agents on demand and at scale.</p>
+ <p>Sign a login timestamp at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> for a JWT. Verify peer HOLA lines with <a href="https://github.com/discernible-io/sdk/tree/main/verify-hola" target="_blank" rel="noopener">@rodit/verify-hola</a>; integrate RODiT auth via <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">@rodit/rodit-auth-be</a>.</p>
  </div>
  </li>
  </ol>
@@ -234,10 +267,53 @@
  </div>
  </section>
 
+ <section id="developers" class="features developers-section">
+ <div class="section-inner">
+ <h2 class="section-title">Open source agent stack</h2>
+ <p class="section-lead">Mint with a NEAR key, prove with HOLA, collaborate over A2A and RODiT-signed webhooks — deploy the full stack with our open template or install plugins à la carte.</p>
+ <div class="dev-tiers">
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Deploy a Passport agent</h3>
+ <p class="dev-tier-desc">Production OpenClaw + nginx TLS + Podman + CI. Installs all IdentyClaw plugins, runs smoke tests, and separates secrets from git.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener"><strong>identyclaw-agents</strong></a> — operator template (<code>./identyclaw.sh init</code>, deploy, test)</li>
+ </ul>
+ </div>
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">OpenClaw plugins</h3>
+ <p class="dev-tier-desc">Install individually on any OpenClaw gateway via ClawHub or GitHub. Share NEAR Passport credentials across plugins on the same host.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools)</li>
+ <li><a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener"><strong>openclaw-a2a-idc-plugin</strong></a> — A2A peer messaging with Passport JWTs (<code>a2a_*</code> tools)</li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-webhooks-plugin</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
+ </ul>
+ </div>
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">SDKs &amp; tooling</h3>
+ <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener"><strong>sdk</strong></a> — <code>@rodit/rodit-auth-be</code>, <code>@rodit/rodit-auth-fe</code>, <code>@rodit/verify-hola</code></li>
+ <li><a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener"><strong>gennearaccount</strong></a> — C CLI for NEAR implicit accounts (enrollment step 1)</li>
+ </ul>
+ </div>
+ </div>
+ <pre class="dev-arch" aria-label="Production gateway layout"><code>Internet → nginx :9443 (TLS)
+  ├── GET  /.well-known/agent-card.json
+  ├── POST /a2a                 ← Passport JWT (A2A plugin)
+  └── POST /hooks/wake|agent    ← RODiT signature (webhooks plugin)
+        ↓
+  OpenClaw gateway + IdentyClaw tools plugin (HOLA, API login)</code></pre>
+ <div class="cta-buttons">
+ <a class="btn btn-primary" href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">View deploy template</a>
+ <a class="btn btn-secondary" href="https://github.com/discernible-io" target="_blank" rel="noopener">All repos on GitHub</a>
+ </div>
+ </div>
+ </section>
+
  <section id="rodit" class="features rodit-section">
  <div class="section-inner">
  <h2 class="section-title">Powered by RODiT</h2>
- <p class="section-lead">IdentyClaw Passports are built on <strong>RODiT</strong> (Rich Online Digital Tokens)—the authentication layer on NEAR. Key capabilities include:</p>
+ <p class="section-lead">IdentyClaw Passports are built on <strong>RODiT</strong> (Rich Online Digital Tokens)—the authentication layer on NEAR. Backend and browser SDKs, plus CLI HOLA verification, live in our <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">sdk monorepo</a>. Key capabilities include:</p>
  <div class="features-grid">
  <div class="feature-card">
  <h3>Unified credential</h3>
@@ -324,6 +400,24 @@
  <a class="contact-icon-link" href="https://dev.to/discernible-io" target="_blank" rel="noopener noreferrer" aria-label="Blog on dev.to">
  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.06.77H4.71V8.53h1.83c.96 0 1.61.1 2.04.57.38.48.38 1.33.03 1.73-.25.29-.67.43-1.15.44 1.04.04 1.65.53 1.65 1.47 0 .42-.12.81-.35 1.16-.24.38-.58.67-1.04.9zM15.85 8.53h-2.09v1.58h1.84v1.68h-1.84v2.84h-1.62V8.53h3.71v1.05z"/></svg>
  <span class="contact-icon-label">Blog</span>
+ </a>
+ </nav>
+ </div>
+
+ <div class="contact-group">
+ <h3 class="contact-group-title">Developers</h3>
+ <nav class="contact-icons" aria-label="Developer resources">
+ <a class="contact-icon-link" href="https://github.com/discernible-io" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+ <span class="contact-icon-label">GitHub</span>
+ </a>
+ <a class="contact-icon-link" href="https://api.identyclaw.com/mcp" target="_blank" rel="noopener noreferrer" aria-label="API documentation">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2.5L18.5 9H13V4.5zM8 12h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
+ <span class="contact-icon-label">API docs</span>
+ </a>
+ <a class="contact-icon-link" href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener noreferrer" aria-label="Deploy template">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+ <span class="contact-icon-label">Deploy</span>
  </a>
  </nav>
  </div>
