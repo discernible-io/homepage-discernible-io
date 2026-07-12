@@ -47,7 +47,7 @@ const observer = new IntersectionObserver((entries) => {
  });
 }, observerOptions);
 
-document.querySelectorAll('.feature-card, .enroll-steps li').forEach((el) => {
+document.querySelectorAll('.feature-card, .enroll-steps li, .dev-tier').forEach((el) => {
  el.style.opacity = '0';
  el.style.transform = 'translateY(16px)';
  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';

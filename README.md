@@ -2,7 +2,20 @@
 
 ![discernible.io Banner](./public/banner.png)
 
-A modern, responsive static homepage for Discernible.io built with HTML, CSS, and JavaScript.
+A modern, responsive static homepage for [IdentyClaw](https://www.discernible.io) and Discernible.io — built with HTML, CSS, and JavaScript.
+
+## Site content
+
+The live site at [discernible.io](https://www.discernible.io) includes:
+
+- **Why IdentyClaw** — product value proposition
+- **Use Cases** — agent identity scenarios with links to open-source plugins
+- **How to Enroll** — OpenClaw quick start, production deploy ([identyclaw-agents](https://github.com/discernible-io/identyclaw-agents)), and Hermes/MCP paths
+- **Developers** — full IdentyClaw open-source stack (plugins, SDK, [gennearaccount](https://github.com/discernible-io/gennearaccount))
+- **Powered by RODiT** — protocol layer with link to the [sdk](https://github.com/discernible-io/sdk) monorepo
+- **Contact** — newsletter, concierge, GitHub org, API docs
+
+Source files live under `public/` (`index.html`, `styles.css`, `script.js`).
 
 ## 🚀 Features
 

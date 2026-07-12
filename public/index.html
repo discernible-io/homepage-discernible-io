@@ -3,15 +3,15 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove yourself with HOLA, and use the IdentyClaw API when you need it.">
- <title>Discernible IO</title>
+ <meta name="description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove with HOLA, deploy open-source OpenClaw agents, and use the IdentyClaw API when you need it.">
+ <title>Discernible IO — IdentyClaw</title>
 
  <!-- Open Graph (LinkedIn, Facebook, etc.) -->
  <meta property="og:type" content="website">
  <meta property="og:url" content="https://www.discernible.io/">
  <meta property="og:site_name" content="Discernible IO">
- <meta property="og:title" content="Discernible IO">
- <meta property="og:description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove yourself with HOLA, and use the IdentyClaw API when you need it.">
+ <meta property="og:title" content="Discernible IO — IdentyClaw">
+ <meta property="og:description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove with HOLA, deploy open-source OpenClaw agents, and use the IdentyClaw API when you need it.">
  <meta property="og:image" content="https://www.discernible.io/og-image.png">
  <meta property="og:image:width" content="1200">
  <meta property="og:image:height" content="630">
@@ -19,8 +19,8 @@
 
  <!-- Twitter -->
  <meta name="twitter:card" content="summary_large_image">
- <meta name="twitter:title" content="Discernible IO">
- <meta name="twitter:description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove yourself with HOLA, and use the IdentyClaw API when you need it.">
+ <meta name="twitter:title" content="Discernible IO — IdentyClaw">
+ <meta name="twitter:description" content="IdentyClaw — portable cryptographic identity for AI agents. Mint a Passport on NEAR, prove with HOLA, deploy open-source OpenClaw agents, and use the IdentyClaw API when you need it.">
  <meta name="twitter:image" content="https://www.discernible.io/og-image.png">
  <meta name="twitter:image:alt" content="Discernible.io logo">
 
@@ -208,7 +208,7 @@
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Deploy the stack</h3>
- <p><code>./scripts/deploy-local-podman.sh</code> installs the IdentyClaw, <a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener">A2A</a>, and <a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks</a> plugins, renders nginx on <code>:9443</code>, and runs smoke tests.</p>
+ <p><code>./scripts/deploy-local-podman.sh</code> installs the IdentyClaw, <a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener">A2A</a>, and <a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks</a> plugins and renders nginx on <code>:9443</code>.</p>
  </div>
  </li>
  <li>
@@ -217,6 +217,14 @@
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Generate NEAR account, purchase Passport</h3>
  <p><code>./identyclaw.sh generate-near-account &lt;agent-id&gt;</code>, then mint at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>. Set Passport <code>metadata.webhook_url</code> to your public HTTPS base (scheme, host, port — no path suffix).</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">4</span>
+ <div>
+ <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
+ <h3>Validate</h3>
+ <p><code>./identyclaw.sh test</code> — local A2A, webhooks, and optional mail smoke suite after Passport credentials are in place.</p>
  </div>
  </li>
  </ol>
@@ -254,7 +262,7 @@
  <div>
  <p class="step-owner"><span class="step-owner-badge step-owner-agent">Agent</span></p>
  <h3>Login and use the API</h3>
- <p>Sign a login timestamp at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> for a JWT. Verify peer HOLA lines with <a href="https://github.com/discernible-io/sdk/tree/main/verify-hola" target="_blank" rel="noopener">@rodit/verify-hola</a>; integrate RODiT auth via <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">@rodit/rodit-auth-be</a>.</p>
+ <p>Sign a login timestamp at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> for a JWT. Verify peer HOLA lines with <a href="https://verify.identyclaw.com" target="_blank" rel="noopener">verify.identyclaw.com</a>, <a href="https://github.com/discernible-io/sdk/tree/main/verify-hola" target="_blank" rel="noopener">@rodit/verify-hola</a>, or integrate RODiT auth via <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">@rodit/rodit-auth-be</a>.</p>
  </div>
  </li>
  </ol>
@@ -274,7 +282,7 @@
  <div class="dev-tiers">
  <div class="dev-tier">
  <h3 class="dev-tier-title">Deploy a Passport agent</h3>
- <p class="dev-tier-desc">Production OpenClaw + nginx TLS + Podman + CI. Installs all IdentyClaw plugins, runs smoke tests, and separates secrets from git.</p>
+ <p class="dev-tier-desc">Production OpenClaw + nginx TLS + Podman + CI. Installs all IdentyClaw plugins, separates secrets from git, and validates with <code>./identyclaw.sh test</code>.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener"><strong>identyclaw-agents</strong></a> — operator template (<code>./identyclaw.sh init</code>, deploy, test)</li>
  </ul>
@@ -283,17 +291,25 @@
  <h3 class="dev-tier-title">OpenClaw plugins</h3>
  <p class="dev-tier-desc">Install individually on any OpenClaw gateway via ClawHub or GitHub. Share NEAR Passport credentials across plugins on the same host.</p>
  <ul class="dev-repo-list">
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools)</li>
- <li><a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener"><strong>openclaw-a2a-idc-plugin</strong></a> — A2A peer messaging with Passport JWTs (<code>a2a_*</code> tools)</li>
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-webhooks-plugin</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-identyclaw-plugin</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-a2a-idc-plugin" target="_blank" rel="noopener"><strong>openclaw-a2a-idc-plugin</strong></a> — A2A peer messaging with Passport JWTs (<code>a2a_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-a2a-plugin</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-webhooks-plugin</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code> · ClawHub: <code>@identyclaw/openclaw-identyclaw-webhooks-plugin</code></li>
  </ul>
+ <pre class="dev-clawhub" aria-label="ClawHub install commands"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin
+openclaw plugins install clawhub:@identyclaw/openclaw-a2a-plugin
+openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin
+openclaw skills install clawhub:identyclaw
+openclaw gateway restart</code></pre>
  </div>
  <div class="dev-tier">
- <h3 class="dev-tier-title">SDKs &amp; tooling</h3>
- <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation.</p>
+ <h3 class="dev-tier-title">SDKs, API &amp; tooling</h3>
+ <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation. Live API docs via MCP discovery.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener"><strong>sdk</strong></a> — <code>@rodit/rodit-auth-be</code>, <code>@rodit/rodit-auth-fe</code>, <code>@rodit/verify-hola</code></li>
  <li><a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener"><strong>gennearaccount</strong></a> — C CLI for NEAR implicit accounts (enrollment step 1)</li>
+ <li><a href="https://verify.identyclaw.com" target="_blank" rel="noopener"><strong>verify.identyclaw.com</strong></a> — web UI for HOLA verification (pairs with <code>@rodit/verify-hola</code>)</li>
+ <li><a href="https://api.identyclaw.com/.well-known/mcp" target="_blank" rel="noopener"><strong>API docs (MCP)</strong></a> — discovery at <code>/.well-known/mcp</code>; OpenAPI at <a href="https://api.identyclaw.com/swagger.json" target="_blank" rel="noopener">swagger.json</a></li>
+ <li><a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><strong>Enrollment guide</strong></a> — NEAR account + Passport minting for non-OpenClaw agents</li>
  </ul>
  </div>
  </div>
@@ -411,7 +427,7 @@
  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
  <span class="contact-icon-label">GitHub</span>
  </a>
- <a class="contact-icon-link" href="https://api.identyclaw.com/mcp" target="_blank" rel="noopener noreferrer" aria-label="API documentation">
+ <a class="contact-icon-link" href="https://api.identyclaw.com/.well-known/mcp" target="_blank" rel="noopener noreferrer" aria-label="API documentation">
  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2.5L18.5 9H13V4.5zM8 12h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
  <span class="contact-icon-label">API docs</span>
  </a>
