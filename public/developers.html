@@ -59,6 +59,7 @@
  <li><a href="index.html#why">Why IdentyClaw</a></li>
  <li><a href="index.html#use-cases">Use Cases</a></li>
  <li><a href="index.html#get-started">Get Started</a></li>
+ <li><a href="#api-docs">API docs</a></li>
  <li><a href="#rodit">Powered by RODiT</a></li>
  <li><a href="#contact">Contact</a></li>
  </ul>
@@ -112,12 +113,13 @@
  </div>
  <div class="dev-tier">
  <h3 class="dev-tier-title">SDKs, API &amp; tooling</h3>
- <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation. Live API docs via MCP discovery.</p>
+ <p class="dev-tier-desc">Libraries and CLIs for custom backends, browser clients, HOLA verification, and NEAR implicit account generation. Human-readable API reference at <a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">api.identyclaw.com/docs</a>; agent-oriented docs via MCP.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener"><strong>sdk</strong></a> — <code>@rodit/rodit-auth-be</code>, <code>@rodit/rodit-auth-fe</code>, <code>@rodit/verify-hola</code></li>
  <li><a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener"><strong>gennearaccount</strong></a> — C CLI for NEAR implicit accounts (get-started step 1)</li>
+ <li><a href="https://github.com/discernible-io/idclawserver-idc" target="_blank" rel="noopener"><strong>idclawserver-idc</strong></a> — open-source API server, MCP resources, and OpenAPI spec</li>
  <li><a href="https://verify.identyclaw.com" target="_blank" rel="noopener"><strong>verify.identyclaw.com</strong></a> — web UI for HOLA verification (pairs with <code>@rodit/verify-hola</code>)</li>
- <li><a href="https://api.identyclaw.com/.well-known/mcp" target="_blank" rel="noopener"><strong>API docs (MCP)</strong></a> — discovery at <code>/.well-known/mcp</code>; OpenAPI at <a href="https://api.identyclaw.com/swagger.json" target="_blank" rel="noopener">swagger.json</a></li>
+ <li><a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener"><strong>API docs (browser)</strong></a> — OpenAPI reference + links to guides</li>
  <li><a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><strong>Get started guide</strong></a> — NEAR account + Passport minting for non-OpenClaw agents</li>
  </ul>
  </div>
@@ -131,6 +133,143 @@
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">View deploy template</a>
  <a class="btn btn-secondary" href="https://github.com/discernible-io" target="_blank" rel="noopener">All repos on GitHub</a>
+ </div>
+ </div>
+ </section>
+
+ <section id="api-docs" class="features developers-section api-docs-section">
+ <div class="section-inner">
+ <h2 class="section-title">API documentation</h2>
+ <p class="section-lead">The IdentyClaw API at <a href="https://api.identyclaw.com/" target="_blank" rel="noopener">api.identyclaw.com</a> ships 58 MCP resources, a runnable cheat sheet, and OpenAPI 3.0. Use the browser portal for onboarding; use MCP when your agent or IDE already speaks Model Context Protocol.</p>
+
+ <div class="dev-tiers">
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Two ways to read the docs</h3>
+ <p class="dev-tier-desc">MCP tool names are not URL paths — use one of these access patterns:</p>
+ <pre class="dev-quickstart" aria-label="Documentation access paths"><code># Human / curl (no MCP client)
+curl https://api.identyclaw.com/api/mcp/resource/doc:skills
+curl https://api.identyclaw.com/api/mcp/resource/doc:discovery
+
+# MCP client (Cursor, Claude Desktop, OpenClaw)
+# Register https://api.identyclaw.com/mcp → list_resources / get_resource</code></pre>
+ <ul class="dev-repo-list">
+ <li><a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener"><strong>Browser portal</strong></a> — guide links at <code>/docs</code>; OpenAPI browser at <a href="https://api.identyclaw.com/docs/openapi" target="_blank" rel="noopener"><code>/docs/openapi</code></a></li>
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:skills" target="_blank" rel="noopener"><strong>Cheat sheet</strong></a> — <code>doc:skills</code> (JWT login, HOLA verify, curl examples)</li>
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:discovery" target="_blank" rel="noopener"><strong>Discovery index</strong></a> — <code>doc:discovery</code> (all 58 resources)</li>
+ <li><a href="https://api.identyclaw.com/mcp" target="_blank" rel="noopener"><strong>MCP endpoint</strong></a> — <code>https://api.identyclaw.com/mcp</code> · discovery at <a href="https://api.identyclaw.com/.well-known/mcp" target="_blank" rel="noopener"><code>/.well-known/mcp</code></a></li>
+ <li><a href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener"><strong>OpenAPI</strong></a> — machine-readable spec (also <a href="https://api.identyclaw.com/swagger.json" target="_blank" rel="noopener">swagger.json</a> alias)</li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">API quick start</h3>
+ <p class="dev-tier-desc">Fastest runnable path for custom backends — full signing detail in the <a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:login-authentication" target="_blank" rel="noopener">login guide</a>.</p>
+ <pre class="dev-quickstart" aria-label="API quick start curl examples"><code>BASE=https://api.identyclaw.com
+
+# 1. API session (JWT) — sign accountid + timestamp_iso → base64url
+TS=$(curl -sS "$BASE/api/login/timestamp")
+# POST /api/login with accountid, timestamp, base64url_signature → jwt_token
+
+# 2. Verify a peer HOLA (public — no JWT required)
+curl -sS -X POST "$BASE/api/identity/verify" \
+  -H "Content-Type: application/json" \
+  -d '{"hola":"HOLA/..."}'
+
+# 3. Discover public agents
+curl -sS "$BASE/api/agents?limit=20"</code></pre>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Two lanes — do not mix them</h3>
+ <p class="dev-tier-desc">The #1 source of integration bugs is using JWT signing rules for HOLA (or vice versa).</p>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr><th scope="col">Lane</th><th scope="col">Artifact</th><th scope="col">Key endpoint</th><th scope="col">Signature encoding</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>API session</td>
+ <td>Bearer JWT (<code>jwt_token</code>)</td>
+ <td><code>POST /api/login</code></td>
+ <td>base64url on <code>accountid</code> + <code>timestamp_iso</code></td>
+ </tr>
+ <tr>
+ <td>HOLA peer proof</td>
+ <td>Slash-separated line</td>
+ <td><code>POST /api/identity/verify</code></td>
+ <td>base32 on canonical prefix</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Guides &amp; references</h3>
+ <ul class="dev-repo-list">
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:login-authentication" target="_blank" rel="noopener"><strong>Login &amp; authentication</strong></a> — JWT session flow</li>
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:api-reference" target="_blank" rel="noopener"><strong>API reference</strong></a> — endpoint listing</li>
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:mcp-connection-guide" target="_blank" rel="noopener"><strong>MCP connection guide</strong></a> — Cursor, Claude Desktop, OpenClaw setup</li>
+ <li><a href="https://api.identyclaw.com/api/mcp/resource/doc:reference:verify-hola-recipes" target="_blank" rel="noopener"><strong>Verify-before-execute recipes</strong></a> — verifier integration patterns</li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Public vs protected endpoints</h3>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr><th scope="col">Tier</th><th scope="col">Examples</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>Public</strong></td>
+ <td><code>/api/agents</code>, <code>/api/identity/verify</code>, <code>/api/login/timestamp</code>, <code>/.well-known/enrollment</code></td>
+ </tr>
+ <tr>
+ <td><strong>JWT required</strong></td>
+ <td><code>/api/login</code>, <code>/api/me/identity</code>, <code>/api/holanonce16ts</code>, <code>/api/isauthorizedsigner</code></td>
+ </tr>
+ <tr>
+ <td><strong>Removed (410)</strong></td>
+ <td><code>/api-docs</code>, <code>/docs/enrollment</code> — use <code>/docs</code> and MCP guides instead</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Integration notes</h3>
+ <ul class="dev-repo-list">
+ <li><strong>Rate limits:</strong> public routes are limited at the nginx edge (~1101 req/min/IP sustained, burst 6101). Expect <code>429</code> under heavy load.</li>
+ <li><strong>Errors:</strong> <code>{ error: { code, message, details? }, requestId, timestamp }</code> — send <code>X-Request-Id</code> or <code>X-Correlation-Id</code> for support correlation.</li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Where to start</h3>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr><th scope="col">Persona</th><th scope="col">Best entry</th></tr>
+ </thead>
+ <tbody>
+ <tr><td>OpenClaw operator</td><td><a href="https://github.com/discernible-io/identyclaw-agents" target="_blank" rel="noopener">identyclaw-agents</a> template + ClawHub plugins</td></tr>
+ <tr><td>Custom backend / Hermes</td><td><a href="https://api.identyclaw.com/api/mcp/resource/doc:skills" target="_blank" rel="noopener">doc:skills</a> cheat sheet + <a href="https://github.com/discernible-io/sdk" target="_blank" rel="noopener">RODiT SDK</a></td></tr>
+ <tr><td>Verifier (no Passport)</td><td><a href="https://verify.identyclaw.com" target="_blank" rel="noopener">verify.identyclaw.com</a> + verify recipes</td></tr>
+ <tr><td>Security reviewer</td><td><a href="https://api.identyclaw.com/openapi.json" target="_blank" rel="noopener">OpenAPI</a> + identity verification policy (MCP)</td></tr>
+ <tr><td>Agent (MCP-only)</td><td><a href="https://api.identyclaw.com/api/mcp/resource/doc:discovery" target="_blank" rel="noopener">doc:discovery</a></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+
+ <div class="cta-buttons">
+ <a class="btn btn-primary" href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">Open API docs</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/api/mcp/resource/doc:skills" target="_blank" rel="noopener">View cheat sheet</a>
  </div>
  </div>
  </section>

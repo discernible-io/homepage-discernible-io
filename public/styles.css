@@ -645,6 +645,72 @@ body {
  white-space: pre;
 }
 
+.dev-quickstart {
+ max-width: 100%;
+ margin: 0.75rem 0 0;
+ padding: 1rem 1.25rem;
+ background: var(--secondary-color);
+ color: rgba(255, 255, 255, 0.92);
+ border-radius: 12px;
+ font-size: 0.8125rem;
+ line-height: 1.5;
+ overflow-x: auto;
+}
+
+.dev-quickstart code {
+ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+ white-space: pre;
+}
+
+.api-docs-section {
+ background: var(--bg-alt);
+}
+
+.dev-table-wrap {
+ overflow-x: auto;
+ margin-top: 0.75rem;
+}
+
+.dev-table {
+ width: 100%;
+ border-collapse: collapse;
+ font-size: 0.875rem;
+ line-height: 1.45;
+}
+
+.dev-table th,
+.dev-table td {
+ padding: 0.625rem 0.75rem;
+ text-align: left;
+ border: 1px solid var(--border);
+ vertical-align: top;
+}
+
+.dev-table th {
+ background: var(--bg-alt);
+ font-weight: 600;
+ color: var(--text-dark);
+}
+
+.dev-table td {
+ background: var(--white);
+ color: var(--text-light);
+}
+
+.dev-table code {
+ font-size: 0.85em;
+ word-break: break-word;
+}
+
+.dev-table a {
+ color: var(--primary-color);
+ text-decoration: none;
+}
+
+.dev-table a:hover {
+ text-decoration: underline;
+}
+
 /* Enrollment paths */
 .enroll-paths {
  display: flex;
