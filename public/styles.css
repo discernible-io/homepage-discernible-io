@@ -336,6 +336,57 @@ body {
  font-weight: 600;
 }
 
+.prize-flash {
+ max-width: 40rem;
+ margin: 0 auto 1.5rem;
+ padding: 1.15rem 1.25rem 1.25rem;
+ text-align: center;
+ background: #fff7f3;
+ border: 2px solid var(--primary-color);
+ border-radius: 12px;
+}
+
+.prize-flash-status {
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--primary-color);
+ font-weight: 700;
+ margin: 0 0 0.4rem;
+}
+
+.prize-flash-title {
+ font-size: 1.05rem;
+ font-weight: 700;
+ color: var(--text-dark);
+ margin: 0 0 0.2rem;
+}
+
+.prize-flash-amount {
+ font-size: 1.85rem;
+ font-weight: 800;
+ color: var(--primary-color);
+ line-height: 1.15;
+ margin: 0 0 0.5rem;
+}
+
+.prize-flash-copy {
+ font-size: 0.9375rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ margin: 0;
+}
+
+.prize-flash-copy a {
+ color: var(--primary-color);
+ font-weight: 600;
+ text-decoration: none;
+}
+
+.prize-flash-copy a:hover {
+ text-decoration: underline;
+}
+
 .feature-card > p + p {
  margin-top: 0.75rem;
 }
@@ -599,6 +650,16 @@ body {
  color: var(--text-light);
  line-height: 1.55;
  margin-bottom: 0.75rem;
+}
+
+.dev-tier-desc a {
+ color: var(--primary-color);
+ font-weight: 600;
+ text-decoration: none;
+}
+
+.dev-tier-desc a:hover {
+ text-decoration: underline;
 }
 
 .dev-deploy-steps {
