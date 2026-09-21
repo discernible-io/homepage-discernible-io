@@ -17,6 +17,10 @@ The live site at [discernible.io](https://www.discernible.io) includes:
 
 Source files live under `public/` (`index.html`, `developers.html`, `lastcradle.html`, `styles.css`, `script.js`).
 
+### Funnel attribution (cookieless)
+
+`public/script.js` preserves inbound `utm_*` + optional `funnel_id` (minted in the URL when absent) and stamps them onto CTAs to `purchase.identyclaw.com` and `lastcradle.io/enroll`. No stitching cookies; Plausible stays as already loaded (cookieless). Contract: [idclawserver-idc sibling emit](https://github.com/discernible-io/idclawserver-idc/blob/main/content/developer-growth-plan.md).
+
 ## 🚀 Features
 
 - **Modern Design**: Clean design with brand colors (black, white, and orange #FF4500)
