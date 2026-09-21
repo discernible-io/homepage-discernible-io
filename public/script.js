@@ -91,3 +91,95 @@ function getTelegramConciergeUrl() {
 telegramConciergeLinks.forEach((link) => {
  link.href = getTelegramConciergeUrl();
 });
+
+/**
+ * Cookieless CTA attribution for purchase.identyclaw.com + lastcradle.io/enroll.
+ * Contract: idclawserver-idc content/developer-growth-plan.md (Sibling emit contract).
+ * Query/memory only — no cookies / localStorage / sessionStorage visitor ids.
+ */
+(function stampFunnelAttribution() {
+  const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  const FUNNEL_HOSTS = [
+    { host: "purchase.identyclaw.com", paths: null },
+    { host: "lastcradle.io", paths: ["/enroll"] },
+    { host: "www.lastcradle.io", paths: ["/enroll"] },
+  ];
+
+  function pick(value) {
+    if (typeof value !== "string") return null;
+    const trimmed = value.trim();
+    return trimmed || null;
+  }
+
+  function readFromSearch(search) {
+    const params = new URLSearchParams(search.startsWith("?") ? search.slice(1) : search);
+    const out = {};
+    for (const key of UTM_KEYS) {
+      const value = pick(params.get(key));
+      if (value) out[key] = value;
+    }
+    const funnelId = pick(params.get("funnel_id")) || pick(params.get("vid"));
+    if (funnelId) out.funnel_id = funnelId;
+    return out;
+  }
+
+  function mintFunnelId() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID().replace(/-/g, "");
+    }
+    return `f${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+  }
+
+  const attribution = readFromSearch(window.location.search);
+  if (!attribution.funnel_id) {
+    attribution.funnel_id = mintFunnelId();
+  }
+
+  try {
+    const url = new URL(window.location.href);
+    for (const key of UTM_KEYS) {
+      if (attribution[key]) url.searchParams.set(key, attribution[key]);
+    }
+    url.searchParams.set("funnel_id", attribution.funnel_id);
+    url.searchParams.delete("vid");
+    const next = `${url.pathname}${url.search}${url.hash}`;
+    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (next !== current) {
+      window.history.replaceState({}, document.title, next);
+    }
+  } catch {
+    /* ignore */
+  }
+
+  function shouldStamp(anchor) {
+    let parsed;
+    try {
+      parsed = new URL(anchor.href, window.location.origin);
+    } catch {
+      return false;
+    }
+    return FUNNEL_HOSTS.some((rule) => {
+      if (parsed.hostname !== rule.host) return false;
+      if (!rule.paths) return true;
+      return rule.paths.some((p) => parsed.pathname === p || parsed.pathname.startsWith(`${p}/`));
+    });
+  }
+
+  document.querySelectorAll("a[href]").forEach((anchor) => {
+    if (!shouldStamp(anchor)) return;
+    try {
+      const url = new URL(anchor.href, window.location.origin);
+      for (const key of UTM_KEYS) {
+        if (attribution[key] && !url.searchParams.has(key)) {
+          url.searchParams.set(key, attribution[key]);
+        }
+      }
+      if (attribution.funnel_id && !url.searchParams.has("funnel_id")) {
+        url.searchParams.set("funnel_id", attribution.funnel_id);
+      }
+      anchor.href = url.toString();
+    } catch {
+      /* ignore */
+    }
+  });
+})();
