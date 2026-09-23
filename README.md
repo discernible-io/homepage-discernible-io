@@ -8,7 +8,7 @@ A modern, responsive static homepage for [IdentyClaw](https://www.discernible.io
 
 The live site at [discernible.io](https://www.discernible.io) includes:
 
-- **Use Cases** — why Passports matter: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
+- **Passport** — what a Passport is and why it matters: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
 - **How to Enroll** — templates for [OpenClaw](https://github.com/discernible-io/openclaw-agents), [Hermes](https://github.com/discernible-io/hermes-agents), and [IronClaw](https://github.com/discernible-io/ironclaw-agents/tree/feat/identyclaw-passport), plus custom/plugin paths
 - **Developers** — full IdentyClaw open-source stack (templates, plugins, [rodit-sdk](https://github.com/discernible-io/rodit-sdk), [api-test-scaffold](https://github.com/discernible-io/api-test-scaffold), [gennearaccount](https://github.com/discernible-io/gennearaccount), [api-scaffold-federated-rodit-auth](https://github.com/discernible-io/api-scaffold-federated-rodit-auth))
 - **Last Cradle** — [Synthetics' Last Cradle](https://lastcradle.io/about) overview with links to join, watch, prizes, and the game API

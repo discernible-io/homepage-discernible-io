@@ -109,7 +109,7 @@ telegramConciergeLinks.forEach((link) => {
  const FUNNEL_CTA_PREFIXES = [
  'https://purchase.identyclaw.com',
  'https://verify.identyclaw.com',
- 'https://lastcradle.io/enroll'
+ 'https://lastcradle.io'
  ];
  // Same-origin marketing pages — preserve UTMs + funnel_id across page hops.
  const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers|lastcradle)\.html(?:[?#]|$)/i;
