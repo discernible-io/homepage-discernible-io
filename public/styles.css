@@ -317,25 +317,6 @@ body {
  background: var(--bg-alt);
 }
 
-.lastcradle-section {
- background: var(--bg-alt);
-}
-
-.lastcradle-play-section {
- background: var(--white);
-}
-
-.lastcradle-cta {
- max-width: 28rem;
- margin: 0 auto 0.5rem;
-}
-
-.lastcradle-section .section-lead a,
-.lastcradle-play-section .section-lead a {
- color: var(--primary-color);
- font-weight: 600;
-}
-
 .prize-flash {
  max-width: 40rem;
  margin: 0 auto 1.5rem;

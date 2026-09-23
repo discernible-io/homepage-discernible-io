@@ -6,10 +6,10 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 
 - [x] `public/robots.txt` + `public/sitemap.xml`
 - [x] Deploy workflow copies robots/sitemap
-- [x] Canonical `<link>` on index, developers, lastcradle
+- [x] Canonical `<link>` on index, developers
 - [x] JSON-LD (`SoftwareApplication` / `WebPage` + Organization)
 - [x] Tightened title + meta description (home)
-- [x] One `<h1>` per page on developers + lastcradle
+- [x] One `<h1>` per page on developers
 
 ## Still to do (manual / later)
 
@@ -25,7 +25,7 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 - [ ] Confirm `og-image.png` is a clear 1200×630 product/brand graphic (not a sparse logo-only crop)
 
 ### URLs & structure
-- [ ] Optional: clean paths (`/developers`, `/lastcradle`) via folder `index.html` + 301 from `.html`
+- [ ] Optional: clean paths (`/developers`) via folder `index.html` + 301 from `.html`
 - [ ] If clean URLs ship, update sitemap, canonicals, og:url, and all internal links
 
 ### Performance

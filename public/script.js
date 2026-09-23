@@ -112,7 +112,7 @@ telegramConciergeLinks.forEach((link) => {
  'https://lastcradle.io'
  ];
  // Same-origin marketing pages — preserve UTMs + funnel_id across page hops.
- const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers|lastcradle)\.html(?:[?#]|$)/i;
+ const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers)\.html(?:[?#]|$)/i;
 
  const inbound = new URLSearchParams(window.location.search);
  const attribution = new URLSearchParams();
