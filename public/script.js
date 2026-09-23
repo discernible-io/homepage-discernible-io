@@ -93,8 +93,8 @@ telegramConciergeLinks.forEach((link) => {
 });
 
 /**
- * Cookieless funnel CTA hygiene (land → purchase / enroll).
- * Sibling contract: idclawserver-idc content/developer-growth-plan.md + src/lib/funnel.js
+ * Cookieless funnel CTA hygiene (land → purchase / verify / enroll).
+ * Sibling contract: docs/docs/funnel-standard.md (SoT) + home-API src/lib/funnel.js
  * Attribution stays in the URL / request query only — no stitching cookies or visitor storage.
  */
 (function attachFunnelAttribution() {
@@ -105,6 +105,15 @@ telegramConciergeLinks.forEach((link) => {
  'utm_content',
  'utm_term'
  ];
+ const ALLOWED_LAND_DOMAINS = new Set(['www.discernible.io', 'discernible.io']);
+ const FUNNEL_CTA_PREFIXES = [
+ 'https://purchase.identyclaw.com',
+ 'https://verify.identyclaw.com',
+ 'https://lastcradle.io/enroll'
+ ];
+ // Same-origin marketing pages — preserve UTMs + funnel_id across page hops.
+ const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers|lastcradle)\.html(?:[?#]|$)/i;
+
  const inbound = new URLSearchParams(window.location.search);
  const attribution = new URLSearchParams();
 
@@ -131,25 +140,43 @@ telegramConciergeLinks.forEach((link) => {
  window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
  }
 
- const CTA_SELECTOR =
- 'a[href^="https://purchase.identyclaw.com"], a[href^="https://lastcradle.io/enroll"]';
-
- document.querySelectorAll(CTA_SELECTOR).forEach((anchor) => {
- try {
- const target = new URL(anchor.href);
+ function applyAttribution(href) {
+ const absolute = new URL(href, window.location.href);
  attribution.forEach((value, key) => {
- if (!target.searchParams.has(key)) {
- target.searchParams.set(key, value);
+ if (!absolute.searchParams.has(key)) {
+ absolute.searchParams.set(key, value);
  }
  });
- anchor.href = target.toString();
+ if (!/^https?:\/\//i.test(href)) {
+ const pathOnly = href.split(/[?#]/)[0];
+ return pathOnly + absolute.search + absolute.hash;
+ }
+ return absolute.toString();
+ }
+
+ function isFunnelCta(href) {
+ return FUNNEL_CTA_PREFIXES.some((prefix) => href.startsWith(prefix));
+ }
+
+ document.querySelectorAll('a[href]').forEach((anchor) => {
+ const raw = (anchor.getAttribute('href') || '').trim();
+ if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) {
+ return;
+ }
+ try {
+ if (isFunnelCta(raw) || INTERNAL_PAGE_RE.test(raw)) {
+ anchor.href = applyAttribution(raw);
+ }
  } catch {
  // Ignore malformed hrefs
  }
  });
 
+ const host = (window.location.hostname || '').toLowerCase();
+ const domain = ALLOWED_LAND_DOMAINS.has(host) ? host : 'www.discernible.io';
+
  const land = new URL('https://api.identyclaw.com/api/funnel/land');
- land.searchParams.set('domain', 'www.discernible.io');
+ land.searchParams.set('domain', domain);
  land.searchParams.set('step', 'land');
  attribution.forEach((value, key) => {
  land.searchParams.set(key, value);
