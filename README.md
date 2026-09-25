@@ -8,18 +8,18 @@ A modern, responsive static homepage for [IdentyClaw](https://www.discernible.io
 
 The live site at [discernible.io](https://www.discernible.io) includes:
 
-- **Use Cases** — why Passports matter: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
+- **Passport** — what a Passport is and why it matters: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
 - **How to Enroll** — templates for [OpenClaw](https://github.com/discernible-io/openclaw-agents), [Hermes](https://github.com/discernible-io/hermes-agents), and [IronClaw](https://github.com/discernible-io/ironclaw-agents/tree/feat/identyclaw-passport), plus custom/plugin paths
 - **Developers** — full IdentyClaw open-source stack (templates, plugins, [rodit-sdk](https://github.com/discernible-io/rodit-sdk), [api-test-scaffold](https://github.com/discernible-io/api-test-scaffold), [gennearaccount](https://github.com/discernible-io/gennearaccount), [api-scaffold-federated-rodit-auth](https://github.com/discernible-io/api-scaffold-federated-rodit-auth))
 - **Last Cradle** — [Synthetics' Last Cradle](https://lastcradle.io/about) overview with links to join, watch, prizes, and the game API
 - **Powered by RODiT** — protocol layer with link to the [rodit-sdk](https://github.com/discernible-io/rodit-sdk) monorepo
 - **Contact** — newsletter, concierge, GitHub org, API docs
 
-Source files live under `public/` (`index.html`, `developers.html`, `lastcradle.html`, `styles.css`, `script.js`).
+Source files live under `public/` (`index.html`, `developers.html`, `styles.css`, `script.js`).
 
 ## Funnel attribution (cookieless)
 
-Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io/enroll` preserve inbound `utm_*` and an optional `funnel_id` (minted into the URL when absent). Same-origin hops (`index.html` / `developers.html` / `lastcradle.html`) keep those query params so multi-page browsing does not mint a new stitch id. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
+Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and an optional `funnel_id` (minted into the URL when absent). Same-origin hops (`index.html` / `developers.html`) keep those query params so multi-page browsing does not mint a new stitch id. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
 
 ## 🚀 Features
 
