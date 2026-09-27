@@ -95,7 +95,8 @@ telegramConciergeLinks.forEach((link) => {
 /**
  * Cookieless funnel CTA hygiene (land → purchase / verify / enroll).
  * Sibling contract: docs/docs/funnel-standard.md (SoT) + home-API src/lib/funnel.js
- * Attribution stays in the URL / request query only — no stitching cookies or visitor storage.
+ * The stitch id lives in sessionStorage for this tab only. It is not written into
+ * the address bar or into copyable hrefs, so a shared link cannot merge later visitors.
  */
 (function attachFunnelAttribution() {
  const UTM_KEYS = [
@@ -105,44 +106,63 @@ telegramConciergeLinks.forEach((link) => {
  'utm_content',
  'utm_term'
  ];
+ const FUNNEL_PARAM_KEYS = ['funnel_id', 'vid'];
+ const STORAGE_KEY = 'funnel_id';
  const ALLOWED_LAND_DOMAINS = new Set(['www.discernible.io', 'discernible.io']);
  const FUNNEL_CTA_PREFIXES = [
  'https://purchase.identyclaw.com',
  'https://verify.identyclaw.com',
  'https://lastcradle.io'
  ];
- // Same-origin marketing pages — preserve UTMs + funnel_id across page hops.
+ // Same-origin marketing pages — preserve campaign UTMs across page hops.
  const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers)\.html(?:[?#]|$)/i;
 
  const inbound = new URLSearchParams(window.location.search);
- const attribution = new URLSearchParams();
+ const campaign = new URLSearchParams();
 
  UTM_KEYS.forEach((key) => {
  const value = (inbound.get(key) || '').trim();
  if (value) {
- attribution.set(key, value);
+ campaign.set(key, value);
  }
  });
 
- let funnelId = (inbound.get('funnel_id') || inbound.get('vid') || '').trim();
+ // A funnel_id in the URL is a published stitch id. Drop it so this visit
+ // is not recorded as the visitor who first copied the link.
+ const address = new URL(window.location.href);
+ let strippedFunnelParam = false;
+ FUNNEL_PARAM_KEYS.forEach((key) => {
+ if (address.searchParams.has(key)) {
+ address.searchParams.delete(key);
+ strippedFunnelParam = true;
+ }
+ });
+ if (strippedFunnelParam) {
+ const qs = address.searchParams.toString();
+ window.history.replaceState({}, document.title, address.pathname + (qs ? `?${qs}` : '') + address.hash);
+ }
+
+ let funnelId = '';
+ try {
+ funnelId = (sessionStorage.getItem(STORAGE_KEY) || '').trim();
+ } catch {
+ funnelId = '';
+ }
  if (!funnelId) {
- // Opaque hop id in the URL only (not a cookie). crypto.randomUUID when available.
  funnelId =
  typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
  ? crypto.randomUUID()
  : `f_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+ try {
+ sessionStorage.setItem(STORAGE_KEY, funnelId);
+ } catch {
+ // Private mode: this page still beacons its own id, but hops will not stitch.
  }
- attribution.set('funnel_id', funnelId);
-
- if (!inbound.get('funnel_id')) {
- const url = new URL(window.location.href);
- url.searchParams.set('funnel_id', funnelId);
- window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
  }
 
- function applyAttribution(href) {
+ function applyParams(href, params) {
  const absolute = new URL(href, window.location.href);
- attribution.forEach((value, key) => {
+ params.forEach((value, key) => {
  if (!absolute.searchParams.has(key)) {
  absolute.searchParams.set(key, value);
  }
@@ -154,8 +174,27 @@ telegramConciergeLinks.forEach((link) => {
  return absolute.toString();
  }
 
+ function applyOutbound(href) {
+ const params = new URLSearchParams(campaign);
+ params.set('funnel_id', funnelId);
+ return applyParams(href, params);
+ }
+
  function isFunnelCta(href) {
  return FUNNEL_CTA_PREFIXES.some((prefix) => href.startsWith(prefix));
+ }
+
+ function armCta(anchor) {
+ if (!anchor.dataset.funnelCleanHref) {
+ anchor.dataset.funnelCleanHref = anchor.getAttribute('href');
+ }
+ anchor.href = applyOutbound(anchor.dataset.funnelCleanHref);
+ }
+
+ function disarmCta(anchor) {
+ if (anchor.dataset.funnelCleanHref) {
+ anchor.href = anchor.dataset.funnelCleanHref;
+ }
  }
 
  document.querySelectorAll('a[href]').forEach((anchor) => {
@@ -164,8 +203,17 @@ telegramConciergeLinks.forEach((link) => {
  return;
  }
  try {
- if (isFunnelCta(raw) || INTERNAL_PAGE_RE.test(raw)) {
- anchor.href = applyAttribution(raw);
+ if (isFunnelCta(raw)) {
+ const follow = () => {
+ armCta(anchor);
+ setTimeout(() => disarmCta(anchor), 0);
+ };
+ anchor.addEventListener('click', follow);
+ anchor.addEventListener('auxclick', follow);
+ return;
+ }
+ if (campaign.toString() && INTERNAL_PAGE_RE.test(raw)) {
+ anchor.href = applyParams(raw, campaign);
  }
  } catch {
  // Ignore malformed hrefs
@@ -178,9 +226,10 @@ telegramConciergeLinks.forEach((link) => {
  const land = new URL('https://api.identyclaw.com/api/funnel/land');
  land.searchParams.set('domain', domain);
  land.searchParams.set('step', 'land');
- attribution.forEach((value, key) => {
+ campaign.forEach((value, key) => {
  land.searchParams.set(key, value);
  });
+ land.searchParams.set('funnel_id', funnelId);
  try {
  fetch(land.toString(), {
  method: 'GET',
