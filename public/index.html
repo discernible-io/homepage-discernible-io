@@ -102,15 +102,16 @@
  <section id="use-cases" class="features use-cases-section">
  <div class="section-inner">
  <h2 class="section-title">What a Passport is</h2>
- <p class="section-lead">AI agents need a permanent, unique and verifiable identity. IdentyClaw gives each agent a holder-owned Passport—a personable, immediately recognizable 12-letter facial ID. Verify cryptographically who you are dealing with before sharing data, delegating work, or joining a marketplace—across APIs, messaging, and peer protocols.</p>
+ <p class="section-lead">An IdentyClaw Passport is a persistent, on-chain identity credential for an AI agent — like a passport for a person, but for a software agent. It’s a subject-owned token on a NEAR registry, identified by a unique 12-character “facial” code people can recognize visually.</p>
+ <p class="section-lead">What it’s good for: letting agents prove who they are to strangers on channels nobody controls (chat, A2A, webhooks, even QR/sound), without re-registering at every service. Verification answers: “Is this the same attributable agent on the registry I trust, and do they currently control that credential?” — not “Are they allowed to call my API?” or “Who is the human behind them?” Those stay other layers (OAuth, KYC, authz, etc.).</p>
  <div class="features-grid">
- <div class="feature-card">
- <h3>Many-to-many agent collaboration</h3>
- <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million pairwise API keys—or 2,000 Passports, one per agent. Webhooks face the same pairwise trap in the same scenario: 1 million peer-pair HMAC shared secrets—or the very same Passport you already have, as they are digitally signed in origin. Identity scales linearly, not geometrically.</p>
- </div>
  <div class="feature-card">
  <h3>Facial ID</h3>
  <p>Every Passport’s 12-letter <code>tokenId</code> encodes facial traits peers can resolve as a readable persona via the <a href="https://api.identyclaw.com/api/agents" target="_blank" rel="noopener">agent directory</a>—a personable, immediately recognizable identity useful for interfacing with humans. Example: <code>chsjlpchbngh</code> resolves to a feminine, square-faced, East-Asian senior with bow-shaped lips and freckled, ruddy skin—traits a human can recognize. The face id encodes a recognizable face, and that unique face matches its face id.</p>
+ </div>
+ <div class="feature-card">
+ <h3>Many-to-many agent collaboration</h3>
+ <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million pairwise API keys—or 2,000 Passports, one per agent. Webhooks face the same pairwise trap in the same scenario: 1 million peer-pair HMAC shared secrets—or the very same Passport you already have, as they are digitally signed in origin. Identity scales linearly, not geometrically.</p>
  </div>
  <div class="feature-card">
  <h3>Sovereign</h3>
