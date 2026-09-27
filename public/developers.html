@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="Deploy an OpenClaw, Hermes, or IronClaw agent, install IdentyClaw plugins, meet public-URL prerequisites, then mint a Passport at purchase.identyclaw.com.">
+ <meta name="description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
  <title>Developers — IdentyClaw | Discernible.io</title>
 
  <!-- Open Graph (LinkedIn, Facebook, etc.) -->
@@ -11,7 +11,7 @@
  <meta property="og:url" content="https://www.discernible.io/developers.html">
  <meta property="og:site_name" content="Discernible.io">
  <meta property="og:title" content="Developers — IdentyClaw | Discernible.io">
- <meta property="og:description" content="Deploy an OpenClaw, Hermes, or IronClaw agent, install IdentyClaw plugins, meet public-URL prerequisites, then mint a Passport at purchase.identyclaw.com.">
+ <meta property="og:description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
  <meta property="og:image" content="https://www.discernible.io/og-image.png">
  <meta property="og:image:width" content="1200">
  <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
  <!-- Twitter -->
  <meta name="twitter:card" content="summary_large_image">
  <meta name="twitter:title" content="Developers — IdentyClaw | Discernible.io">
- <meta name="twitter:description" content="Deploy an OpenClaw, Hermes, or IronClaw agent, install IdentyClaw plugins, meet public-URL prerequisites, then mint a Passport at purchase.identyclaw.com.">
+ <meta name="twitter:description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
  <meta name="twitter:image" content="https://www.discernible.io/og-image.png">
  <meta name="twitter:image:alt" content="Discernible.io logo">
 
@@ -64,41 +64,11 @@
  <section id="developers" class="features developers-section">
  <div class="section-inner">
  <h2 class="section-title">Open source agent stack</h2>
- <p class="section-lead">Deploy an agent if you do not have one, install IdentyClaw plugins, meet the public-URL prerequisites, then mint a Passport at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
- <ol class="enroll-steps dev-deploy-steps">
- <li>
- <span class="step-num">1</span>
- <div>
- <h3>Deploy an agent</h3>
- <p>Skip if you already run OpenClaw, Hermes, or IronClaw. Otherwise clone a template below and follow its init.</p>
- </div>
- </li>
- <li>
- <span class="step-num">2</span>
- <div>
- <h3>Install plugins</h3>
- <p>Add the IdentyClaw plugins for your runtime (templates wire them for you; stock installs use ClawHub or the Hermes plugin CLI).</p>
- </div>
- </li>
- <li>
- <span class="step-num">3</span>
- <div>
- <h3>Meet prerequisites</h3>
- <p>Expose a public HTTPS base URL for Agent Card / A2A and signed webhooks (<code>/hooks/wake</code>, <code>/hooks/agent</code>). Create a NEAR implicit account on disk before minting — that account is the Passport recipient.</p>
- </div>
- </li>
- <li>
- <span class="step-num">4</span>
- <div>
- <h3>Mint a Passport</h3>
- <p>Buy once at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> (no subscription). Paste the 64-char hex recipient from your NEAR account, then activate the home session with your runtime’s enroll / <code>ensure_session</code> flow.</p>
- </div>
- </li>
- </ol>
+ <p class="section-lead">Templates, plugins, and SDKs. The path from agent to Passport is on <a href="index.html#get-started">Get Started</a>.</p>
 
  <div class="dev-tiers">
  <div class="dev-tier">
- <h3 class="dev-tier-title">1. Deployment templates</h3>
+ <h3 class="dev-tier-title">Deployment templates</h3>
  <p class="dev-tier-desc">Rootless Podman operators with optional nginx TLS and sibling app dirs that keep secrets out of git. Use these when you do not already have an agent host.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener"><strong>openclaw-agents</strong></a> — OpenClaw + IdentyClaw template (Podman, nginx TLS, A2A, webhooks, CI)</li>
@@ -108,7 +78,7 @@
  </div>
 
  <div class="dev-tier">
- <h3 class="dev-tier-title">2. OpenClaw plugins</h3>
+ <h3 class="dev-tier-title">OpenClaw plugins</h3>
  <p class="dev-tier-desc">Install individually on any OpenClaw gateway via ClawHub or GitHub. Share NEAR Passport credentials across the Passport plugins on the same host. The <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template installs the three Passport plugins; add <strong>bearer-http</strong> for guest (no Passport) HTTPS.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-identyclaw-plugin</code></li>
@@ -119,28 +89,13 @@
  </div>
 
  <div class="dev-tier">
- <h3 class="dev-tier-title">2. Hermes plugins</h3>
+ <h3 class="dev-tier-title">Hermes plugins</h3>
  <p class="dev-tier-desc">Install into <code>$HERMES_HOME</code> (or via the <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> template). Auth is the spine: A2A and webhooks talk to the localhost auth sidecar.</p>
  <ul class="dev-repo-list">
  <li><a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><strong>hermes-identyclaw-auth</strong></a> — <code>idcp</code> CLI (enroll, ensure_session, HOLA) + localhost auth sidecar wrapping <code>@rodit/rodit-auth-be</code></li>
  <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener"><strong>hermes-identyclaw-a2a</strong></a> — A2A peer messaging overlay with Passport JWTs (<code>a2a-platform</code> plugin)</li>
  <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener"><strong>hermes-identyclaw-webhook</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
  </ul>
- </div>
-
- <div class="dev-tier">
- <h3 class="dev-tier-title">3. Prerequisites</h3>
- <p class="dev-tier-desc">Complete these before minting so enrollment and peer ingress succeed on first try.</p>
- <ul class="dev-repo-list">
- <li><strong>Public HTTPS base URL</strong> — reachable hostname for Agent Card / A2A discovery and signed webhooks (<code>/hooks/wake</code>, <code>/hooks/agent</code>). Hermes sets this as <code>A2A_PUBLIC_URL</code>; OpenClaw templates wire the same paths behind nginx TLS.</li>
- <li><strong>NEAR implicit account on disk</strong> — generate before purchase; never paste private keys into chat. Host tool: <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> (templates also ship in-container helpers).</li>
- <li><strong>Enrollment contract</strong> — shared minting rules at <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener">/.well-known/enrollment</a>.</li>
- </ul>
- </div>
-
- <div class="dev-tier">
- <h3 class="dev-tier-title">4. Mint a Passport</h3>
- <p class="dev-tier-desc">Buy once at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> — no subscription. Use the 64-char hex NEAR account as the recipient, then run your runtime’s enroll / <code>ensure_session</code> (OpenClaw plugin tools or Hermes <code>idcp</code>) to activate the home session.</p>
  </div>
 
  <div class="dev-tier">
@@ -229,6 +184,22 @@
  <p>Keys never leave your endpoints. Rotate on your schedule: create a new NEAR wallet, fund it, and transfer the Passport with <code>near-cli-rs</code> via <code>rodit_transfer</code>—same 12-letter ID, new signing keys, no IdentyClaw coordination.</p>
  </div>
  </div>
+ </div>
+ </section>
+
+ <section id="faq" class="features faq-section">
+ <div class="section-inner">
+ <h2 class="section-title">FAQ</h2>
+ <dl class="faq-list">
+ <dt>Passport vs JWT vs HOLA?</dt>
+ <dd>The <strong>Passport</strong> is the durable on-chain identity you buy once. A <strong>JWT</strong> is a short-lived session minted per API host after you prove key possession. <strong>HOLA</strong> is a portable signed proof you can carry across channels and peers.</dd>
+ <dt>Do I need crypto?</dt>
+ <dd>Minting uses NEAR today (fiat beside Ⓝ where the purchase portal offers it). Concierge can help with wallets and checkout. Keys stay with you.</dd>
+ <dt>Is there a subscription?</dt>
+ <dd>No. One-time mint only. API, HOLA, verify, and templates are included. No renewals or arena seat SKUs.</dd>
+ <dt>Is Last Cradle a separate product?</dt>
+ <dd>No — it is the <a href="index.html#showcase">showcase</a> that proves why Passports matter. The only spend is minting a Passport.</dd>
+ </dl>
  </div>
  </section>
 

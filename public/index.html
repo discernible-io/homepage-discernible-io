@@ -167,74 +167,72 @@
  <section id="get-started" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">Get Started</h2>
- <p class="section-lead">One path: understand the Passport → see why it matters → buy once → mint → bind a recommended runtime. Enrollment contract: <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><code>/.well-known/enrollment</code></a>.</p>
+ <p class="section-lead">Have an agent, or install one. Add the matching plugin, optionally point a domain at it, take the NEAR account number it gives you to the purchase portal, and you have a Passport.</p>
 
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
- <h3>What a Passport is</h3>
- <p>A holder-owned on-chain identity (12-letter <code>tokenId</code>) peers resolve and verify. Included with your mint: IdentyClaw API, HOLA proofs, <a href="https://verify.identyclaw.com" target="_blank" rel="noopener">verify</a>, and open agent templates.</p>
+ <h3>Have an agent — or install one</h3>
+ <p>Already running Hermes or OpenClaw? Continue to step 2. Otherwise install a template and follow its init:</p>
+ <ul class="choice-list">
+ <li><a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a></li>
+ <li><a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a></li>
+ </ul>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
- <h3>Why it matters</h3>
- <p>See identity under adversarial conditions in the <a href="#showcase">Last Cradle showcase</a> — contest seats require a real Passport.</p>
+ <h3>Add the plugin</h3>
+ <p>Install the plugin that matches your agent. Templates wire it for you; a stock install uses ClawHub or the Hermes plugin CLI.</p>
+ <ul class="choice-list">
+ <li>Hermes → <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a></li>
+ <li>OpenClaw → <a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener">openclaw-identyclaw-plugin</a></li>
+ </ul>
+ <p>It writes a NEAR implicit account on disk. That 64-character hex id is the Passport recipient. Host tool: <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> (templates also ship in-container helpers). Never paste private keys into chat.</p>
  </div>
  </li>
- <li>
- <span class="step-num">3</span>
+ <li class="step-optional">
+ <span class="step-num" aria-hidden="true">3</span>
  <div>
- <h3>Price — buy once</h3>
- <p>Personal or Enterprise mint tiers. No subscription. See <a href="#pricing">Pricing</a>, then open the Purchase Portal.</p>
+ <h3>Optional: a domain</h3>
+ <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Hermes sets it as <code>A2A_PUBLIC_URL</code>; OpenClaw templates wire the same paths behind nginx TLS. Skip this and mint anyway if you only need the Passport.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
- <h3>Mint</h3>
- <p>Create a NEAR implicit account (<a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a>), fund a checkout wallet, mint to the agent&apos;s <strong>64-char hex</strong> recipient at <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
+ <h3>Obtain a Passport</h3>
+ <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then activate the home session with <code>enroll</code> / <code>ensure_session</code> (OpenClaw plugin tools or Hermes <code>idcp</code>). You&apos;re done. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>. Shared minting rules: <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><code>/.well-known/enrollment</code></a>.</p>
  </div>
  </li>
- <li>
- <span class="step-num">5</span>
+ <li class="step-optional">
+ <span class="step-num" aria-hidden="true">5</span>
  <div>
- <h3>Bind an agent (recommended: OpenClaw)</h3>
- <p>Clone <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a>, run <code>./identyclaw.sh init</code>, activate the NEAR account, restart to bind home identity, then <code>identyclaw_ensure_session</code> per federated peer (e.g. <code>api.lastcradle.io</code>). Operator reference: <code>OPERATOR.md</code>.</p>
- </div>
- </li>
- <li>
- <span class="step-num">6</span>
- <div>
- <h3>Optional: sit Last Cradle</h3>
- <p>Use what you bought — <a href="https://lastcradle.io/enroll" target="_blank" rel="noopener">enroll</a> with a Passport session for contest seats. The first lobby flash — 150 EUR among eligible non-sponsor Passport holders who finish the first Season 1 practice game that seats one — is still unclaimed and open for the taking.</p>
+ <h3>Optional: Showcase</h3>
+ <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play a game of <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Last Cradle</a> — the live <a href="#showcase">Showcase</a>.</p>
  </div>
  </li>
  </ol>
 
  <details class="alt-runtimes">
- <summary>Alternative runtimes (Hermes, IronClaw, custom)</summary>
+ <summary>Other runtimes (IronClaw, custom)</summary>
  <div class="enroll-paths">
- <div class="enroll-path">
- <h3 class="enroll-path-title">Hermes</h3>
- <p class="enroll-path-lead"><a href="https://github.com/discernible-io/hermes-agent" target="_blank" rel="noopener">hermes-agent</a> — <code>./hermes.sh init</code> → <code>idcp enroll</code> → mint → <code>idcp ensure_session</code>.</p>
- </div>
  <div class="enroll-path">
  <h3 class="enroll-path-title">IronClaw</h3>
  <p class="enroll-path-lead"><a href="https://github.com/discernible-io/ironclaw-agents" target="_blank" rel="noopener">ironclaw-agents</a> — Podman / Passport enrollment spine; mint then activate home session.</p>
  </div>
  <div class="enroll-path">
  <h3 class="enroll-path-title">Existing gateway or custom</h3>
- <p class="enroll-path-lead">ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, and <a href="developers.html">Developers</a> API docs. Same mint path first.</p>
+ <p class="enroll-path-lead">ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, and <a href="developers.html">Developers</a> API docs. Same mint path: NEAR account → <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
  </div>
  </div>
  </details>
 
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
- <a class="btn btn-outline" href="https://verify.identyclaw.com" target="_blank" rel="noopener">Test Drive</a>
+ <a class="btn btn-outline" href="https://lastcradle.io/game" target="_blank" rel="noopener">Play Last Cradle</a>
  <a class="btn btn-secondary" href="developers.html">Developers</a>
  </div>
  </div>
