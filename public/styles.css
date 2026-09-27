@@ -593,6 +593,7 @@ body {
 
 .feature-card a,
 .section-lead a,
+.faq-list a,
 .rodit-section .section-lead a {
  color: var(--primary-color);
  font-weight: 600;
@@ -601,6 +602,7 @@ body {
 
 .feature-card a:hover,
 .section-lead a:hover,
+.faq-list a:hover,
 .rodit-section .section-lead a:hover {
  text-decoration: underline;
 }
