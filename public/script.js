@@ -178,6 +178,11 @@ telegramConciergeLinks.forEach((link) => {
  // Always overwrite a shared leftover with this tab's id.
  absolute.searchParams.set('funnel_id', funnelId);
  absolute.searchParams.delete('vid');
+ // Marketing CTAs always open Expert. A bare verify URL follows
+ // localStorage (identyclaw.verify.audience), which can be Guru.
+ if (absolute.hostname === 'verify.identyclaw.com') {
+ absolute.searchParams.set('view', 'expert');
+ }
  if (!/^https?:\/\//i.test(href)) {
  const pathOnly = href.split(/[?#]/)[0];
  return pathOnly + absolute.search + absolute.hash;
