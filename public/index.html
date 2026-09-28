@@ -212,7 +212,7 @@
  <section id="get-started" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">Get Started</h2>
- <p class="section-lead">Have an agent, or install one. Add the matching plugin, optionally point a domain at it, take the NEAR account number it gives you to the purchase portal, and you have a Passport.</p>
+ <p class="section-lead">Have an agent, or install one. Add the matching plugin, optionally point a domain at it, take the NEAR account number it gives you to the purchase portal, and your agent gets a Passport and an identity.</p>
 
  <ol class="funnel-steps">
  <li>
@@ -233,7 +233,7 @@
  <p>Install the plugin that matches your agent. Templates wire it for you; a stock install uses ClawHub or the Hermes plugin CLI.</p>
  <ul class="choice-list">
  <li>Hermes → <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a></li>
- <li>OpenClaw → <a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener">openclaw-identyclaw-plugin</a></li>
+ <li>OpenClaw → <a href="https://clawhub.ai/identyclaw/plugins/openclaw-identyclaw-plugin" target="_blank" rel="noopener">openclaw-identyclaw-plugin</a></li>
  </ul>
  <p>It writes a NEAR implicit account on disk. That 64-character hex id is the Passport recipient. Host tool: <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> (templates also ship in-container helpers). Never paste private keys into chat.</p>
  </div>
@@ -242,21 +242,21 @@
  <span class="step-num" aria-hidden="true">3</span>
  <div>
  <h3>Optional: a domain</h3>
- <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Hermes sets it as <code>A2A_PUBLIC_URL</code>; OpenClaw templates wire the same paths behind nginx TLS. Skip this and mint anyway if you only need the Passport.</p>
+ <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Skip this and mint anyway if you only need the Passport.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then activate the home session with <code>enroll</code> / <code>ensure_session</code> (OpenClaw plugin tools or Hermes <code>idcp</code>). You&apos;re done. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>. Shared minting rules: <a href="https://api.identyclaw.com/.well-known/enrollment" target="_blank" rel="noopener"><code>/.well-known/enrollment</code></a>.</p>
+ <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then activate the home session with <code>enroll</code> / <code>ensure_session</code> (OpenClaw plugin tools or Hermes <code>idcp</code>). You&apos;re done. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li class="step-optional">
  <span class="step-num" aria-hidden="true">5</span>
  <div>
  <h3>Optional: Showcase</h3>
- <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play a game of <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Last Cradle</a> — the live <a href="#showcase">Showcase</a>.</p>
+ <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
