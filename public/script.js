@@ -95,8 +95,9 @@ telegramConciergeLinks.forEach((link) => {
 /**
  * Cookieless funnel CTA hygiene (land → purchase / verify / enroll).
  * Sibling contract: docs/docs/funnel-standard.md (SoT) + home-API src/lib/funnel.js
- * The stitch id lives in sessionStorage for this tab only. It is not written into
- * the address bar or into copyable hrefs, so a shared link cannot merge later visitors.
+ * Each browser tab gets its own funnel_id (sessionStorage). It is written into the
+ * address bar and CTA / internal hrefs. Inbound funnel_id / vid from a shared URL
+ * are ignored so later visitors are not stitched to the person who copied the link.
  */
 (function attachFunnelAttribution() {
  const UTM_KEYS = [
@@ -106,7 +107,6 @@ telegramConciergeLinks.forEach((link) => {
  'utm_content',
  'utm_term'
  ];
- const FUNNEL_PARAM_KEYS = ['funnel_id', 'vid'];
  const STORAGE_KEY = 'funnel_id';
  const ALLOWED_LAND_DOMAINS = new Set(['www.discernible.io', 'discernible.io']);
  const FUNNEL_CTA_PREFIXES = [
@@ -114,34 +114,36 @@ telegramConciergeLinks.forEach((link) => {
  'https://verify.identyclaw.com',
  'https://lastcradle.io'
  ];
- // Same-origin marketing pages — preserve campaign UTMs across page hops.
- const INTERNAL_PAGE_RE = /^(?:\.\/)?(?:index|developers)\.html(?:[?#]|$)/i;
+ // Same-origin marketing pages — preserve UTMs + this tab's funnel_id across hops.
+ function isInternalMarketingPage(href) {
+ try {
+ const absolute = new URL(href, window.location.href);
+ if (absolute.origin !== window.location.origin) {
+ return false;
+ }
+ const path = absolute.pathname.replace(/\/+$/, '') || '/';
+ return (
+ path === '/' ||
+ path === '/index.html' ||
+ path === '/developers' ||
+ path === '/developers.html'
+ );
+ } catch {
+ return false;
+ }
+ }
 
  const inbound = new URLSearchParams(window.location.search);
- const campaign = new URLSearchParams();
+ const attribution = new URLSearchParams();
 
  UTM_KEYS.forEach((key) => {
  const value = (inbound.get(key) || '').trim();
  if (value) {
- campaign.set(key, value);
+ attribution.set(key, value);
  }
  });
 
- // A funnel_id in the URL is a published stitch id. Drop it so this visit
- // is not recorded as the visitor who first copied the link.
- const address = new URL(window.location.href);
- let strippedFunnelParam = false;
- FUNNEL_PARAM_KEYS.forEach((key) => {
- if (address.searchParams.has(key)) {
- address.searchParams.delete(key);
- strippedFunnelParam = true;
- }
- });
- if (strippedFunnelParam) {
- const qs = address.searchParams.toString();
- window.history.replaceState({}, document.title, address.pathname + (qs ? `?${qs}` : '') + address.hash);
- }
-
+ // Never adopt funnel_id / vid from the landing URL — those are share leftovers.
  let funnelId = '';
  try {
  funnelId = (sessionStorage.getItem(STORAGE_KEY) || '').trim();
@@ -156,17 +158,26 @@ telegramConciergeLinks.forEach((link) => {
  try {
  sessionStorage.setItem(STORAGE_KEY, funnelId);
  } catch {
- // Private mode: this page still beacons its own id, but hops will not stitch.
+ // Private mode: this page still beacons its own id; hops may not stitch.
  }
  }
+ attribution.set('funnel_id', funnelId);
 
- function applyParams(href, params) {
+ const url = new URL(window.location.href);
+ url.searchParams.delete('vid');
+ url.searchParams.set('funnel_id', funnelId);
+ window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
+
+ function applyAttribution(href) {
  const absolute = new URL(href, window.location.href);
- params.forEach((value, key) => {
+ attribution.forEach((value, key) => {
  if (!absolute.searchParams.has(key)) {
  absolute.searchParams.set(key, value);
  }
  });
+ // Always overwrite a shared leftover with this tab's id.
+ absolute.searchParams.set('funnel_id', funnelId);
+ absolute.searchParams.delete('vid');
  if (!/^https?:\/\//i.test(href)) {
  const pathOnly = href.split(/[?#]/)[0];
  return pathOnly + absolute.search + absolute.hash;
@@ -174,27 +185,8 @@ telegramConciergeLinks.forEach((link) => {
  return absolute.toString();
  }
 
- function applyOutbound(href) {
- const params = new URLSearchParams(campaign);
- params.set('funnel_id', funnelId);
- return applyParams(href, params);
- }
-
  function isFunnelCta(href) {
  return FUNNEL_CTA_PREFIXES.some((prefix) => href.startsWith(prefix));
- }
-
- function armCta(anchor) {
- if (!anchor.dataset.funnelCleanHref) {
- anchor.dataset.funnelCleanHref = anchor.getAttribute('href');
- }
- anchor.href = applyOutbound(anchor.dataset.funnelCleanHref);
- }
-
- function disarmCta(anchor) {
- if (anchor.dataset.funnelCleanHref) {
- anchor.href = anchor.dataset.funnelCleanHref;
- }
  }
 
  document.querySelectorAll('a[href]').forEach((anchor) => {
@@ -203,17 +195,8 @@ telegramConciergeLinks.forEach((link) => {
  return;
  }
  try {
- if (isFunnelCta(raw)) {
- const follow = () => {
- armCta(anchor);
- setTimeout(() => disarmCta(anchor), 0);
- };
- anchor.addEventListener('click', follow);
- anchor.addEventListener('auxclick', follow);
- return;
- }
- if (campaign.toString() && INTERNAL_PAGE_RE.test(raw)) {
- anchor.href = applyParams(raw, campaign);
+ if (isFunnelCta(raw) || isInternalMarketingPage(raw)) {
+ anchor.href = applyAttribution(raw);
  }
  } catch {
  // Ignore malformed hrefs
@@ -226,10 +209,9 @@ telegramConciergeLinks.forEach((link) => {
  const land = new URL('https://api.identyclaw.com/api/funnel/land');
  land.searchParams.set('domain', domain);
  land.searchParams.set('step', 'land');
- campaign.forEach((value, key) => {
+ attribution.forEach((value, key) => {
  land.searchParams.set(key, value);
  });
- land.searchParams.set('funnel_id', funnelId);
  try {
  fetch(land.toString(), {
  method: 'GET',
@@ -240,5 +222,79 @@ telegramConciergeLinks.forEach((link) => {
  }).catch(() => {});
  } catch {
  // Best-effort beacon; CTA query params still carry attribution
+ }
+})();
+
+/**
+ * Load jQuery + Mailchimp validate only when the newsletter is near the viewport
+ * (or when the user focuses the email field), so hero LCP is not blocked.
+ */
+(function lazyLoadMailchimp() {
+ const shell = document.getElementById('mc_embed_shell');
+ if (!shell) {
+ return;
+ }
+
+ let started = false;
+
+ function loadScript(src, attrs) {
+ return new Promise((resolve, reject) => {
+ const el = document.createElement('script');
+ el.src = src;
+ el.async = true;
+ if (attrs) {
+ Object.keys(attrs).forEach((key) => {
+ el.setAttribute(key, attrs[key]);
+ });
+ }
+ el.onload = () => resolve(el);
+ el.onerror = () => reject(new Error('Failed to load ' + src));
+ document.body.appendChild(el);
+ });
+ }
+
+ function initMailchimp() {
+ window.fnames = window.fnames || [];
+ window.ftypes = window.ftypes || [];
+ window.fnames[0] = 'EMAIL';
+ window.ftypes[0] = 'email';
+ if (window.jQuery) {
+ window.$mcj = window.jQuery.noConflict(true);
+ }
+ }
+
+ function load() {
+ if (started) {
+ return;
+ }
+ started = true;
+ loadScript('https://code.jquery.com/jquery-3.7.1.min.js', {
+ integrity: 'sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=',
+ crossorigin: 'anonymous'
+ })
+ .then(() =>
+ loadScript('https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js')
+ )
+ .then(initMailchimp)
+ .catch(() => {
+ // Newsletter still posts to Mailchimp without client-side validate.
+ });
+ }
+
+ shell.addEventListener('focusin', load, { once: true });
+
+ if ('IntersectionObserver' in window) {
+ const observer = new IntersectionObserver(
+ (entries) => {
+ if (entries.some((entry) => entry.isIntersecting)) {
+ observer.disconnect();
+ load();
+ }
+ },
+ { rootMargin: '200px 0px' }
+ );
+ observer.observe(shell);
+ } else {
+ load();
  }
 })();

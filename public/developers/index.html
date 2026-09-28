@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
+ <title>Developers — IdentyClaw | Discernible.io</title>
+
+ <!-- Open Graph (LinkedIn, Facebook, etc.) -->
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://www.discernible.io/developers/">
+ <meta property="og:site_name" content="Discernible.io">
+ <meta property="og:title" content="Developers — IdentyClaw | Discernible.io">
+ <meta property="og:description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
+ <link rel="canonical" href="https://www.discernible.io/developers/">
+ <meta property="og:image" content="https://www.discernible.io/og-image.png">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="Discernible.io — IdentyClaw Passport">
+
+ <!-- Twitter -->
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="Developers — IdentyClaw | Discernible.io">
+ <meta name="twitter:description" content="Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.">
+ <meta name="twitter:image" content="https://www.discernible.io/og-image.png">
+ <meta name="twitter:image:alt" content="Discernible.io — IdentyClaw Passport">
+
+ <link rel="icon" href="/favicon.ico">
+ <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+ <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+ <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png">
+ <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256x256.png">
+ <link rel="apple-touch-icon" sizes="128x128" href="/favicon-128x128.png">
+ <link rel="manifest" href="/site.webmanifest">
+ <meta name="theme-color" content="#FF4500">
+
+ <link rel="stylesheet" href="/styles.css">
+ <script type="application/ld+json">
+ {
+ "@context": "https://schema.org",
+ "@graph": [
+ {
+ "@type": "Organization",
+ "@id": "https://www.discernible.io/#organization",
+ "name": "Discernible.io",
+ "url": "https://www.discernible.io/",
+ "logo": "https://www.discernible.io/logo.png"
+ },
+ {
+ "@type": "WebPage",
+ "@id": "https://www.discernible.io/developers/",
+ "url": "https://www.discernible.io/developers/",
+ "name": "Developers — IdentyClaw | Discernible.io",
+ "description": "Open-source IdentyClaw templates, plugins, and SDKs for OpenClaw, Hermes, and IronClaw.",
+ "isPartOf": { "@id": "https://www.discernible.io/#organization" },
+ "publisher": { "@id": "https://www.discernible.io/#organization" }
+ },
+ {
+ "@type": "FAQPage",
+ "@id": "https://www.discernible.io/developers/#faq",
+ "url": "https://www.discernible.io/developers/#faq",
+ "mainEntity": [
+ {
+ "@type": "Question",
+ "name": "Passport vs JWT vs HOLA?",
+ "acceptedAnswer": {
+ "@type": "Answer",
+ "text": "The Passport is the durable on-chain identity you buy once. A JWT is a short-lived session minted per API host after you prove key possession. HOLA is a portable signed proof you can carry across channels and peers."
+ }
+ },
+ {
+ "@type": "Question",
+ "name": "Do I need crypto?",
+ "acceptedAnswer": {
+ "@type": "Answer",
+ "text": "Minting uses NEAR today (fiat beside NEAR where the purchase portal offers it). Concierge can help with wallets and checkout. Keys stay with you."
+ }
+ },
+ {
+ "@type": "Question",
+ "name": "Is there a subscription?",
+ "acceptedAnswer": {
+ "@type": "Answer",
+ "text": "No. One-time mint only. API, HOLA, verify, and templates are included. No renewals or arena seat SKUs."
+ }
+ },
+ {
+ "@type": "Question",
+ "name": "Is Last Cradle a separate product?",
+ "acceptedAnswer": {
+ "@type": "Answer",
+ "text": "No — it is the showcase that proves why Passports matter. The only spend is minting a Passport."
+ }
+ }
+ ]
+ }
+ ]
+ }
+ </script>
+</head>
+<body>
+ <div class="container">
+ <header>
+ <nav class="navbar" aria-label="Main">
+ <div class="logo">
+ <a href="/"><img src="/logo.png" alt="Discernible.io"></a>
+ </div>
+ <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+ <span class="nav-toggle-bar"></span>
+ <span class="nav-toggle-bar"></span>
+ <span class="nav-toggle-bar"></span>
+ </button>
+ <ul class="nav-links" id="site-nav">
+ <li><a href="/#use-cases">Passport</a></li>
+ <li><a href="https://verify.identyclaw.com" target="_blank" rel="noopener">Test Drive</a></li>
+ <li><a href="https://lastcradle.io/" target="_blank" rel="noopener">Showcase</a></li>
+ <li><a href="/#get-started">Get Started</a></li>
+ <li><a href="/developers/" aria-current="page">Developers</a></li>
+ <li><a href="#contact">Contact</a></li>
+ </ul>
+ </nav>
+ </header>
+
+ <main id="top">
+ <section id="developers" class="features developers-section">
+ <div class="section-inner">
+ <h1 class="section-title">Open source agent stack</h1>
+ <p class="section-lead">Templates, plugins, and SDKs. The path from agent to Passport is on <a href="/#get-started">Get Started</a>.</p>
+
+ <div class="dev-tiers">
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Deployment templates</h3>
+ <p class="dev-tier-desc">Rootless Podman operators with optional nginx TLS and sibling app dirs that keep secrets out of git. Use these when you do not already have an agent host.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener"><strong>openclaw-agents</strong></a> — OpenClaw + IdentyClaw template (Podman, nginx TLS, A2A, webhooks, CI)</li>
+ <li><a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener"><strong>hermes-agents</strong></a> — Hermes + IdentyClaw template (Podman, nginx TLS, webhooks, CI)</li>
+ <li><a href="https://github.com/discernible-io/ironclaw-agents" target="_blank" rel="noopener"><strong>ironclaw-agents</strong></a> — IronClaw Agent OS + IdentyClaw template (Podman, nginx TLS, webhooks, CI)</li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">OpenClaw plugins</h3>
+ <p class="dev-tier-desc">Install individually on any OpenClaw gateway via ClawHub or GitHub. Share NEAR Passport credentials across the Passport plugins on the same host. The <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template installs the three Passport plugins; add <strong>bearer-http</strong> for guest (no Passport) HTTPS.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-plugin</strong></a> — API login, HOLA, identity, DID (<code>identyclaw_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-identyclaw-plugin</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-a2a-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-a2a-plugin</strong></a> — A2A peer messaging with Passport JWTs (<code>a2a_*</code> tools) · ClawHub: <code>@identyclaw/openclaw-a2a-plugin</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-webhooks-plugin</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code> · ClawHub: <code>@identyclaw/openclaw-identyclaw-webhooks-plugin</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-httpbearer-plugin" target="_blank" rel="noopener"><strong>openclaw-identyclaw-httpbearer-plugin</strong></a> — guest / no-Passport HTTPS: opaque JWT storage + allowlisted <code>http_request</code> (<code>bearer-http</code>) · ClawHub: <code>@identyclaw/openclaw-identyclaw-httpbearer-plugin</code></li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Hermes plugins</h3>
+ <p class="dev-tier-desc">Install into <code>$HERMES_HOME</code> (or via the <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> template). Auth is the spine: A2A and webhooks talk to the localhost auth sidecar.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><strong>hermes-identyclaw-auth</strong></a> — <code>idcp</code> CLI (enroll, ensure_session, HOLA) + localhost auth sidecar wrapping <code>@rodit/rodit-auth-be</code></li>
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener"><strong>hermes-identyclaw-a2a</strong></a> — A2A peer messaging overlay with Passport JWTs (<code>a2a-platform</code> plugin)</li>
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener"><strong>hermes-identyclaw-webhook</strong></a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
+ </ul>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">SDKs, peer APIs &amp; test harness</h3>
+ <p class="dev-tier-desc">Build RODiT-authenticated APIs and gate deploys against live contracts. Authoritative API docs: <a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">api.identyclaw.com/docs</a>.</p>
+ <ul class="dev-repo-list">
+ <li><a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener"><strong>rodit-sdk</strong></a> — monorepo for <code>@rodit/rodit-auth-be</code> (Express login/JWT/webhooks), <code>@rodit/rodit-auth-fe</code> (browser/NEP-413), and <code>@rodit/verify-hola</code></li>
+ <li><a href="https://github.com/discernible-io/api-scaffold-federated-rodit-auth" target="_blank" rel="noopener"><strong>api-scaffold-federated-rodit-auth</strong></a> — federated peer API scaffold on <code>@rodit/rodit-auth-be</code> (Passport login → peer JWT; keep auth spine, replace sample CRUDA)</li>
+ <li><a href="https://github.com/discernible-io/api-test-scaffold" target="_blank" rel="noopener"><strong>api-test-scaffold</strong></a> — client-side RODiT test harness: smoke on <code>main</code>, full home matrix on <code>development</code>, and SLC game API (<code>slc</code>)</li>
+ </ul>
+ </div>
+ </div>
+ <pre class="dev-arch" aria-label="Production gateway layout"><code>Internet → nginx :9443 (TLS)
+  ├── GET  /.well-known/agent-card.json
+  ├── POST /a2a                 ← Passport JWT (A2A plugin)
+  └── POST /hooks/wake|agent    ← RODiT signature (webhooks plugin)
+        ↓
+  Runtime gateway (OpenClaw / Hermes / IronClaw) + IdentyClaw auth</code></pre>
+ <div class="cta-buttons">
+ <a class="btn btn-primary" href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">OpenClaw template</a>
+ <a class="btn btn-outline" href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">Hermes template</a>
+ <a class="btn btn-secondary" href="https://github.com/discernible-io/ironclaw-agents" target="_blank" rel="noopener">IronClaw template</a>
+ </div>
+ </div>
+ </section>
+
+ <section id="api-docs" class="features developers-section api-docs-section">
+ <div class="section-inner">
+ <h2 class="section-title">API documentation</h2>
+ <p class="section-lead">Authoritative IdentyClaw API docs live at <a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">api.identyclaw.com/docs</a> (browser portal, OpenAPI, MCP cheat sheet). Use that portal for onboarding; register <code>https://api.identyclaw.com/mcp</code> when your agent or IDE already speaks Model Context Protocol.</p>
+
+ <div class="dev-tiers">
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Two lanes — do not mix them</h3>
+ <p class="dev-tier-desc">The #1 source of integration bugs is using JWT signing rules for HOLA (or vice versa). Full endpoint detail is in OpenAPI and the login guide.</p>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr><th scope="col">Lane</th><th scope="col">Artifact</th><th scope="col">Key endpoint</th><th scope="col">Signature encoding</th></tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>API session</td>
+ <td>Bearer JWT (<code>jwt_token</code>)</td>
+ <td><code>POST /api/login</code></td>
+ <td>base64url on <code>accountid</code> + <code>timestamp_iso</code></td>
+ </tr>
+ <tr>
+ <td>HOLA peer proof</td>
+ <td>Slash-separated line</td>
+ <td><code>POST /api/identity/verify</code></td>
+ <td>base32 on canonical prefix</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+
+ <div class="cta-buttons">
+ <a class="btn btn-primary" href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">Open API docs</a>
+ <a class="btn btn-secondary" href="https://api.identyclaw.com/api/mcp/resource/doc:skills" target="_blank" rel="noopener">View cheat sheet</a>
+ </div>
+ </div>
+ </section>
+
+ <section id="rodit" class="features rodit-section">
+ <div class="section-inner">
+ <h2 class="section-title">Powered by RODiT</h2>
+ <p class="section-lead">IdentyClaw Passports are built on <strong>RODiT</strong> (Rich Online Digital Tokens)—the authentication layer on NEAR. Backend and browser SDKs, plus CLI HOLA verification, live in the <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a> monorepo. Gate live APIs with <a href="https://github.com/discernible-io/api-test-scaffold" target="_blank" rel="noopener">api-test-scaffold</a>. Key capabilities include:</p>
+ <div class="features-grid">
+ <div class="feature-card">
+ <h3>Unified credential</h3>
+ <p>Authentication, configuration, and licensing in one on-chain token.</p>
+ </div>
+ <div class="feature-card">
+ <h3>Mutual authentication</h3>
+ <p>Default mutual auth for clients, servers, and webhooks with strong MITM resistance.</p>
+ </div>
+ <div class="feature-card">
+ <h3>Stateless enforcement</h3>
+ <p>Permissions, rate limits, and policy checks without backend session state.</p>
+ </div>
+ <div class="feature-card">
+ <h3>Local keys &amp; rotation</h3>
+ <p>Keys never leave your endpoints. Rotate on your schedule: create a new NEAR wallet, fund it, and transfer the Passport with <code>near-cli-rs</code> via <code>rodit_transfer</code>—same 12-letter ID, new signing keys, no IdentyClaw coordination.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="faq" class="features faq-section">
+ <div class="section-inner">
+ <h2 class="section-title">FAQ</h2>
+ <dl class="faq-list">
+ <dt>Passport vs JWT vs HOLA?</dt>
+ <dd>The <strong>Passport</strong> is the durable on-chain identity you buy once. A <strong>JWT</strong> is a short-lived session minted per API host after you prove key possession. <strong>HOLA</strong> is a portable signed proof you can carry across channels and peers.</dd>
+ <dt>Do I need crypto?</dt>
+ <dd>Minting uses NEAR today (fiat beside Ⓝ where the purchase portal offers it). Concierge can help with wallets and checkout. Keys stay with you.</dd>
+ <dt>Is there a subscription?</dt>
+ <dd>No. One-time mint only. API, HOLA, verify, and templates are included. No renewals or arena seat SKUs.</dd>
+ <dt>Is Last Cradle a separate product?</dt>
+ <dd>No — it is the <a href="/#showcase">showcase</a> that proves why Passports matter. The only spend is minting a Passport.</dd>
+ </dl>
+ </div>
+ </section>
+
+ </main>
+
+ <section id="contact" class="contact-section" aria-label="Contact">
+ <div class="section-inner">
+ <h2 class="section-title contact-section-title">Contact</h2>
+
+ <div class="contact-newsletter">
+ <h3 class="contact-group-title">Sign up for updates</h3>
+ <div id="mc_embed_shell">
+ <div id="mc_embed_signup">
+ <form action="https://discernible.us1.list-manage.com/subscribe/post?u=75f822eaa3278893252025bf2&amp;id=a0346ab05b&amp;f_id=00d2c6e0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+ <div id="mc_embed_signup_scroll">
+ <div class="mc-field-group">
+ <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+ <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
+ </div>
+ <div id="mce-responses" class="clear">
+ <div class="response" id="mce-error-response" style="display: none;"></div>
+ <div class="response" id="mce-success-response" style="display: none;"></div>
+ </div>
+ <div style="position: absolute; left: -5000px;" aria-hidden="true">
+ <input type="text" name="b_75f822eaa3278893252025bf2_a0346ab05b" tabindex="-1" value="">
+ </div>
+ <div class="clear">
+ <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+ </div>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <div class="contact-groups">
+ <div class="contact-group">
+ <h3 class="contact-group-title">IdentyClaw Concierge</h3>
+ <nav class="contact-icons" aria-label="Concierge contact">
+ <a class="contact-icon-link" href="mailto:identyclaw@agenthood.me?subject=IdentyClaw%20Concierge" aria-label="Email concierge">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+ <span class="contact-icon-label">Email</span>
+ </a>
+ <a class="contact-icon-link" href="https://discord.gg/J8XG923PP" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037 12.3 12.3 0 0 0-.608 1.25 18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+ <span class="contact-icon-label">Discord</span>
+ </a>
+ <a class="contact-icon-link" href="https://web.telegram.org/k/#@identyclawconcierge_bot" data-telegram-concierge target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+ <span class="contact-icon-label">Telegram</span>
+ </a>
+ </nav>
+ </div>
+
+ <div class="contact-group">
+ <h3 class="contact-group-title">Discernible.io</h3>
+ <nav class="contact-icons" aria-label="Discernible.io social">
+ <a class="contact-icon-link" href="https://www.linkedin.com/in/discernible-io-19565038a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 4.126 0 2.062 2.062 0 0 1-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+ <span class="contact-icon-label">LinkedIn</span>
+ </a>
+ <a class="contact-icon-link" href="https://x.com/Dscernble" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+ <span class="contact-icon-label">X</span>
+ </a>
+ <a class="contact-icon-link" href="https://dev.to/discernible-io" target="_blank" rel="noopener noreferrer" aria-label="Blog on dev.to">
+ <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.06.77H4.71V8.53h1.83c.96 0 1.61.1 2.04.57.38.48.38 1.33.03 1.73-.25.29-.67.43-1.15.44 1.04.04 1.65.53 1.65 1.47 0 .42-.12.81-.35 1.16-.24.38-.58.67-1.04.9zM15.85 8.53h-2.09v1.58h1.84v1.68h-1.84v2.84h-1.62V8.53h3.71v1.05z"/></svg>
+ <span class="contact-icon-label">Blog</span>
+ </a>
+ </nav>
+ </div>
+ </div>
+
+ <p class="contact-copyright">&copy; 2026 Discernible.io. All rights reserved.</p>
+ </div>
+ </section>
+ </div>
+
+ <script src="/script.js"></script>
+</body>
+</html>

@@ -16,14 +16,14 @@
  <meta property="og:image" content="https://www.discernible.io/og-image.png">
  <meta property="og:image:width" content="1200">
  <meta property="og:image:height" content="630">
- <meta property="og:image:alt" content="Discernible.io logo">
+ <meta property="og:image:alt" content="Discernible.io — IdentyClaw Passport">
 
  <!-- Twitter -->
  <meta name="twitter:card" content="summary_large_image">
  <meta name="twitter:title" content="IdentyClaw Passport — buy once | Discernible.io">
  <meta name="twitter:description" content="IdentyClaw Passport — portable agent identity you buy once. No subscription. See Last Cradle, then mint.">
  <meta name="twitter:image" content="https://www.discernible.io/og-image.png">
- <meta name="twitter:image:alt" content="Discernible.io logo">
+ <meta name="twitter:image:alt" content="Discernible.io — IdentyClaw Passport">
 
  <link rel="icon" href="/favicon.ico">
  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -37,6 +37,51 @@
  <meta name="theme-color" content="#FF4500">
 
  <link rel="stylesheet" href="styles.css">
+ <script type="application/ld+json">
+ {
+ "@context": "https://schema.org",
+ "@graph": [
+ {
+ "@type": "Organization",
+ "@id": "https://www.discernible.io/#organization",
+ "name": "Discernible.io",
+ "url": "https://www.discernible.io/",
+ "logo": "https://www.discernible.io/logo.png",
+ "sameAs": [
+ "https://x.com/Dscernble",
+ "https://www.linkedin.com/in/discernible-io-19565038a/",
+ "https://dev.to/discernible-io",
+ "https://github.com/discernible-io"
+ ]
+ },
+ {
+ "@type": "SoftwareApplication",
+ "name": "IdentyClaw Passport",
+ "applicationCategory": "SecurityApplication",
+ "operatingSystem": "Any",
+ "url": "https://www.discernible.io/",
+ "description": "Portable on-chain agent identity you buy once. No subscription. API, HOLA, verify, and agent templates included.",
+ "offers": {
+ "@type": "Offer",
+ "url": "https://purchase.identyclaw.com",
+ "priceCurrency": "NEAR",
+ "availability": "https://schema.org/InStock",
+ "description": "One-time mint on the purchase portal; no subscription."
+ },
+ "publisher": { "@id": "https://www.discernible.io/#organization" }
+ },
+ {
+ "@type": "WebPage",
+ "@id": "https://www.discernible.io/",
+ "url": "https://www.discernible.io/",
+ "name": "IdentyClaw Passport — buy once | Discernible.io",
+ "description": "IdentyClaw Passport — portable agent identity you buy once. No subscription. API, HOLA, verify, and templates included.",
+ "isPartOf": { "@id": "https://www.discernible.io/#organization" },
+ "publisher": { "@id": "https://www.discernible.io/#organization" }
+ }
+ ]
+ }
+ </script>
 </head>
 <body>
  <div class="container">
@@ -55,7 +100,7 @@
  <li><a href="https://verify.identyclaw.com" target="_blank" rel="noopener">Test Drive</a></li>
  <li><a href="https://lastcradle.io/" target="_blank" rel="noopener">Showcase</a></li>
  <li><a href="#get-started">Get Started</a></li>
- <li><a href="developers.html">Developers</a></li>
+ <li><a href="/developers/">Developers</a></li>
  <li><a href="#contact">Contact</a></li>
  </ul>
  </nav>
@@ -66,7 +111,7 @@
  <div class="hero-content">
  <div class="hero-layout">
  <div class="hero-agent">
- <img class="hero-agent-photo" src="https://nbg1.your-objectstorage.com/identyclaw/lemuel.png" width="320" height="320" alt="Lemuel, IdentyClaw Concierge">
+ <img class="hero-agent-photo" src="lemuel.png" width="320" height="320" alt="Lemuel, IdentyClaw Concierge" fetchpriority="high" decoding="async">
  <p class="hero-agent-name">Lemuel</p>
  <p class="hero-agent-role">IdentyClaw Concierge</p>
  <nav class="hero-concierge" aria-label="Contact Lemuel, IdentyClaw Concierge">
@@ -225,7 +270,7 @@
  </div>
  <div class="enroll-path">
  <h3 class="enroll-path-title">Existing gateway or custom</h3>
- <p class="enroll-path-lead">ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, and <a href="developers.html">Developers</a> API docs. Same mint path: NEAR account → <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
+ <p class="enroll-path-lead">ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, and <a href="/developers/">Developers</a> API docs. Same mint path: NEAR account → <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
  </div>
  </div>
  </details>
@@ -233,7 +278,7 @@
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>
  <a class="btn btn-outline" href="https://lastcradle.io/game" target="_blank" rel="noopener">Play Last Cradle</a>
- <a class="btn btn-secondary" href="developers.html">Developers</a>
+ <a class="btn btn-secondary" href="/developers/">Developers</a>
  </div>
  </div>
  </section>
@@ -313,17 +358,6 @@
  </section>
  </div>
 
- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
- <script src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
- <script>
- (function ($) {
- window.fnames = new Array();
- window.ftypes = new Array();
- fnames[0] = 'EMAIL';
- ftypes[0] = 'email';
- }(jQuery));
- var $mcj = jQuery.noConflict(true);
- </script>
  <script src="script.js"></script>
 </body>
 </html>
