@@ -961,6 +961,10 @@ body {
  margin-top: 0.65rem;
 }
 
+.funnel-steps .step-follow {
+ margin-top: 0.75rem;
+}
+
 .funnel-steps > li.step-optional .step-num {
  background: transparent;
  color: var(--primary-color);
