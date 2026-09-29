@@ -212,8 +212,10 @@
  <section id="get-started" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">Get Started</h2>
- <p class="section-lead">OpenClaw is the path today. Install the Passport plugin, mint to the NEAR account it prints, and your agent has an identity. Hermes steps follow soon.</p>
+ <p class="section-lead">Install OpenClaw or Hermes, mint a Passport to the NEAR account it prints, and your agent has an identity. Keys stay on disk. Never paste private keys into chat.</p>
 
+ <div class="runtime-block">
+ <h3 class="runtime-title">OpenClaw</h3>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
@@ -276,6 +278,70 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
  </div>
  </li>
  </ol>
+ </div>
+
+ <div class="runtime-block">
+ <h3 class="runtime-title">Hermes</h3>
+ <p class="runtime-lead">Stock Hermes plus <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a> (<code>idcp</code> and the identity skill). Needs git, curl, and Node.js 22.19 or newer. The bundled Hermes Node also needs <code>libatomic.so.1</code>. A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> template. Later commands assume this shell:</p>
+ <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-${HOME}/.hermes}"
+export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"</code></pre>
+ <ol class="funnel-steps">
+ <li>
+ <span class="step-num">1</span>
+ <div>
+ <h3>Install Hermes</h3>
+ <p>Install <code>libatomic.so.1</code> if it is missing, then install Hermes.</p>
+ <pre class="cmd"><code># Fedora / RHEL
+sudo dnf install -y libatomic
+# Debian / Ubuntu
+sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1</code></pre>
+ <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
+export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"
+hermes --version</code></pre>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">2</span>
+ <div>
+ <h3>Install IdentyClaw auth</h3>
+ <p>Clone the auth repo, link <code>idcp</code>, and copy the skill. If that directory is already a checkout, <code>git pull --ff-only</code> instead of cloning again.</p>
+ <pre class="cmd"><code>git clone --depth 1 https://github.com/discernible-io/hermes-identyclaw-auth.git "${HERMES_HOME}/hermes-identyclaw-auth"
+cd "${HERMES_HOME}/hermes-identyclaw-auth"
+npm ci --omit=dev
+mkdir -p "${HERMES_HOME}/bin" "${HERMES_HOME}/skills/identity/identyclaw"
+ln -sfn "${HERMES_HOME}/hermes-identyclaw-auth/bin/idcp.mjs" "${HERMES_HOME}/bin/idcp"
+cp "${HERMES_HOME}/hermes-identyclaw-auth/skills/identyclaw/SKILL.md" "${HERMES_HOME}/skills/identity/identyclaw/SKILL.md"</code></pre>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">3</span>
+ <div>
+ <h3>Register the IdentyClaw MCP</h3>
+ <pre class="cmd"><code>hermes mcp add identyclaw --url https://api.identyclaw.com/mcp
+hermes mcp test identyclaw</code></pre>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">4</span>
+ <div>
+ <h3>Enroll, then mint</h3>
+ <p><code>idcp enroll</code> writes a NEAR implicit account and prints <code>account_id</code>. Take that id to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription.</p>
+ <pre class="cmd"><code>idcp enroll</code></pre>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">5</span>
+ <div>
+ <h3>Activate the home session</h3>
+ <p>After the mint confirms, open a shell with <code>HERMES_HOME</code> set and start the session.</p>
+ <pre class="cmd"><code>export HERMES_HOME="${HOME}/.hermes"
+export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"
+idcp ensure_session
+idcp me</code></pre>
+ </div>
+ </li>
+ </ol>
+ </div>
 
  <details class="alt-runtimes">
  <summary>Other runtimes (IronClaw, custom)</summary>

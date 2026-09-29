@@ -841,11 +841,47 @@ body {
  margin: 0 auto;
 }
 
+.runtime-block {
+ max-width: 44rem;
+ margin: 0 auto 2rem;
+}
+
+.runtime-block .runtime-title {
+ font-size: 1.35rem;
+ margin: 0 0 0.35rem;
+}
+
+.runtime-block .runtime-lead {
+ margin: 0 0 0.75rem;
+ color: var(--text-light);
+ line-height: 1.55;
+ font-size: 0.95rem;
+}
+
+.runtime-block .runtime-lead a {
+ color: var(--primary-color);
+ font-weight: 600;
+ text-decoration: none;
+}
+
+.runtime-block .runtime-lead a:hover {
+ text-decoration: underline;
+}
+
+.runtime-block > pre.cmd {
+ margin-bottom: 0.25rem;
+}
+
 .funnel-steps {
  list-style: none;
  max-width: 44rem;
  margin: 0 auto 1.5rem;
  padding: 0;
+}
+
+.runtime-block .funnel-steps {
+ max-width: none;
+ margin: 0;
 }
 
 .funnel-steps > li {
@@ -928,7 +964,8 @@ body {
  word-break: break-word;
 }
 
-.funnel-steps pre.cmd {
+.funnel-steps pre.cmd,
+.runtime-block > pre.cmd {
  margin: 0.75rem 0 0;
  padding: 0.85rem 1rem;
  background: var(--secondary-color);
@@ -939,7 +976,8 @@ body {
  overflow-x: auto;
 }
 
-.funnel-steps pre.cmd code {
+.funnel-steps pre.cmd code,
+.runtime-block > pre.cmd code {
  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
  font-size: inherit;
  white-space: pre-wrap;
