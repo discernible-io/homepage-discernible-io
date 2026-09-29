@@ -212,30 +212,36 @@
  <section id="get-started" class="about enroll-section">
  <div class="section-inner">
  <h2 class="section-title">Get Started</h2>
- <p class="section-lead">Have an agent, or install one. Add the matching plugin, optionally point a domain at it, take the NEAR account number it gives you to the purchase portal, and your agent gets a Passport and an identity.</p>
+ <p class="section-lead">OpenClaw is the path today. Install the Passport plugin, mint to the NEAR account it prints, and your agent has an identity. Hermes steps follow soon.</p>
 
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
- <h3>Have an agent — or install one</h3>
- <p>Already running Hermes or OpenClaw? Continue to step 2. Otherwise install a template and follow its init:</p>
- <ul class="choice-list">
- <li><a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a></li>
- <li><a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a></li>
- </ul>
+ <h3>Have OpenClaw</h3>
+ <p>Already running an OpenClaw gateway? Continue to step 2. Otherwise install OpenClaw from the <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener">getting started guide</a>. A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template.</p>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
- <h3>Add the plugin</h3>
- <p>Install the plugin that matches your agent. Templates wire it for you; a stock install uses ClawHub or the Hermes plugin CLI.</p>
+ <h3>Install the Passport plugin</h3>
+ <p>This is the plugin you need: API login, HOLA, identity, and DID. It prints a 64-character hex NEAR account — the Passport recipient. Keys stay on disk. Never paste private keys into chat.</p>
+ <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin
+openclaw gateway restart
+identyclaw-generate-near-account</code></pre>
+ <details class="advanced-plugins">
+ <summary>Advanced: webhooks, A2A, and guest HTTPS</summary>
+ <p>Same host, same NEAR credentials. <code>PLUGIN_FLAGS</code> is an optional bash array of extra install flags — leave it unset to install as written.</p>
+ <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin "${PLUGIN_FLAGS[@]}"
+openclaw plugins install clawhub:@identyclaw/openclaw-a2a-plugin "${PLUGIN_FLAGS[@]}"
+openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plugin "${PLUGIN_FLAGS[@]}"</code></pre>
  <ul class="choice-list">
- <li>Hermes → <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a></li>
- <li>OpenClaw → <a href="https://clawhub.ai/identyclaw/plugins/openclaw-identyclaw-plugin" target="_blank" rel="noopener">openclaw-identyclaw-plugin</a></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-a2a-plugin" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
+ <li><a href="https://github.com/discernible-io/openclaw-identyclaw-httpbearer-plugin" target="_blank" rel="noopener">HTTP bearer</a> — guest HTTPS when there is no Passport</li>
  </ul>
- <p>It writes a NEAR implicit account on disk. That 64-character hex id is the Passport recipient. Host tool: <a href="https://github.com/discernible-io/gennearaccount" target="_blank" rel="noopener">gennearaccount</a> (templates also ship in-container helpers). Never paste private keys into chat.</p>
+ </details>
  </div>
  </li>
  <li class="step-optional">
@@ -249,7 +255,7 @@
  <span class="step-num">4</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then activate the home session with <code>enroll</code> / <code>ensure_session</code> (OpenClaw plugin tools or Hermes <code>idcp</code>). You&apos;re done. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then <code>openclaw gateway restart</code> and activate the home session with <code>enroll</code> / <code>ensure_session</code>. You&apos;re done. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li class="step-optional">
