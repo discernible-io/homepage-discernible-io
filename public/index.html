@@ -282,62 +282,93 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
 
  <div class="runtime-block">
  <h3 class="runtime-title">Hermes</h3>
- <p class="runtime-lead">Stock Hermes plus <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a> (<code>idcp</code> and the identity skill). Needs git, curl, and Node.js 22.19 or newer. The bundled Hermes Node also needs <code>libatomic.so.1</code>. A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> template. Later commands assume this shell:</p>
+ <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a> host package (<code>idcp</code> + skill — not a Hermes plugin). Create a local NEAR identity, mint in the browser, then activate on the host. Needs git, curl, Node.js 22.19+, and <code>libatomic.so.1</code>. Do not run OpenClaw and Hermes peer plugins on the same host — leave OpenClaw stopped for this path. Full host template: <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>. Later commands assume this shell:</p>
  <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-${HOME}/.hermes}"
-export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"</code></pre>
+export PATH="${HERMES_HOME}/bin:${HOME}/.local/bin:${PATH}"</code></pre>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <h3>Install Hermes</h3>
- <p>Install <code>libatomic.so.1</code> if it is missing, then install Hermes.</p>
+ <p>Install <code>libatomic.so.1</code> if it is missing, then install Hermes so <code>hermes</code> is on your <code>PATH</code>.</p>
  <pre class="cmd"><code># Fedora / RHEL
 sudo dnf install -y libatomic
 # Debian / Ubuntu
 sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1</code></pre>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
-export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"
+export PATH="${HERMES_HOME}/bin:${HOME}/.local/bin:${PATH}"
 hermes --version</code></pre>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
- <h3>Install IdentyClaw auth</h3>
- <p>Clone the auth repo, link <code>idcp</code>, and copy the skill. If that directory is already a checkout, <code>git pull --ff-only</code> instead of cloning again.</p>
+ <h3>Install IdentyClaw host helpers</h3>
+ <p>Auth is a host package: <code>idcp</code>, the identity skill, and (optionally) the localhost sidecar. Passport-only path below; use the full playbook when you also want peer A2A and signed webhooks.</p>
  <pre class="cmd"><code>git clone --depth 1 https://github.com/discernible-io/hermes-identyclaw-auth.git "${HERMES_HOME}/hermes-identyclaw-auth"
 cd "${HERMES_HOME}/hermes-identyclaw-auth"
-npm ci --omit=dev
-mkdir -p "${HERMES_HOME}/bin" "${HERMES_HOME}/skills/identity/identyclaw"
+npm install --omit=dev
+mkdir -p "${HERMES_HOME}/bin"
 ln -sfn "${HERMES_HOME}/hermes-identyclaw-auth/bin/idcp.mjs" "${HERMES_HOME}/bin/idcp"
-cp "${HERMES_HOME}/hermes-identyclaw-auth/skills/identyclaw/SKILL.md" "${HERMES_HOME}/skills/identity/identyclaw/SKILL.md"</code></pre>
+export PATH="${HERMES_HOME}/bin:${PATH}"
+hermes skills install discernible-io/hermes-identyclaw-auth/identyclaw</code></pre>
+ <details class="advanced-plugins">
+ <summary>Full playbook: auth + sidecar + A2A + webhooks</summary>
+ <p>From the auth checkout. Replace the URL with your public HTTPS base (Agent Card / discovery). Skip this and stay Passport-only if you do not need peers yet.</p>
+ <pre class="cmd"><code>bash scripts/install-stock-hermes.sh --a2a-public-url "https://YOUR.PUBLIC.HOST"</code></pre>
+ </details>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
- <h3>Register the IdentyClaw MCP</h3>
- <pre class="cmd"><code>hermes mcp add identyclaw --url https://api.identyclaw.com/mcp
-hermes mcp test identyclaw</code></pre>
+ <h3>Create your NEAR implicit account</h3>
+ <p>Required before purchase. <code>idcp enroll</code> creates a 64-character hex implicit account and writes the key file under <code>$HERMES_HOME/secrets/near-credentials/</code>. The printed <code>account_id</code> is what you paste at checkout — never a private key or JWT. Re-running enroll does not overwrite; it reprints the id.</p>
+ <pre class="cmd"><code>idcp enroll</code></pre>
+ <p class="step-follow">Paste only the 64-character hex <code>account_id</code> (<code>0-9</code>, <code>a-f</code>). Keep the credentials JSON private (<code>0600</code>).</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
- <h3>Enroll, then mint</h3>
- <p><code>idcp enroll</code> writes a NEAR implicit account and prints <code>account_id</code>. Take that id to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription.</p>
- <pre class="cmd"><code>idcp enroll</code></pre>
+ <h3>Obtain a Passport</h3>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. Until mint confirms on-chain, <code>idcp me</code> fails with <code>RODIT_NOT_FOUND</code> (local account exists, no Passport yet). Tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li>
  <span class="step-num">5</span>
  <div>
- <h3>Activate the home session</h3>
- <p>After the mint confirms, open a shell with <code>HERMES_HOME</code> set and start the session.</p>
- <pre class="cmd"><code>export HERMES_HOME="${HOME}/.hermes"
-export PATH="${HOME}/.local/bin:${HERMES_HOME}/bin:${PATH}"
-idcp ensure_session
+ <h3>Activate the API session</h3>
+ <p>After mint succeeds, start the home session. <code>idcp me</code> should return your Passport (including <code>token_id</code>). Session JWTs stay under <code>$HERMES_HOME/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
+ <pre class="cmd"><code>idcp ensure_session
 idcp me</code></pre>
+ </div>
+ </li>
+ <li class="step-optional">
+ <span class="step-num" aria-hidden="true">6</span>
+ <div>
+ <h3>Optional: peer A2A + signed webhooks</h3>
+ <p>Already installed if you ran <code>install-stock-hermes.sh</code>. Otherwise install after the sidecar is healthy. A public HTTPS URL is only required if you expose A2A to peers.</p>
+ <pre class="cmd"><code>curl -fsS http://127.0.0.1:9910/health
+
+hermes plugins install discernible-io/hermes-identyclaw-a2a --no-enable
+hermes plugins disable platforms/a2a
+hermes plugins enable identyclaw-a2a --allow-tool-override
+
+hermes plugins install discernible-io/hermes-identyclaw-webhook --no-enable
+hermes plugins enable identyclaw-webhooks</code></pre>
+ <p class="step-follow">Set <code>A2A_PUBLIC_URL</code> in <code>$HERMES_HOME/.env</code> to your real public HTTPS base. Confirm with <code>hermes plugins list --plain --no-bundled</code> and <code>curl -fsS http://127.0.0.1:9910/v1/own_passport</code>.</p>
+ <ul class="choice-list">
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/*</code></li>
+ </ul>
+ </div>
+ </li>
+ <li class="step-optional">
+ <span class="step-num" aria-hidden="true">7</span>
+ <div>
+ <h3>Optional: Showcase</h3>
+ <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
