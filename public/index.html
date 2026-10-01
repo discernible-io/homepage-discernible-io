@@ -253,19 +253,12 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
  <li><a href="https://github.com/discernible-io/openclaw-identyclaw-a2a-plugin" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
  <li><a href="https://github.com/discernible-io/openclaw-identyclaw-httpbearer-plugin" target="_blank" rel="noopener">HTTP bearer</a> — guest HTTPS when there is no Passport</li>
  </ul>
- <p class="step-follow">Public HTTPS / TLS for these is operator setup — follow <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a>; this page is not a full ingress runbook.</p>
+ <p class="step-follow">Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it — that hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Certificates and reverse-proxy TLS are on you (or the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template); this page is not a full ingress runbook. Skip and mint anyway if you only need the Passport.</p>
  </details>
  </div>
  </li>
- <li class="step-optional">
- <span class="step-num" aria-hidden="true">3</span>
- <div>
- <h3>Optional: a domain</h3>
- <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Certificates and reverse-proxy TLS are on you (or the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template) — not covered here. Skip this and mint anyway if you only need the Passport.</p>
- </div>
- </li>
  <li>
- <span class="step-num">4</span>
+ <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
  <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. After on-chain confirm, restart and activate the home API session from the TUI (or Control UI chat). Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
@@ -275,7 +268,7 @@ openclaw tui</code></pre>
  </div>
  </li>
  <li>
- <span class="step-num">5</span>
+ <span class="step-num">4</span>
  <div>
  <h3>Write IDENTITY.md</h3>
  <p>Still in the TUI (or reopen with <code>openclaw tui</code>), ask the agent to read its IdentyClaw passport and write that into <code>IDENTITY.md</code>.</p>
@@ -284,7 +277,7 @@ openclaw tui</code></pre>
  </div>
  </li>
  <li class="step-optional">
- <span class="step-num" aria-hidden="true">6</span>
+ <span class="step-num" aria-hidden="true">5</span>
  <div>
  <h3>Optional: Showcase</h3>
  <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
