@@ -295,50 +295,41 @@ openclaw tui</code></pre>
 
  <div class="runtime-block">
  <h3 class="runtime-title">Hermes</h3>
- <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a> host package (<code>idcp</code> + skill — not a Hermes plugin). Create a local NEAR identity, mint in the browser, then activate on the host. Needs git, curl, Node.js 22.19+, and <code>libatomic.so.1</code>. Do not run OpenClaw and Hermes peer plugins on the same host — leave OpenClaw stopped for this path. Full host template: <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>. Later commands assume this shell:</p>
+ <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin (<code>hermes identyclaw …</code> + skill). Create a local NEAR identity, mint in the browser, then activate on the host. Needs <code>curl</code>, Node.js 22.19+, and typically <code>libatomic.so.1</code>. Do not run OpenClaw and Hermes IdentyClaw plugins on the same host — leave OpenClaw stopped for this path. Full host template: <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>. Later commands assume this shell:</p>
  <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
-export PATH="$HERMES_HOME/bin:$HOME/.local/bin:$PATH"</code></pre>
+export PATH="$HOME/.local/bin:$PATH"</code></pre>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <h3>Install Hermes</h3>
- <p>Install <code>libatomic.so.1</code> if it is missing, then install Hermes so <code>hermes</code> is on your <code>PATH</code>.</p>
+ <p>Install <code>libatomic</code> if it is missing, then Hermes so <code>hermes</code> is on your <code>PATH</code>.</p>
  <pre class="cmd"><code># Fedora / RHEL
 sudo dnf install -y libatomic
 # Debian / Ubuntu
 sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1</code></pre>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
-export PATH="$HERMES_HOME/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 hermes --version</code></pre>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
- <h3>Install IdentyClaw host helpers</h3>
- <p>Auth is a host package: <code>idcp</code>, the identity skill, and (optionally) the localhost sidecar — not a Hermes plugin and not a Nous catalog entry. Passport-only path below; for peers, prefer the one-shot playbook or the interactive plugin steps after mint.</p>
- <pre class="cmd"><code>git clone --depth 1 https://github.com/discernible-io/hermes-identyclaw-auth.git "${HERMES_HOME}/hermes-identyclaw-auth"
-cd "${HERMES_HOME}/hermes-identyclaw-auth"
-npm install --omit=dev
-mkdir -p "${HERMES_HOME}/bin"
-ln -sfn "${HERMES_HOME}/hermes-identyclaw-auth/bin/idcp.mjs" "${HERMES_HOME}/bin/idcp"
-export PATH="${HERMES_HOME}/bin:${PATH}"
-hermes skills install discernible-io/hermes-identyclaw-auth/identyclaw</code></pre>
- <details class="advanced-plugins">
- <summary>Preferred: one-shot full stack (auth + sidecar + A2A + webhooks)</summary>
- <p>After clone + <code>npm install</code> above. Replace the URL with your public HTTPS base (Agent Card / discovery). Skip this and stay Passport-only if you do not need peers yet.</p>
- <pre class="cmd"><code>cd "$HERMES_HOME/hermes-identyclaw-auth"
-bash scripts/install-stock-hermes.sh --a2a-public-url "https://YOUR.PUBLIC.HOST"</code></pre>
- </details>
+ <h3>Install the Passport plugin</h3>
+ <p>This is the plugin you need for API login, HOLA, and identity. Answer <code>y</code> to enable (or pass <code>--enable</code>). Then install Node deps into the plugin tree.</p>
+ <pre class="cmd"><code>hermes plugins install discernible-io/hermes-identyclaw-auth --enable
+hermes identyclaw install-deps</code></pre>
+ <p class="step-follow">Optional: keep the peer sidecar from auto-starting on session start (Passport-only):</p>
+ <pre class="cmd"><code>echo 'IDENTYCLAW_SIDECAR_AUTOSTART=false' &gt;&gt; "$HERMES_HOME/.env"</code></pre>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
  <h3>Create your NEAR implicit account</h3>
- <p>Required before purchase. <code>idcp enroll</code> creates a 64-character hex implicit account and writes the key file under <code>$HERMES_HOME/secrets/near-credentials/</code>. The printed <code>account_id</code> is what you paste at checkout — never a private key or JWT. Re-running enroll does not overwrite; it reprints the id.</p>
- <pre class="cmd"><code>idcp enroll</code></pre>
+ <p>Required before purchase. <code>hermes identyclaw enroll</code> creates a 64-character hex implicit account under <code>$HERMES_HOME/secrets/near-credentials/</code>. Paste only the printed <code>account_id</code> at checkout — never a private key or JWT. Re-running enroll does not overwrite; it reprints the id.</p>
+ <pre class="cmd"><code>hermes identyclaw enroll</code></pre>
  <p class="step-follow">Paste only the 64-character hex <code>account_id</code> (<code>0-9</code>, <code>a-f</code>). Keep the credentials JSON private (<code>0600</code>).</p>
  </div>
  </li>
@@ -346,49 +337,38 @@ bash scripts/install-stock-hermes.sh --a2a-public-url "https://YOUR.PUBLIC.HOST"
  <span class="step-num">4</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. Until mint confirms on-chain, <code>idcp me</code> fails with <code>RODIT_NOT_FOUND</code> (local account exists, no Passport yet). Tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. Until mint confirms on-chain, <code>hermes identyclaw me</code> fails with <code>RODIT_NOT_FOUND</code> (local account exists, no Passport yet). Tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li>
  <span class="step-num">5</span>
  <div>
  <h3>Activate the API session</h3>
- <p>After mint succeeds, start the home session. <code>idcp me</code> should return your Passport (including <code>token_id</code>). Session JWTs stay under <code>$HERMES_HOME/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
- <pre class="cmd"><code>idcp ensure_session
-idcp me</code></pre>
+ <p>After mint succeeds, start the home session. <code>hermes identyclaw me</code> should return your Passport (including <code>token_id</code>). Session JWTs stay under <code>$HERMES_HOME/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
+ <pre class="cmd"><code>hermes identyclaw ensure_session
+hermes identyclaw me</code></pre>
+ <p class="step-follow">Day-to-day:</p>
+ <pre class="cmd"><code>hermes identyclaw ensure_session
+hermes identyclaw create_hola --recipient MUNDO
+hermes identyclaw verify_hola --hola 'HOLA/…'
+hermes identyclaw request GET /api/agents</code></pre>
  </div>
  </li>
  <li class="step-optional">
  <span class="step-num" aria-hidden="true">6</span>
- <div>
- <h3>Optional: peer A2A + signed webhooks</h3>
- <p>Already done if you ran the one-shot playbook. Otherwise use default Hermes interactive install (answer <code>y</code> to enable / grant prompts). Sidecar must be up first. Do not install auth as a plugin, copy into <code>$HERMES_HOME/plugins/</code>, or use plugin id <code>a2a-platform</code>.</p>
- <pre class="cmd"><code># sidecar must be up first (playbook does this; or: bash scripts/install-sidecar-unit.sh)
-curl -fsS http://127.0.0.1:9910/health
-hermes plugins install discernible-io/hermes-identyclaw-a2a
-# Enable 'identyclaw-a2a' now? → y
-# Grant tools.override? → y
-hermes plugins disable platforms/a2a
-hermes plugins install discernible-io/hermes-identyclaw-webhook
-# Enable 'identyclaw-webhooks' now? → y</code></pre>
- <p class="step-follow">Set <code>A2A_PUBLIC_URL</code> in <code>$HERMES_HOME/.env</code> to your real public HTTPS base when exposing A2A. Verify:</p>
- <pre class="cmd"><code>hermes plugins list --plain --no-bundled
-# expect: identyclaw-a2a + identyclaw-webhooks
-curl -fsS http://127.0.0.1:9910/v1/own_passport</code></pre>
- <ul class="choice-list">
- <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs (<code>identyclaw-a2a</code>)</li>
- <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/*</code> (<code>identyclaw-webhooks</code>)</li>
- </ul>
- </div>
- </li>
- <li class="step-optional">
- <span class="step-num" aria-hidden="true">7</span>
  <div>
  <h3>Optional: Showcase</h3>
  <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
+ <details class="advanced-plugins">
+ <summary>Advanced: peers (sidecar, A2A, webhooks)</summary>
+ <p>Passport host login does not need these. For the peer stack, start the sidecar then install A2A / webhooks — see <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> and the peer plugin repos.</p>
+ <pre class="cmd"><code>hermes identyclaw sidecar start
+hermes plugins install discernible-io/hermes-identyclaw-a2a
+hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
+ </details>
  </div>
 
  <details class="alt-runtimes">
