@@ -296,8 +296,8 @@ openclaw tui</code></pre>
  <div class="runtime-block">
  <h3 class="runtime-title">Hermes</h3>
  <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener">hermes-identyclaw-auth</a> host package (<code>idcp</code> + skill — not a Hermes plugin). Create a local NEAR identity, mint in the browser, then activate on the host. Needs git, curl, Node.js 22.19+, and <code>libatomic.so.1</code>. Do not run OpenClaw and Hermes peer plugins on the same host — leave OpenClaw stopped for this path. Full host template: <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>. Later commands assume this shell:</p>
- <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-${HOME}/.hermes}"
-export PATH="${HERMES_HOME}/bin:${HOME}/.local/bin:${PATH}"</code></pre>
+ <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
+export PATH="$HERMES_HOME/bin:$HOME/.local/bin:$PATH"</code></pre>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
@@ -309,7 +309,7 @@ sudo dnf install -y libatomic
 # Debian / Ubuntu
 sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1</code></pre>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
-export PATH="${HERMES_HOME}/bin:${HOME}/.local/bin:${PATH}"
+export PATH="$HERMES_HOME/bin:$HOME/.local/bin:$PATH"
 hermes --version</code></pre>
  </div>
  </li>
@@ -317,7 +317,7 @@ hermes --version</code></pre>
  <span class="step-num">2</span>
  <div>
  <h3>Install IdentyClaw host helpers</h3>
- <p>Auth is a host package: <code>idcp</code>, the identity skill, and (optionally) the localhost sidecar. Passport-only path below; use the full playbook when you also want peer A2A and signed webhooks.</p>
+ <p>Auth is a host package: <code>idcp</code>, the identity skill, and (optionally) the localhost sidecar — not a Hermes plugin and not a Nous catalog entry. Passport-only path below; for peers, prefer the one-shot playbook or the interactive plugin steps after mint.</p>
  <pre class="cmd"><code>git clone --depth 1 https://github.com/discernible-io/hermes-identyclaw-auth.git "${HERMES_HOME}/hermes-identyclaw-auth"
 cd "${HERMES_HOME}/hermes-identyclaw-auth"
 npm install --omit=dev
@@ -326,9 +326,10 @@ ln -sfn "${HERMES_HOME}/hermes-identyclaw-auth/bin/idcp.mjs" "${HERMES_HOME}/bin
 export PATH="${HERMES_HOME}/bin:${PATH}"
 hermes skills install discernible-io/hermes-identyclaw-auth/identyclaw</code></pre>
  <details class="advanced-plugins">
- <summary>Full playbook: auth + sidecar + A2A + webhooks</summary>
- <p>From the auth checkout. Replace the URL with your public HTTPS base (Agent Card / discovery). Skip this and stay Passport-only if you do not need peers yet.</p>
- <pre class="cmd"><code>bash scripts/install-stock-hermes.sh --a2a-public-url "https://YOUR.PUBLIC.HOST"</code></pre>
+ <summary>Preferred: one-shot full stack (auth + sidecar + A2A + webhooks)</summary>
+ <p>After clone + <code>npm install</code> above. Replace the URL with your public HTTPS base (Agent Card / discovery). Skip this and stay Passport-only if you do not need peers yet.</p>
+ <pre class="cmd"><code>cd "$HERMES_HOME/hermes-identyclaw-auth"
+bash scripts/install-stock-hermes.sh --a2a-public-url "https://YOUR.PUBLIC.HOST"</code></pre>
  </details>
  </div>
  </li>
@@ -361,19 +362,22 @@ idcp me</code></pre>
  <span class="step-num" aria-hidden="true">6</span>
  <div>
  <h3>Optional: peer A2A + signed webhooks</h3>
- <p>Already installed if you ran <code>install-stock-hermes.sh</code>. Otherwise install after the sidecar is healthy. A public HTTPS URL is only required if you expose A2A to peers.</p>
- <pre class="cmd"><code>curl -fsS http://127.0.0.1:9910/health
-
-hermes plugins install discernible-io/hermes-identyclaw-a2a --no-enable
+ <p>Already done if you ran the one-shot playbook. Otherwise use default Hermes interactive install (answer <code>y</code> to enable / grant prompts). Sidecar must be up first. Do not install auth as a plugin, copy into <code>$HERMES_HOME/plugins/</code>, or use plugin id <code>a2a-platform</code>.</p>
+ <pre class="cmd"><code># sidecar must be up first (playbook does this; or: bash scripts/install-sidecar-unit.sh)
+curl -fsS http://127.0.0.1:9910/health
+hermes plugins install discernible-io/hermes-identyclaw-a2a
+# Enable 'identyclaw-a2a' now? → y
+# Grant tools.override? → y
 hermes plugins disable platforms/a2a
-hermes plugins enable identyclaw-a2a --allow-tool-override
-
-hermes plugins install discernible-io/hermes-identyclaw-webhook --no-enable
-hermes plugins enable identyclaw-webhooks</code></pre>
- <p class="step-follow">Set <code>A2A_PUBLIC_URL</code> in <code>$HERMES_HOME/.env</code> to your real public HTTPS base. Confirm with <code>hermes plugins list --plain --no-bundled</code> and <code>curl -fsS http://127.0.0.1:9910/v1/own_passport</code>.</p>
+hermes plugins install discernible-io/hermes-identyclaw-webhook
+# Enable 'identyclaw-webhooks' now? → y</code></pre>
+ <p class="step-follow">Set <code>A2A_PUBLIC_URL</code> in <code>$HERMES_HOME/.env</code> to your real public HTTPS base when exposing A2A. Verify:</p>
+ <pre class="cmd"><code>hermes plugins list --plain --no-bundled
+# expect: identyclaw-a2a + identyclaw-webhooks
+curl -fsS http://127.0.0.1:9910/v1/own_passport</code></pre>
  <ul class="choice-list">
- <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
- <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/*</code></li>
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-a2a" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs (<code>identyclaw-a2a</code>)</li>
+ <li><a href="https://github.com/discernible-io/hermes-identyclaw-webhook" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/*</code> (<code>identyclaw-webhooks</code>)</li>
  </ul>
  </div>
  </li>
