@@ -295,13 +295,16 @@ openclaw tui</code></pre>
 
  <div class="runtime-block">
  <h3 class="runtime-title">Hermes</h3>
- <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin. Install Hermes, run <code>install-deps</code> (prints <code>account_id</code>), mint, then <code>hermes identyclaw me</code>. Do not run OpenClaw and Hermes IdentyClaw plugins on the same host — leave OpenClaw stopped for this path.</p>
+ <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin. Happy path after Hermes is present: plugin + <code>install-deps</code> (prints <code>account_id</code>) → mint → <code>hermes identyclaw me</code>.</p>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
- <h3>Install Hermes</h3>
- <p>Official installer; <code>hermes</code> lands in <code>~/.local/bin</code>. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code> — it is not stuck. Vanilla Hermes stops here; Passport comes in step 2.</p>
+ <h3>Have Hermes</h3>
+ <ul class="choice-list">
+ <li><strong>Hermes already installed</strong> — if <code>hermes --version</code> works, skip the installer and continue to step 2 (plugin only).</li>
+ <li><strong>No Hermes yet</strong> — run the official installer first. <code>hermes</code> lands in <code>~/.local/bin</code>. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code> — it is not stuck.</li>
+ </ul>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
 hermes --version</code></pre>
  <p class="step-follow">If <code>command -v hermes</code> fails: <code>export PATH="$HOME/.local/bin:$PATH"</code> (persist in your shell rc if needed).</p>
@@ -311,7 +314,7 @@ hermes --version</code></pre>
  <span class="step-num">2</span>
  <div>
  <h3>Install the Passport plugin</h3>
- <p>Needs <code>libatomic</code> for IdentyClaw/RODiT. Answer <code>y</code> to enable (or pass <code>--enable</code>). A GitHub install may warn about a custom (unreviewed) source — expected. <code>install-deps</code> runs npm, and if <code>~/.hermes/secrets/near-credentials/</code> is empty creates a 64-character hex account, prints <code>account_id</code>, and seeds <code>NEAR_CREDENTIALS_FILE_PATH</code> in <code>~/.hermes/.env</code>.</p>
+ <p>Default for both branches. Needs <code>libatomic</code> for IdentyClaw/RODiT. Answer <code>y</code> to enable (or pass <code>--enable</code>). A GitHub install may warn about a custom (unreviewed) source — expected. <code>install-deps</code> runs npm, and if credentials are missing creates a 64-character hex account, prints <code>account_id</code>, and seeds <code>NEAR_CREDENTIALS_FILE_PATH</code> in <code>~/.hermes/.env</code>.</p>
  <pre class="cmd"><code># Fedora / RHEL
 sudo dnf install -y libatomic
 # Debian / Ubuntu
@@ -319,14 +322,14 @@ sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1
 
 hermes plugins install discernible-io/hermes-identyclaw-auth --enable
 hermes identyclaw install-deps   # npm + NEAR account if missing</code></pre>
- <p class="step-follow">Paste only that printed <code>account_id</code> at checkout — never a private key or JWT. Re-runs are safe; reprint with <code>hermes identyclaw enroll</code> (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
+ <p class="step-follow">Paste <strong>only</strong> the <code>account_id</code> printed by <code>install-deps</code> (or reprint with <code>hermes identyclaw enroll</code>) at checkout — never a private key or JWT. Ignore other files under <code>~/.hermes/secrets/near-credentials/</code>; mint to the printed id only. Re-runs are safe (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns <code>RODIT_NOT_FOUND</code> — wait and retry. Tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that printed <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns <code>RODIT_NOT_FOUND</code> — wait and retry. Tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li>
@@ -364,7 +367,7 @@ hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
  <dt><code>hermes identyclaw me</code> says <code>RODIT_NOT_FOUND</code> after mint?</dt>
  <dd>On-chain confirm can lag. Wait, then retry <code>hermes identyclaw me</code>. Do not re-enroll to mint again.</dd>
  <dt>Need the <code>account_id</code> again?</dt>
- <dd><code>hermes identyclaw enroll</code> reprints the same id (<code>already: true</code>) and does not overwrite credentials.</dd>
+ <dd><code>hermes identyclaw enroll</code> reprints the same id (<code>already: true</code>) and does not overwrite credentials. Paste that printed id — do not pick another file from <code>near-credentials/</code>.</dd>
  <dt>Override <code>HERMES_HOME</code>?</dt>
  <dd>Optional. Default is <code>~/.hermes</code>. Export only if you keep Hermes elsewhere.</dd>
  <dt>System Node.js?</dt>
