@@ -299,8 +299,9 @@ openclaw tui</code></pre>
  <li><strong>No Hermes yet</strong> — run the official installer first. <code>hermes</code> lands in <code>~/.local/bin</code>. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code> — it is not stuck.</li>
  </ul>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
+export PATH="$HOME/.local/bin:$PATH"
 hermes --version</code></pre>
- <p class="step-follow">If <code>command -v hermes</code> fails: <code>export PATH="$HOME/.local/bin:$PATH"</code> (persist in your shell rc if needed).</p>
+ <p class="step-follow">Persist the <code>PATH</code> export in your shell rc if a new terminal still cannot find <code>hermes</code>.</p>
  </div>
  </li>
  <li>
@@ -315,14 +316,15 @@ sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1
 
 hermes plugins install discernible-io/hermes-identyclaw-auth --enable
 hermes identyclaw install-deps   # npm + NEAR account if missing</code></pre>
- <p class="step-follow">Paste <strong>only</strong> the <code>account_id</code> printed by <code>install-deps</code> (or reprint with <code>hermes identyclaw enroll</code>) at checkout — never a private key or JWT. Ignore other files under <code>~/.hermes/secrets/near-credentials/</code>; mint to the printed id only. Re-runs are safe (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
+ <p class="step-follow">Ignore Hermes’ “Restart the gateway” prompt for the CLI mint path; only restart if you want IdentyClaw tools in chat/gateway.</p>
+ <p class="step-follow">Paste <strong>only</strong> the <code>account_id</code> from the install-deps / enroll banner (or reprint with <code>hermes identyclaw enroll</code>) at checkout — never a private key or JWT. Example printed line (yours will differ): <code>a1b2c3d4e5f678901234567890abcdef1234567890abcdef1234567890abcdef</code> — that 64-hex string is the source of truth, not filenames under <code>~/.hermes/secrets/near-credentials/</code>. Re-runs are safe (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that printed <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns <code>RODIT_NOT_FOUND</code> — wait and retry. Tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that printed <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns a large JSON blob with nested <code>RODIT_NOT_FOUND</code> (login is fine — wait and retry). Example shape: <code>…"error":{"code":"RODIT_NOT_FOUND",…}…</code>. Tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li>
@@ -358,7 +360,9 @@ hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
  <summary>Hermes FAQ</summary>
  <dl class="faq-list">
  <dt><code>hermes identyclaw me</code> says <code>RODIT_NOT_FOUND</code> after mint?</dt>
- <dd>On-chain confirm can lag. Wait, then retry <code>hermes identyclaw me</code>. Do not re-enroll to mint again.</dd>
+ <dd>Expected until on-chain confirm. You get a large JSON blob with the code nested under <code>error</code> (e.g. <code>…"error":{"code":"RODIT_NOT_FOUND",…}…</code>) — that is not a broken login. Wait, then retry <code>hermes identyclaw me</code>. Do not re-enroll to mint again.</dd>
+ <dt><code>libatomic.so.1: cannot open shared object file</code>?</dt>
+ <dd>Native RODiT needs libatomic. Install it with the Step 2 package lines (<code>sudo dnf install -y libatomic</code> or <code>sudo apt-get install -y libatomic1</code>), then re-run <code>hermes identyclaw install-deps</code>.</dd>
  <dt>Need the <code>account_id</code> again?</dt>
  <dd><code>hermes identyclaw enroll</code> reprints the same id (<code>already: true</code>) and does not overwrite credentials. Paste that printed id — do not pick another file from <code>near-credentials/</code>.</dd>
  <dt>Override <code>HERMES_HOME</code>?</dt>
