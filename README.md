@@ -176,3 +176,9 @@ This will:
 ## 📝 License
 
 MIT
+
+<!-- discernible-io:product-links -->
+---
+
+[discernible.io](https://www.discernible.io/) · [Get a Passport](https://purchase.identyclaw.com) · [Verify HOLA](https://verify.identyclaw.com)
+<!-- /discernible-io:product-links -->
