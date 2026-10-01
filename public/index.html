@@ -221,21 +221,31 @@
  <span class="step-num">1</span>
  <div>
  <h3>Have OpenClaw</h3>
- <p>Already running an OpenClaw gateway? Continue to step 2. Otherwise install OpenClaw from the <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener">getting started guide</a>. A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template.</p>
+ <p>Already running an OpenClaw gateway? Continue to step 2. Otherwise install OpenClaw from the <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener">getting started guide</a>, then put a background gateway in place before any <code>gateway restart</code>:</p>
+ <pre class="cmd"><code>openclaw gateway install
+openclaw gateway status</code></pre>
+ <p class="step-follow">A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template.</p>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
  <h3>Install the Passport plugin</h3>
- <p>This is the plugin you need: API login, HOLA, identity, and DID. It prints a 64-character hex NEAR account — the Passport recipient. Keys stay on disk. Never paste private keys into chat.</p>
- <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin
-openclaw gateway restart
+ <p>This is the plugin you need: API login, HOLA, identity, and DID. Current OpenClaw may require <code>--accept-capabilities</code>. Restart loads the plugin; on first start with no credentials it can auto-write a NEAR account under <code>~/.openclaw/secrets/near-credentials/</code>. Keys stay on disk. Never paste private keys into chat.</p>
+ <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin --accept-capabilities
+openclaw gateway restart</code></pre>
+ <p class="step-follow">Prefer the auto-bootstrap account id when the gateway printed one. To run the operator CLI yourself: ClawHub install does <em>not</em> put the package <code>bin</code> on your <code>PATH</code> — link it from the installed plugin package (same idea as Hermes <code>ln -sfn</code>):</p>
+ <pre class="cmd"><code>mkdir -p "${HOME}/.local/bin"
+# Point PLUGIN_ROOT at the installed plugin dir (often under ~/.openclaw/extensions/)
+ln -sfn "${PLUGIN_ROOT}/scripts/generate-near-account.mjs" "${HOME}/.local/bin/identyclaw-generate-near-account"
+export PATH="${HOME}/.local/bin:${PATH}"
 identyclaw-generate-near-account</code></pre>
+ <p class="step-follow">Paste only the printed 64-character hex <code>implicit_account_id</code> at checkout — never a private key or JWT.</p>
  <details class="advanced-plugins">
  <summary>Advanced: webhooks, A2A, and guest HTTPS</summary>
- <p>Same host, same NEAR credentials. <code>PLUGIN_FLAGS</code> is an optional bash array of extra install flags — leave it unset to install as written.</p>
- <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin "${PLUGIN_FLAGS[@]}"
+ <p>Same host, same NEAR credentials. Set <code>PLUGIN_FLAGS</code> once if installs ask for capability consent:</p>
+ <pre class="cmd"><code>PLUGIN_FLAGS=(--accept-capabilities)
+openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin "${PLUGIN_FLAGS[@]}"
 openclaw plugins install clawhub:@identyclaw/openclaw-a2a-plugin "${PLUGIN_FLAGS[@]}"
 openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plugin "${PLUGIN_FLAGS[@]}"</code></pre>
  <ul class="choice-list">
@@ -243,6 +253,7 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
  <li><a href="https://github.com/discernible-io/openclaw-identyclaw-a2a-plugin" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
  <li><a href="https://github.com/discernible-io/openclaw-identyclaw-httpbearer-plugin" target="_blank" rel="noopener">HTTP bearer</a> — guest HTTPS when there is no Passport</li>
  </ul>
+ <p class="step-follow">Public HTTPS / TLS for these is operator setup — follow <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a>; this page is not a full ingress runbook.</p>
  </details>
  </div>
  </li>
@@ -250,22 +261,24 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
  <span class="step-num" aria-hidden="true">3</span>
  <div>
  <h3>Optional: a domain</h3>
- <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Skip this and mint anyway if you only need the Passport.</p>
+ <p>Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it. That hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Certificates and reverse-proxy TLS are on you (or the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template) — not covered here. Skip this and mint anyway if you only need the Passport.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. Then <code>openclaw gateway restart</code> and activate the home session with <code>enroll</code> / <code>ensure_session</code>. Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. After on-chain confirm, restart and activate the home API session from the TUI (or Control UI chat). Personal and Enterprise tiers are on <a href="#pricing">Pricing</a>.</p>
+ <pre class="cmd"><code>openclaw gateway restart
+openclaw tui</code></pre>
+ <p class="step-follow">In the TUI, ask the agent to call <code>identyclaw_ensure_session</code>, then <code>identyclaw_get_my_identity</code> — you should see your Passport (including <code>token_id</code>). Until mint confirms, identity lookup fails with no Passport yet (local account exists).</p>
  </div>
  </li>
  <li>
  <span class="step-num">5</span>
  <div>
  <h3>Write IDENTITY.md</h3>
- <p>Open the TUI and ask the agent to read its IdentyClaw passport and write that into <code>IDENTITY.md</code>.</p>
- <pre class="cmd"><code>openclaw tui</code></pre>
+ <p>Still in the TUI (or reopen with <code>openclaw tui</code>), ask the agent to read its IdentyClaw passport and write that into <code>IDENTITY.md</code>.</p>
  <p class="step-follow">In the TUI:</p>
  <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
  </div>
