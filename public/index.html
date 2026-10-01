@@ -295,83 +295,65 @@ openclaw tui</code></pre>
 
  <div class="runtime-block">
  <h3 class="runtime-title">Hermes</h3>
- <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> CLI path plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin (<code>hermes identyclaw …</code> + skill). Install the plugin, mint in the browser to the printed NEAR <code>account_id</code>, then confirm with <code>hermes identyclaw me</code>. Needs <code>curl</code> and typically <code>libatomic.so.1</code>. Hermes-bundled Node (<code>~/.hermes/tools/node-…</code>) is enough for <code>install-deps</code>; system Node.js 22.19+ only if you run plugin scripts outside Hermes. Later commands assume this shell — put <code>~/.local/bin</code> on <code>PATH</code> permanently (shell rc), or new shells may not find <code>hermes</code>:</p>
- <pre class="cmd"><code>export HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
-export PATH="$HOME/.local/bin:$PATH"</code></pre>
+ <p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin. Install Hermes, run <code>install-deps</code> (prints <code>account_id</code>), mint, then <code>hermes identyclaw me</code>. Do not run OpenClaw and Hermes IdentyClaw plugins on the same host — leave OpenClaw stopped for this path.</p>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <h3>Install Hermes</h3>
- <p>Install <code>libatomic</code> if it is missing, then Hermes so <code>hermes</code> is on your <code>PATH</code>. The official installer pulls a large clone plus ffmpeg/python — expect roughly a few minutes of network and disk; it is not stuck.</p>
- <pre class="cmd"><code># Fedora / RHEL
-sudo dnf install -y libatomic
-# Debian / Ubuntu
-sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1</code></pre>
+ <p>Official installer; <code>hermes</code> lands in <code>~/.local/bin</code>. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code> — it is not stuck. Vanilla Hermes stops here; Passport comes in step 2.</p>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
-export PATH="$HOME/.local/bin:$PATH"
-# Persist for new shells, e.g.:
-# echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.bashrc
 hermes --version</code></pre>
+ <p class="step-follow">If <code>command -v hermes</code> fails: <code>export PATH="$HOME/.local/bin:$PATH"</code> (persist in your shell rc if needed).</p>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
  <h3>Install the Passport plugin</h3>
- <p>This is the plugin you need for API login, HOLA, and identity. Answer <code>y</code> to enable (or pass <code>--enable</code>). A GitHub install may warn about a custom (unreviewed) source — that is expected for this plugin. <code>install-deps</code> installs Node deps and, if no credentials exist yet, creates a 64-character hex NEAR implicit account under <code>$HERMES_HOME/secrets/near-credentials/</code> and prints <code>account_id</code>.</p>
- <pre class="cmd"><code>hermes plugins install discernible-io/hermes-identyclaw-auth --enable
-hermes identyclaw install-deps</code></pre>
- <p class="step-follow">If install prints “Skipped Node deps — run hermes plugins install again,” ignore it — the correct follow-up is <code>hermes identyclaw install-deps</code> (as above), not another plugins install. “Restart the gateway” is only needed if you want IdentyClaw tools inside Hermes chat/gateway; the CLI mint path does not need a restart.</p>
- <p class="step-follow">Paste only the printed 64-character hex <code>account_id</code> (<code>0-9</code>, <code>a-f</code>) at checkout — never a private key or JWT. Keep the credentials JSON private (<code>0600</code>). Re-running <code>install-deps</code> / <code>hermes identyclaw enroll</code> does not overwrite; it reprints the id.</p>
- <p class="step-follow">Optional: keep the peer sidecar from auto-starting on session start (Passport-only):</p>
- <pre class="cmd"><code>echo 'IDENTYCLAW_SIDECAR_AUTOSTART=false' &gt;&gt; "$HERMES_HOME/.env"</code></pre>
+ <p>Needs <code>libatomic</code> for IdentyClaw/RODiT. Answer <code>y</code> to enable (or pass <code>--enable</code>). A GitHub install may warn about a custom (unreviewed) source — expected. <code>install-deps</code> runs npm, and if <code>~/.hermes/secrets/near-credentials/</code> is empty creates a 64-character hex account, prints <code>account_id</code>, and seeds <code>NEAR_CREDENTIALS_FILE_PATH</code> in <code>~/.hermes/.env</code>.</p>
+ <pre class="cmd"><code># Fedora / RHEL
+sudo dnf install -y libatomic
+# Debian / Ubuntu
+sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1
+
+hermes plugins install discernible-io/hermes-identyclaw-auth --enable
+hermes identyclaw install-deps   # npm + NEAR account if missing</code></pre>
+ <p class="step-follow">Paste only that printed <code>account_id</code> at checkout — never a private key or JWT. Re-runs are safe; reprint with <code>hermes identyclaw enroll</code> (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can take a short while; until then <code>hermes identyclaw me</code> fails with <code>RODIT_NOT_FOUND</code> (local account exists, no Passport yet) — wait and retry. Tiers are on <a href="#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns <code>RODIT_NOT_FOUND</code> — wait and retry. Tiers are on <a href="#pricing">Pricing</a>.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
  <h3>Confirm Passport</h3>
- <p>After mint succeeds, confirm the host can see your Passport. Login happens inside the plugin — no separate activate step. No gateway restart is required for this CLI path. You should see Passport fields including <code>token_id</code>. Session JWTs stay under <code>$HERMES_HOME/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
+ <p>Login happens inside the plugin. You should see Passport fields including <code>token_id</code>. JWTs stay under <code>~/.hermes/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
  <pre class="cmd"><code>hermes identyclaw me</code></pre>
- <p class="step-follow">Day-to-day:</p>
- <pre class="cmd"><code>hermes identyclaw create_hola --recipient MUNDO
-hermes identyclaw verify_hola --hola 'HOLA/…'
-hermes identyclaw request GET /api/agents</code></pre>
- </div>
- </li>
- <li class="step-optional">
- <span class="step-num" aria-hidden="true">5</span>
- <div>
- <h3>Optional: Write IDENTITY.md</h3>
- <p>In Hermes chat (or your usual agent session), ask it to read its IdentyClaw passport and write that into <code>IDENTITY.md</code>.</p>
- <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
- </div>
- </li>
- <li class="step-optional">
- <span class="step-num" aria-hidden="true">6</span>
- <div>
- <h3>Optional: Showcase</h3>
- <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
  <details class="advanced-plugins">
- <summary>Advanced: ensure_session</summary>
- <p>Ordinary confirm and day-to-day ops lazy-login inside the plugin. Keep <code>hermes identyclaw ensure_session</code> for <code>--force</code> remint, federated peers (<code>--base https://peer…</code>), or debugging. Returns metadata only — never the full JWT.</p>
- <pre class="cmd"><code>hermes identyclaw ensure_session --force
-hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
+ <summary>Advanced: day-to-day, IDENTITY.md, Showcase</summary>
+ <pre class="cmd"><code>hermes identyclaw create_hola --recipient MUNDO
+hermes identyclaw verify_hola --hola 'HOLA/…'
+hermes identyclaw request GET /api/agents</code></pre>
+ <p>In Hermes chat, ask it to read its IdentyClaw passport and write <code>IDENTITY.md</code>:</p>
+ <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
+ <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </details>
  <details class="advanced-plugins">
- <summary>Advanced: peers (sidecar, A2A, webhooks)</summary>
- <p>Passport host login does not need these. For the peer stack, start the sidecar then install A2A / webhooks — see <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> and the peer plugin repos.</p>
+ <summary>Advanced: ensure_session, gateway, sidecar, peers</summary>
+ <p><code>hermes identyclaw ensure_session</code> is for <code>--force</code> remint, federated peers (<code>--base https://peer…</code>), or debugging — not the happy path. Returns metadata only — never the full JWT.</p>
+ <pre class="cmd"><code>hermes identyclaw ensure_session --force
+hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
+ <p>Restart the Hermes gateway only if you want IdentyClaw tools inside chat/gateway; the CLI mint path does not need it. Optional Passport-only: disable sidecar autostart with <code>IDENTYCLAW_SIDECAR_AUTOSTART=false</code> in <code>~/.hermes/.env</code>.</p>
+ <p>Peer stack (sidecar, A2A, webhooks) — see <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>:</p>
  <pre class="cmd"><code>hermes identyclaw sidecar start
 hermes plugins install discernible-io/hermes-identyclaw-a2a
 hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
@@ -380,9 +362,13 @@ hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
  <summary>Hermes FAQ</summary>
  <dl class="faq-list">
  <dt><code>hermes identyclaw me</code> says <code>RODIT_NOT_FOUND</code> after mint?</dt>
- <dd>On-chain confirm can lag a short while. Wait, then retry <code>hermes identyclaw me</code>. Do not create a new NEAR account — re-running <code>install-deps</code> / <code>enroll</code> only reprints the existing id.</dd>
+ <dd>On-chain confirm can lag. Wait, then retry <code>hermes identyclaw me</code>. Do not re-enroll to mint again.</dd>
  <dt>Need the <code>account_id</code> again?</dt>
- <dd><code>hermes identyclaw enroll</code> reprints it without overwriting credentials. Host login is built into <code>hermes identyclaw me</code>; use <code>hermes identyclaw ensure_session</code> only for <code>--force</code>, federated <code>--base</code>, or debugging.</dd>
+ <dd><code>hermes identyclaw enroll</code> reprints the same id (<code>already: true</code>) and does not overwrite credentials.</dd>
+ <dt>Override <code>HERMES_HOME</code>?</dt>
+ <dd>Optional. Default is <code>~/.hermes</code>. Export only if you keep Hermes elsewhere.</dd>
+ <dt>System Node.js?</dt>
+ <dd>Hermes-bundled Node under <code>~/.hermes/tools/node-…</code> is enough for <code>install-deps</code>. System Node.js 22.19+ only if you run plugin scripts outside Hermes.</dd>
  </dl>
  </details>
  </div>
