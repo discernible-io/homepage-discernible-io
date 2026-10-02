@@ -1,20 +1,20 @@
 {
- "name": "IdentyClaw",
- "short_name": "IdentyClaw",
- "description": "Portable cryptographic identity for AI agents",
- "icons": [
- {
- "src": "/favicon-128x128.png",
- "sizes": "128x128",
- "type": "image/png"
- },
- {
- "src": "/favicon-256x256.png",
- "sizes": "256x256",
- "type": "image/png"
- }
- ],
- "theme_color": "#FF4500",
- "background_color": "#ffffff",
- "display": "standalone"
+  "name": "Discernible.io",
+  "short_name": "Discernible",
+  "description": "RODiT: Rich Online Digital Tokens",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#E31C23",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
