@@ -100,44 +100,39 @@
  </div>
 
  <div class="runtime-panel" data-agent-panel="openclaw">
-<ol class="funnel-steps">
+ <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <h3>Have OpenClaw</h3>
- <p>Already running an OpenClaw gateway? Continue to step 2. Otherwise install OpenClaw from the <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener">getting started guide</a>, then put a background gateway in place before any <code>gateway restart</code>:</p>
+ <p>Install OpenClaw from the <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener">getting started guide</a>, then install a background gateway. Skip if you already have a running gateway.</p>
  <pre class="cmd"><code>openclaw gateway install
 openclaw gateway status</code></pre>
- <p class="step-follow">A full host with Podman and nginx TLS is the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template.</p>
+ <p class="step-follow"><strong>Check:</strong> <code>gateway status</code> reports the gateway is running. Full host with Podman + nginx TLS: <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a>.</p>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
  <h3>Install the Passport plugin</h3>
- <p>This is the plugin you need: API login, HOLA, identity, and DID. Current OpenClaw may require <code>--accept-capabilities</code>. Restart loads the plugin; on first start with no credentials it can auto-write a NEAR account under <code>~/.openclaw/secrets/near-credentials/</code>. Keys stay on disk. Never paste private keys into chat.</p>
+ <p>Install the IdentyClaw Passport plugin and restart the gateway:</p>
  <pre class="cmd"><code>openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-plugin --accept-capabilities
 openclaw gateway restart</code></pre>
- <p class="step-follow">Prefer the auto-bootstrap account id when the gateway printed one. To run the operator CLI yourself: ClawHub install does <em>not</em> put the package <code>bin</code> on your <code>PATH</code> — link it from the installed plugin package:</p>
+ <p class="step-follow"><strong>Check:</strong> Restart succeeds. Prefer the auto-bootstrap 64-character hex account id the gateway printed (<code>implicit_account_id</code>). If none printed, create one:</p>
  <pre class="cmd"><code>mkdir -p "${HOME}/.local/bin"
 # Point PLUGIN_ROOT at the installed plugin dir (often under ~/.openclaw/extensions/)
 ln -sfn "${PLUGIN_ROOT}/scripts/generate-near-account.mjs" "${HOME}/.local/bin/identyclaw-generate-near-account"
 export PATH="${HOME}/.local/bin:${PATH}"
 identyclaw-generate-near-account</code></pre>
- <p class="step-follow">Paste only the printed 64-character hex NEAR account id (OpenClaw labels it <code>implicit_account_id</code>) at checkout — never a private key or JWT.</p>
+ <p class="step-follow"><strong>Check:</strong> Command prints a 64-character hex id. Copy that id for step 3 — never a private key or JWT.</p>
  <details class="advanced-plugins">
  <summary>Advanced: webhooks, A2A, and guest HTTPS</summary>
- <p>Same host, same NEAR credentials. Set <code>PLUGIN_FLAGS</code> once if installs ask for capability consent:</p>
  <pre class="cmd"><code>PLUGIN_FLAGS=(--accept-capabilities)
 openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-webhooks-plugin "${PLUGIN_FLAGS[@]}"
 openclaw plugins install clawhub:@identyclaw/openclaw-a2a-plugin "${PLUGIN_FLAGS[@]}"
-openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plugin "${PLUGIN_FLAGS[@]}"</code></pre>
- <ul class="choice-list">
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-webhooks-plugin" target="_blank" rel="noopener">webhooks</a> — RODiT-signed ingress on <code>/hooks/wake</code> and <code>/hooks/agent</code></li>
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-a2a-plugin" target="_blank" rel="noopener">A2A</a> — peer messaging with Passport JWTs</li>
- <li><a href="https://github.com/discernible-io/openclaw-identyclaw-httpbearer-plugin" target="_blank" rel="noopener">HTTP bearer</a> — guest HTTPS when there is no Passport</li>
- </ul>
- <p class="step-follow">Point a public HTTPS domain at your agent if you want Telegram, A2A, or webhooks to reach it — that hostname serves the Agent Card and signed webhooks at <code>/hooks/wake</code> and <code>/hooks/agent</code>. Certificates and reverse-proxy TLS are on you (or the <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> template); this page is not a full ingress runbook. Skip and mint anyway if you only need the Passport.</p>
+openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plugin "${PLUGIN_FLAGS[@]}"
+openclaw gateway restart</code></pre>
+ <p class="step-follow"><strong>Check:</strong> Each install completes; gateway restart succeeds. Optional public HTTPS for Telegram / A2A / webhooks: use <a href="https://github.com/discernible-io/openclaw-agents" target="_blank" rel="noopener">openclaw-agents</a> or your own reverse proxy. Skip if you only need the Passport.</p>
  </details>
  </div>
  </li>
@@ -145,131 +140,167 @@ openclaw plugins install clawhub:@identyclaw/openclaw-identyclaw-httpbearer-plug
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Take that 64-character hex NEAR account to <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a> and mint a Passport to it. Buy once — no subscription. After on-chain confirm, restart and activate the home API session from the TUI (or Control UI chat). Personal and Enterprise tiers are on <a href="/#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste the 64-character hex account id, and mint. Then restart and open the TUI:</p>
  <pre class="cmd"><code>openclaw gateway restart
 openclaw tui</code></pre>
- <p class="step-follow">In the TUI, ask the agent to call <code>identyclaw_ensure_session</code>, then <code>identyclaw_get_my_identity</code> — you should see your Passport (including <code>token_id</code>). On-chain confirm can take a short while; until then identity lookup fails with no Passport yet (local account exists) — wait and retry.</p>
+ <p>In the TUI, ask the agent to call <code>identyclaw_ensure_session</code>, then <code>identyclaw_get_my_identity</code>.</p>
+ <p class="step-follow"><strong>Check:</strong> Identity shows Passport fields including <code>token_id</code>. If lookup fails, wait for on-chain confirm and retry — do not create a new account.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
  <h3>Write IDENTITY.md</h3>
- <p>Still in the TUI (or reopen with <code>openclaw tui</code>), ask the agent to read its IdentyClaw passport and write that into <code>IDENTITY.md</code>.</p>
- <p class="step-follow">In the TUI:</p>
+ <p>In the TUI (or <code>openclaw tui</code>), send:</p>
  <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
+ <p class="step-follow"><strong>Check:</strong> <code>IDENTITY.md</code> exists and contains Passport details (including <code>token_id</code>).</p>
  </div>
  </li>
  <li class="step-optional">
  <span class="step-num" aria-hidden="true">5</span>
  <div>
  <h3>Optional: Showcase</h3>
- <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
+ <p>Join the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
  </div>
 
- 
  <div class="runtime-panel" data-agent-panel="hermes" hidden>
-<p class="runtime-lead">Stock <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a> plus the <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a> plugin. Happy path after Hermes is present: plugin + <code>install-deps</code> (prints <code>account_id</code>) → mint → <code>hermes identyclaw me</code>.</p>
  <ol class="funnel-steps">
  <li>
  <span class="step-num">1</span>
  <div>
  <h3>Have Hermes</h3>
- <ul class="choice-list">
- <li><strong>Hermes already installed</strong> — if <code>hermes --version</code> works, skip the installer and continue to step 2 (plugin only).</li>
- <li><strong>No Hermes yet</strong> — run the official installer first. <code>hermes</code> lands in <code>~/.local/bin</code>. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code> — it is not stuck.</li>
- </ul>
+ <p>Install <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">Hermes Agent</a>. Skip if <code>hermes --version</code> already works. Expect a few minutes and about <strong>2.3&nbsp;GB</strong> under <code>~/.hermes</code>.</p>
  <pre class="cmd"><code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive --skip-browser --skip-computer-use
 export PATH="$HOME/.local/bin:$PATH"
 hermes --version</code></pre>
- <p class="step-follow">Persist the <code>PATH</code> export in your shell rc if a new terminal still cannot find <code>hermes</code>.</p>
+ <p class="step-follow"><strong>Check:</strong> <code>hermes --version</code> prints a version. If a new terminal cannot find <code>hermes</code>, add the <code>PATH</code> export to your shell rc.</p>
  </div>
  </li>
  <li>
  <span class="step-num">2</span>
  <div>
  <h3>Install the Passport plugin</h3>
- <p>Default for both branches. Needs <code>libatomic</code> for IdentyClaw/RODiT. Answer <code>y</code> to enable (or pass <code>--enable</code>). A GitHub install may warn about a custom (unreviewed) source — expected. <code>install-deps</code> runs npm, and if credentials are missing creates a 64-character hex account, prints <code>account_id</code>, and seeds <code>NEAR_CREDENTIALS_FILE_PATH</code> in <code>~/.hermes/.env</code>.</p>
+ <p>Install <code>libatomic</code>, then <a href="https://github.com/discernible-io/hermes-identyclaw-auth" target="_blank" rel="noopener"><code>identyclaw-auth</code></a>, then run <code>install-deps</code>:</p>
  <pre class="cmd"><code># Fedora / RHEL
 sudo dnf install -y libatomic
 # Debian / Ubuntu
 sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1
 
 hermes plugins install discernible-io/hermes-identyclaw-auth --enable
-hermes identyclaw install-deps   # npm + NEAR account if missing</code></pre>
- <p class="step-follow">Ignore Hermes’ “Restart the gateway” prompt for the CLI mint path; only restart if you want IdentyClaw tools in chat/gateway.</p>
- <p class="step-follow">Paste <strong>only</strong> the <code>account_id</code> from the install-deps / enroll banner (or reprint with <code>hermes identyclaw enroll</code>) at checkout — never a private key or JWT. Example printed line (yours will differ): <code>a1b2c3d4e5f678901234567890abcdef1234567890abcdef1234567890abcdef</code> — that 64-hex string is the source of truth, not filenames under <code>~/.hermes/secrets/near-credentials/</code>. Re-runs are safe (no overwrite). If Hermes says “Skipped Node deps — run hermes plugins install again,” ignore it — run <code>install-deps</code> as above.</p>
+hermes identyclaw install-deps</code></pre>
+ <p class="step-follow"><strong>Check:</strong> <code>install-deps</code> prints a 64-character hex <code>account_id</code>. Copy that id for step 3 — never a private key or JWT. To reprint later: <code>hermes identyclaw enroll</code>. Ignore “Restart the gateway” and “Skipped Node deps” for the CLI mint path.</p>
+ <details class="advanced-plugins">
+ <summary>Advanced: webhooks, A2A, and sidecar</summary>
+ <pre class="cmd"><code>hermes identyclaw sidecar start
+hermes plugins install discernible-io/hermes-identyclaw-a2a
+hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
+ <p class="step-follow"><strong>Check:</strong> Sidecar starts; both plugin installs complete. Optional public HTTPS: use <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> or your own reverse proxy. Skip if you only need the Passport.</p>
+ <p class="step-follow">Force remint / federated peer / debug (returns metadata only — never the full JWT):</p>
+ <pre class="cmd"><code>hermes identyclaw ensure_session --force
+hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
+ </details>
  </div>
  </li>
  <li>
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste that printed <code>account_id</code>, and mint. Buy once — no subscription. On-chain confirm can lag; until then <code>hermes identyclaw me</code> returns a large JSON blob with nested <code>RODIT_NOT_FOUND</code> (login is fine — wait and retry). Example shape: <code>…"error":{"code":"RODIT_NOT_FOUND",…}…</code>. Tiers are on <a href="/#pricing">Pricing</a>.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste the printed <code>account_id</code>, and mint.</p>
+ <p class="step-follow"><strong>Check:</strong> Purchase completes. On-chain confirm can lag — continue to step 4 and retry if needed.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
  <div>
  <h3>Confirm Passport</h3>
- <p>Login happens inside the plugin. You should see Passport fields including <code>token_id</code>. JWTs stay under <code>~/.hermes/secrets/identyclaw/</code>; the CLI never prints full JWTs.</p>
  <pre class="cmd"><code>hermes identyclaw me</code></pre>
+ <p class="step-follow"><strong>Check:</strong> Output includes Passport fields with <code>token_id</code>. If you see nested <code>RODIT_NOT_FOUND</code>, wait and retry — do not re-enroll.</p>
+ </div>
+ </li>
+ <li>
+ <span class="step-num">5</span>
+ <div>
+ <h3>Write IDENTITY.md</h3>
+ <p>In Hermes chat, send:</p>
+ <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
+ <p class="step-follow"><strong>Check:</strong> <code>IDENTITY.md</code> exists and contains Passport details (including <code>token_id</code>).</p>
+ </div>
+ </li>
+ <li class="step-optional">
+ <span class="step-num" aria-hidden="true">6</span>
+ <div>
+ <h3>Optional: Showcase</h3>
+ <p>Join the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
  </div>
  </li>
  </ol>
  <details class="advanced-plugins">
- <summary>Advanced: day-to-day, IDENTITY.md, Showcase</summary>
- <pre class="cmd"><code>hermes identyclaw create_hola --recipient MUNDO
-hermes identyclaw verify_hola --hola 'HOLA/…'
-hermes identyclaw request GET /api/agents</code></pre>
- <p>In Hermes chat, ask it to read its IdentyClaw passport and write <code>IDENTITY.md</code>:</p>
- <pre class="cmd"><code>please read all your idcp passport details and use that information to write IDENTITY.md</code></pre>
- <p>Find people to play with in the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
- </details>
- <details class="advanced-plugins">
- <summary>Advanced: ensure_session, gateway, sidecar, peers</summary>
- <p><code>hermes identyclaw ensure_session</code> is for <code>--force</code> remint, federated peers (<code>--base https://peer…</code>), or debugging — not the happy path. Returns metadata only — never the full JWT.</p>
- <pre class="cmd"><code>hermes identyclaw ensure_session --force
-hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
- <p>Restart the Hermes gateway only if you want IdentyClaw tools inside chat/gateway; the CLI mint path does not need it. Optional Passport-only: disable sidecar autostart with <code>IDENTYCLAW_SIDECAR_AUTOSTART=false</code> in <code>~/.hermes/.env</code>.</p>
- <p>Peer stack (sidecar, A2A, webhooks) — see <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a>:</p>
- <pre class="cmd"><code>hermes identyclaw sidecar start
-hermes plugins install discernible-io/hermes-identyclaw-a2a
-hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
- </details>
- <details class="advanced-plugins">
  <summary>Hermes FAQ</summary>
  <dl class="faq-list">
  <dt><code>hermes identyclaw me</code> says <code>RODIT_NOT_FOUND</code> after mint?</dt>
- <dd>Expected until on-chain confirm. You get a large JSON blob with the code nested under <code>error</code> (e.g. <code>…"error":{"code":"RODIT_NOT_FOUND",…}…</code>) — that is not a broken login. Wait, then retry <code>hermes identyclaw me</code>. Do not re-enroll to mint again.</dd>
+ <dd>Wait for on-chain confirm, then retry <code>hermes identyclaw me</code>. Do not re-enroll.</dd>
  <dt><code>libatomic.so.1: cannot open shared object file</code>?</dt>
- <dd>Native RODiT needs libatomic. Install it with the Step 2 package lines (<code>sudo dnf install -y libatomic</code> or <code>sudo apt-get install -y libatomic1</code>), then re-run <code>hermes identyclaw install-deps</code>.</dd>
+ <dd>Install libatomic (step 2), then re-run <code>hermes identyclaw install-deps</code>.</dd>
  <dt>Need the <code>account_id</code> again?</dt>
- <dd><code>hermes identyclaw enroll</code> reprints the same id (<code>already: true</code>) and does not overwrite credentials. Paste that printed id — do not pick another file from <code>near-credentials/</code>.</dd>
+ <dd>Run <code>hermes identyclaw enroll</code> — reprints the same id (<code>already: true</code>), no overwrite.</dd>
  <dt>Override <code>HERMES_HOME</code>?</dt>
- <dd>Optional. Default is <code>~/.hermes</code>. Export only if you keep Hermes elsewhere.</dd>
- <dt>System Node.js?</dt>
- <dd>Hermes-bundled Node under <code>~/.hermes/tools/node-…</code> is enough for <code>install-deps</code>. System Node.js 22.19+ only if you run plugin scripts outside Hermes.</dd>
+ <dd>Optional. Default is <code>~/.hermes</code>.</dd>
  </dl>
  </details>
  </div>
 
- 
  <div class="runtime-panel" data-agent-panel="other" hidden>
- <p class="runtime-lead">IronClaw and custom gateways use the same mint path: create a NEAR account, mint a Passport to it, then activate a home session. Keys stay on disk. Never paste private keys into chat.</p>
- <div class="enroll-paths">
- <div class="enroll-path">
- <h3 class="enroll-path-title">IronClaw</h3>
- <p class="enroll-path-lead"><a href="https://github.com/discernible-io/ironclaw-agents" target="_blank" rel="noopener">ironclaw-agents</a> — Podman / Passport enrollment spine; mint then activate home session.</p>
+ <ol class="funnel-steps">
+ <li>
+ <span class="step-num">1</span>
+ <div>
+ <h3>Install near-cli-rs</h3>
+ <p>Install the <code>near</code> binary from <a href="https://github.com/near/near-cli-rs" target="_blank" rel="noopener">near-cli-rs</a> (required for <code>idcp-wallet.sh</code>). Pick one path:</p>
+ <pre class="cmd"><code># Mac / Linux installer
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/near-cli-rs/releases/latest/download/near-cli-rs-installer.sh | sh
+
+# or npm
+npm install -g near-cli-rs@latest
+
+# or Cargo (needs Rust; on Debian/Ubuntu also: sudo apt install libudev-dev)
+cargo install near-cli-rs
+
+near --version</code></pre>
+ <p class="step-follow"><strong>Check:</strong> <code>near --version</code> prints a version.</p>
  </div>
- <div class="enroll-path">
- <h3 class="enroll-path-title">Existing gateway or custom</h3>
- <p class="enroll-path-lead">ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, and <a href="/developers/">Developers</a> API docs. Same mint path: NEAR account → <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>.</p>
+ </li>
+ <li>
+ <span class="step-num">2</span>
+ <div>
+ <h3>Create a NEAR account</h3>
+ <p>Clone <a href="https://github.com/discernible-io/infra" target="_blank" rel="noopener">discernible-io/infra</a> and create an account:</p>
+ <pre class="cmd"><code>git clone https://github.com/discernible-io/infra.git ~/infra
+cd ~/infra
+./idcp-wallet.sh help
+./idcp-wallet.sh gennearaccount</code></pre>
+ <p class="step-follow"><strong>Check:</strong> <code>gennearaccount</code> prints a 64-character hex account id under <code>~/.near-credentials/</code>. Copy that id for step 3 — never a private key or JWT. New accounts need ~0.01 NEAR to initialize. Set <code>BLOCKCHAIN_ENV=mainnet</code> (or <code>testnet</code>) as needed.</p>
  </div>
+ </li>
+ <li>
+ <span class="step-num">3</span>
+ <div>
+ <h3>Obtain a Passport</h3>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste the account id, and mint. Then list it:</p>
+ <pre class="cmd"><code>./idcp-wallet.sh &lt;accountID&gt;</code></pre>
+ <p class="step-follow"><strong>Check:</strong> Listing shows the Passport. If empty, wait for on-chain confirm and retry.</p>
  </div>
+ </li>
+ </ol>
+ <details class="advanced-plugins">
+ <summary>Other runtimes</summary>
+ <ul class="choice-list">
+ <li><a href="https://github.com/discernible-io/ironclaw-agents" target="_blank" rel="noopener">ironclaw-agents</a> — Podman / Passport enrollment spine</li>
+ <li>Custom gateway — ClawHub plugins, <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a>, <a href="/developers/">Developers</a></li>
+ </ul>
+ </details>
  </div>
 
  <div class="cta-buttons">
