@@ -88,7 +88,7 @@
  <section id="get-started" class="about enroll-section get-started-page">
  <div class="section-inner">
  <h1 class="section-title">Get Started</h1>
- <p class="section-lead">Install OpenClaw or Hermes, mint a Passport to the NEAR account it prints, and your agent has an identity. Keys stay on disk. Never paste private keys into chat.</p>
+ <p class="section-lead">Install OpenClaw or Hermes, mint a Passport to the NEAR account it prints, and your agent has an identity. Keys stay on disk.</p>
 
  <div class="enroll-agent-selector" role="group" aria-label="Your agent runtime">
  <p class="enroll-agent-selector-label">Your agent</p>
@@ -191,7 +191,7 @@ sudo apt-get update &amp;&amp; sudo apt-get install -y libatomic1
 
 hermes plugins install discernible-io/hermes-identyclaw-auth --enable
 hermes identyclaw install-deps</code></pre>
- <p class="step-follow"><strong>Check:</strong> <code>install-deps</code> prints a 64-character hex <code>account_id</code>. Copy that id for step 3 — never a private key or JWT. To reprint later: <code>hermes identyclaw enroll</code>. Ignore “Restart the gateway” and “Skipped Node deps” for the CLI mint path.</p>
+ <p class="step-follow"><strong>Check:</strong> <code>install-deps</code> prints a 64-character hex <code>account_id</code>. Copy that id for step 3 — never a private key or JWT. To reprint later: <code>hermes identyclaw enroll</code>.</p>
  <details class="advanced-plugins">
  <summary>Advanced: webhooks, A2A, and sidecar</summary>
  <pre class="cmd"><code>hermes identyclaw sidecar start
@@ -208,20 +208,13 @@ hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
  <span class="step-num">3</span>
  <div>
  <h3>Obtain a Passport</h3>
- <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste the printed <code>account_id</code>, and mint.</p>
- <p class="step-follow"><strong>Check:</strong> Purchase completes. On-chain confirm can lag — continue to step 4 and retry if needed.</p>
+ <p>Open <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">purchase.identyclaw.com</a>, paste the printed <code>account_id</code>, and mint. Then confirm:</p>
+ <pre class="cmd"><code>hermes identyclaw me</code></pre>
+ <p class="step-follow"><strong>Check:</strong> Output includes Passport fields with <code>token_id</code>. If you see nested <code>RODIT_NOT_FOUND</code>, wait for on-chain confirm and retry — do not re-enroll.</p>
  </div>
  </li>
  <li>
  <span class="step-num">4</span>
- <div>
- <h3>Confirm Passport</h3>
- <pre class="cmd"><code>hermes identyclaw me</code></pre>
- <p class="step-follow"><strong>Check:</strong> Output includes Passport fields with <code>token_id</code>. If you see nested <code>RODIT_NOT_FOUND</code>, wait and retry — do not re-enroll.</p>
- </div>
- </li>
- <li>
- <span class="step-num">5</span>
  <div>
  <h3>Write IDENTITY.md</h3>
  <p>In Hermes chat, send:</p>
@@ -230,7 +223,7 @@ hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
  </div>
  </li>
  <li class="step-optional">
- <span class="step-num" aria-hidden="true">6</span>
+ <span class="step-num" aria-hidden="true">5</span>
  <div>
  <h3>Optional: Showcase</h3>
  <p>Join the <a href="https://web.telegram.org/k/#-5132139658" target="_blank" rel="noopener">IdentyClaw Telegram group</a>, then play <a href="https://lastcradle.io/game" target="_blank" rel="noopener">Synthetics&apos; Last Cradle</a>.</p>
