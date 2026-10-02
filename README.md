@@ -9,17 +9,17 @@ A modern, responsive static homepage for [IdentyClaw](https://www.discernible.io
 The live site at [discernible.io](https://www.discernible.io) includes:
 
 - **Passport** — what a Passport is and why it matters: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
-- **How to Enroll** — templates for [OpenClaw](https://github.com/discernible-io/openclaw-agents), [Hermes](https://github.com/discernible-io/hermes-agents), and [IronClaw](https://github.com/discernible-io/ironclaw-agents/tree/feat/identyclaw-passport), plus custom/plugin paths
+- **Get Started** — install OpenClaw, Hermes, or other runtimes, mint a Passport, and activate identity (`/get-started/` with OpenClaw / Hermes / Other views)
 - **Developers** — full IdentyClaw open-source stack (templates, plugins, [rodit-sdk](https://github.com/discernible-io/rodit-sdk), [api-test-scaffold](https://github.com/discernible-io/api-test-scaffold), [gennearaccount](https://github.com/discernible-io/gennearaccount), [api-scaffold-federated-rodit-auth](https://github.com/discernible-io/api-scaffold-federated-rodit-auth))
 - **Last Cradle** — [Synthetics' Last Cradle](https://lastcradle.io/about) overview with links to join, watch, prizes, and the game API
 - **Powered by RODiT** — protocol layer with link to the [rodit-sdk](https://github.com/discernible-io/rodit-sdk) monorepo
 - **Contact** — newsletter, concierge, GitHub org, API docs
 
-Source files live under `public/` (`index.html`, `developers/index.html`, `styles.css`, `script.js`). Clean URL: `/developers/` (legacy `/developers.html` redirects).
+Source files live under `public/` (`index.html`, `get-started/index.html`, `developers/index.html`, `styles.css`, `script.js`). Clean URLs: `/get-started/`, `/developers/` (legacy `*.html` redirects).
 
 ## Funnel attribution (cookieless)
 
-Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and a per-tab `funnel_id` (minted into the address bar and same-origin hops). The id is kept in `sessionStorage` for that tab so home ↔ Developers stay one visit; an inbound `funnel_id` / `vid` from a shared URL is ignored so later visitors get a new stitch id. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
+Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and a per-tab `funnel_id` (minted into the address bar and same-origin hops). The id is kept in `sessionStorage` for that tab so home ↔ Get Started ↔ Developers stay one visit; an inbound `funnel_id` / `vid` from a shared URL is ignored so later visitors get a new stitch id. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
 
 ## 🚀 Features
 

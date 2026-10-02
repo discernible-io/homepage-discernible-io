@@ -15,6 +15,7 @@
  RewriteCond %{HTTP_HOST} ^discernible\.io$ [NC]
  RewriteRule ^ https://www.discernible.io%{REQUEST_URI} [L,R=301]
  RewriteRule ^developers\.html$ /developers/ [L,R=301]
+ RewriteRule ^get-started\.html$ /get-started/ [L,R=301]
 </IfModule>
 
 # Security Headers

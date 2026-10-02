@@ -1,3 +1,14 @@
+// Legacy homepage hash → dedicated Get Started page
+(function redirectLegacyGetStartedHash() {
+ const path = window.location.pathname.replace(/\/+$/, '') || '/';
+ if (
+ (path === '/' || path === '/index.html') &&
+ window.location.hash === '#get-started'
+ ) {
+ window.location.replace('/get-started/' + window.location.search);
+ }
+})();
+
 // Mobile navigation toggle
 const navbar = document.querySelector('.navbar');
 const navToggle = document.querySelector('.nav-toggle');
@@ -18,6 +29,49 @@ if (navToggle && navbar) {
  });
  });
 }
+
+// Get Started: OpenClaw / Hermes / Other view selection (?agent=)
+(function attachAgentRuntimeSelector() {
+ const selector = document.querySelector('.enroll-agent-selector');
+ if (!selector) {
+ return;
+ }
+
+ const options = Array.from(selector.querySelectorAll('[data-agent]'));
+ const panels = Array.from(document.querySelectorAll('[data-agent-panel]'));
+ if (!options.length || !panels.length) {
+ return;
+ }
+
+ const VALID = new Set(options.map((btn) => btn.getAttribute('data-agent')));
+
+ function setAgent(agent, { pushUrl } = { pushUrl: true }) {
+ const next = VALID.has(agent) ? agent : 'openclaw';
+ options.forEach((btn) => {
+ const active = btn.getAttribute('data-agent') === next;
+ btn.classList.toggle('is-active', active);
+ btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+ });
+ panels.forEach((panel) => {
+ const match = panel.getAttribute('data-agent-panel') === next;
+ panel.hidden = !match;
+ });
+ if (pushUrl) {
+ const url = new URL(window.location.href);
+ url.searchParams.set('agent', next);
+ window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
+ }
+ }
+
+ const inbound = new URLSearchParams(window.location.search).get('agent');
+ setAgent(inbound || 'openclaw');
+
+ options.forEach((btn) => {
+ btn.addEventListener('click', () => {
+ setAgent(btn.getAttribute('data-agent'));
+ });
+ });
+})();
 
 // Smooth scrolling for in-page links
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -126,7 +180,9 @@ telegramConciergeLinks.forEach((link) => {
  path === '/' ||
  path === '/index.html' ||
  path === '/developers' ||
- path === '/developers.html'
+ path === '/developers.html' ||
+ path === '/get-started' ||
+ path === '/get-started.html'
  );
  } catch {
  return false;

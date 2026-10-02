@@ -841,7 +841,60 @@ body {
  margin: 0 auto;
 }
 
-.runtime-block {
+.enroll-agent-selector {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 0.45rem;
+ margin: 0 auto 1.35rem;
+ text-align: center;
+}
+
+.enroll-agent-selector-label {
+ margin: 0;
+ font-size: 0.72rem;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--text-muted);
+}
+
+.enroll-agent-segment {
+ display: inline-flex;
+ padding: 0.2rem;
+ border: 2px solid var(--secondary-color);
+ border-radius: 12px;
+ background: var(--white);
+ box-shadow: var(--shadow);
+}
+
+.enroll-agent-option {
+ appearance: none;
+ border: none;
+ background: transparent;
+ color: var(--text-light);
+ font: inherit;
+ font-size: 0.9rem;
+ font-weight: 600;
+ padding: 0.55rem 1.1rem;
+ border-radius: 8px;
+ cursor: pointer;
+ transition: background 0.15s, color 0.15s;
+}
+
+.enroll-agent-option:hover {
+ background: var(--bg-alt);
+ color: var(--text-dark);
+}
+
+.enroll-agent-option.is-active,
+.enroll-agent-option.is-active:hover {
+ background: var(--secondary-color);
+ color: var(--white);
+}
+
+.runtime-block,
+.runtime-panel {
  max-width: 44rem;
  margin: 0 auto 2rem;
 }
@@ -851,24 +904,28 @@ body {
  margin: 0 0 0.35rem;
 }
 
-.runtime-block .runtime-lead {
+.runtime-block .runtime-lead,
+.runtime-panel .runtime-lead {
  margin: 0 0 0.75rem;
  color: var(--text-light);
  line-height: 1.55;
  font-size: 0.95rem;
 }
 
-.runtime-block .runtime-lead a {
+.runtime-block .runtime-lead a,
+.runtime-panel .runtime-lead a {
  color: var(--primary-color);
  font-weight: 600;
  text-decoration: none;
 }
 
-.runtime-block .runtime-lead a:hover {
+.runtime-block .runtime-lead a:hover,
+.runtime-panel .runtime-lead a:hover {
  text-decoration: underline;
 }
 
-.runtime-block > pre.cmd {
+.runtime-block > pre.cmd,
+.runtime-panel > pre.cmd {
  margin-bottom: 0.25rem;
 }
 
@@ -879,7 +936,8 @@ body {
  padding: 0;
 }
 
-.runtime-block .funnel-steps {
+.runtime-block .funnel-steps,
+.runtime-panel .funnel-steps {
  max-width: none;
  margin: 0;
 }
@@ -965,7 +1023,8 @@ body {
 }
 
 .funnel-steps pre.cmd,
-.runtime-block > pre.cmd {
+.runtime-block pre.cmd,
+.runtime-panel pre.cmd {
  margin: 0.75rem 0 0;
  padding: 0.85rem 1rem;
  background: var(--secondary-color);
@@ -977,7 +1036,8 @@ body {
 }
 
 .funnel-steps pre.cmd code,
-.runtime-block > pre.cmd code {
+.runtime-block pre.cmd code,
+.runtime-panel pre.cmd code {
  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
  font-size: inherit;
  white-space: pre-wrap;
@@ -985,18 +1045,40 @@ body {
  color: inherit;
 }
 
-.funnel-steps .advanced-plugins {
+.funnel-steps .advanced-plugins,
+.runtime-panel > .advanced-plugins {
  margin-top: 0.85rem;
 }
 
-.funnel-steps .advanced-plugins > summary {
+.funnel-steps .advanced-plugins > summary,
+.runtime-panel > .advanced-plugins > summary {
  cursor: pointer;
  font-weight: 600;
  color: var(--text-dark);
 }
 
-.funnel-steps .advanced-plugins > p {
+.funnel-steps .advanced-plugins > p,
+.runtime-panel > .advanced-plugins > p {
  margin-top: 0.65rem;
+}
+
+.runtime-panel[hidden] {
+ display: none;
+}
+
+.get-started-page .section-title {
+ text-align: center;
+}
+
+.get-started-page .section-lead {
+ text-align: center;
+ max-width: 40rem;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.get-started-page .cta-buttons {
+ justify-content: center;
 }
 
 .funnel-steps .step-follow {
