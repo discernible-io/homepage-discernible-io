@@ -317,6 +317,10 @@ body {
  margin: 0 0 0.35rem;
 }
 
+.use-cases-section .feature-card-secondary {
+ grid-column: 1 / -1;
+}
+
 .use-cases-section .feature-card-secondary h3 {
  font-size: 1rem;
 }
