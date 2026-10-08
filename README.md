@@ -19,7 +19,7 @@ Source files live under `public/` (`index.html`, `get-started/index.html`, `deve
 
 ## Funnel attribution (cookieless)
 
-Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and a per-tab `funnel_id` (minted into the address bar and same-origin hops). The id is kept in `sessionStorage` for that tab so home ↔ Get Started ↔ Developers stay one visit; an inbound `funnel_id` / `vid` from a shared URL is ignored so later visitors get a new stitch id. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
+Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and `funnel_id` (alias `vid`). On land: adopt inbound `funnel_id` when present, else reuse this tab’s `sessionStorage` id, else mint a new one into the address bar and CTAs. That keeps campaign / hop stitch intact across home ↔ Get Started ↔ Developers ↔ purchase / verify / showcase. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
 
 ## 🚀 Features
 

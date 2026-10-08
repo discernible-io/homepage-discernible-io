@@ -260,11 +260,23 @@ body {
  line-height: 1.65;
 }
 
+.hero-bound {
+ font-size: 0.9375rem;
+ color: var(--text-dark);
+ margin-bottom: 0.75rem;
+ line-height: 1.55;
+}
+
 .hero-intro {
  font-size: 0.9375rem;
  color: var(--text-muted);
  margin-bottom: 1.75rem;
  line-height: 1.55;
+}
+
+.hero-intro a {
+ color: var(--primary-color);
+ font-weight: 600;
 }
 
 .hero-subtitle abbr {
@@ -471,7 +483,7 @@ body {
 .contact-newsletter {
  width: 100%;
  max-width: 36rem;
- margin: 0 auto 2.5rem;
+ margin: 0 auto 1.5rem;
 }
 
 .contact-group-title {
@@ -484,12 +496,20 @@ body {
  margin-bottom: 1rem;
 }
 
+.contact-group-lead {
+ font-size: 0.9rem;
+ color: rgba(255, 255, 255, 0.8);
+ text-align: center;
+ line-height: 1.5;
+ margin: -0.35rem 0 1rem;
+}
+
 .contact-groups {
  display: flex;
  flex-direction: column;
  gap: 2rem;
  max-width: 40rem;
- margin: 0 auto 2rem;
+ margin: 0 auto 2.5rem;
 }
 
 .contact-icons {
@@ -840,7 +860,14 @@ body {
 
 .pricing-tier {
  font-size: 1.35rem;
- margin: 0 0 0.5rem;
+ margin: 0 0 0.35rem;
+}
+
+.pricing-amount {
+ font-size: 1.05rem;
+ font-weight: 700;
+ color: var(--text-dark);
+ margin: 0 0 0.35rem;
 }
 
 .pricing-points {

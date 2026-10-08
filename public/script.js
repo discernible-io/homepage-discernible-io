@@ -146,12 +146,12 @@ telegramConciergeLinks.forEach((link) => {
  link.href = getTelegramConciergeUrl();
 });
 
-/**
+ /**
  * Cookieless funnel CTA hygiene (land → purchase / verify / enroll).
  * Sibling contract: docs/docs/funnel-standard.md (SoT) + home-API src/lib/funnel.js
- * Each browser tab gets its own funnel_id (sessionStorage). It is written into the
- * address bar and CTA / internal hrefs. Inbound funnel_id / vid from a shared URL
- * are ignored so later visitors are not stitched to the person who copied the link.
+ * Adopt inbound funnel_id / vid when present; otherwise reuse this tab's
+ * sessionStorage id; mint only if both are absent. Keep the id in the address
+ * bar and on CTA / internal hrefs so land → purchase / verify / showcase stitch.
  */
 (function attachFunnelAttribution() {
  const UTM_KEYS = [
@@ -199,23 +199,25 @@ telegramConciergeLinks.forEach((link) => {
  }
  });
 
- // Never adopt funnel_id / vid from the landing URL — those are share leftovers.
- let funnelId = '';
+ // Standard: forward inbound funnel_id; mint only if absent at land.
+ const inboundFunnel = (inbound.get('funnel_id') || inbound.get('vid') || '').trim();
+ let storedFunnel = '';
  try {
- funnelId = (sessionStorage.getItem(STORAGE_KEY) || '').trim();
+ storedFunnel = (sessionStorage.getItem(STORAGE_KEY) || '').trim();
  } catch {
- funnelId = '';
+ storedFunnel = '';
  }
+ let funnelId = inboundFunnel || storedFunnel;
  if (!funnelId) {
  funnelId =
  typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
  ? crypto.randomUUID()
  : `f_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+ }
  try {
  sessionStorage.setItem(STORAGE_KEY, funnelId);
  } catch {
  // Private mode: this page still beacons its own id; hops may not stitch.
- }
  }
  attribution.set('funnel_id', funnelId);
 

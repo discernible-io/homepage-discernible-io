@@ -133,7 +133,8 @@
  <h1 class="hero-title">IdentyClaw Passport</h1>
  <p class="hero-eyebrow">by Discernible.io</p>
  <p class="hero-subtitle">Portable agent identity you <strong>buy once</strong> — no subscription, no renewals. Prove who you are with HOLA on any channel. API, verify, and agent templates are included with your mint.</p>
- <p class="hero-intro">I'm Lemuel, your IdentyClaw concierge. Questions? Email, Discord, or Telegram below.</p>
+ <p class="hero-bound">Impersonation-resistant, not deepfake-proof: a HOLA proof shows who controls the credential — not that a person on camera is genuine against a volunteer deepfake.</p>
+ <p class="hero-intro">I'm Lemuel, your IdentyClaw concierge. Questions? Reach me by Email, Discord, or Telegram next to my photo — or in <a href="#contact">Contact</a>.</p>
  <div class="cta-buttons hero-cta">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
  <a class="btn btn-outline" href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Test Drive</a>
@@ -147,12 +148,12 @@
  <section id="use-cases" class="features use-cases-section">
  <div class="section-inner">
  <h2 class="section-title">Who you are corresponding with</h2>
- <p class="section-lead">Verifiable remote identity for corporate interactions — believable because anyone can check. No certificate authority and no trusted platform sit between you and the proof.</p>
- <p class="section-lead">The credential is an IdentyClaw Passport. The proof is a <strong>HOLA</strong> line, and it is multi-channel: the same proof works on the channel the conversation already uses — email, chat, a video call, or an API. It shows current control of that identity. For a live video agent, it says this stream is the authentic agent, not a clone. It does not say a person on camera is genuine against a volunteer deepfake.</p>
+ <p class="section-lead">Verifiable remote identity for corporate interactions — believable because anyone can check. No certificate authority and no trusted third-party broker decide who you are. Endpoints may still need their own trust for liveness; that is a different layer.</p>
+ <p class="section-lead">The credential is an IdentyClaw Passport. The proof is a <strong>HOLA</strong> line, and it is multi-channel: the same proof works on the channel the conversation already uses — email, chat, a video call, or an API. For a live video agent, it says this stream is the authentic agent, not a clone.</p>
  <div class="features-grid">
  <div class="feature-card">
  <h3>Executive mutual authentication</h3>
- <p>Executives corresponding across firms, with no shared platform, each prove they currently control the credential the other expects. The proof rides the channel they already share — email, chat, the video call, or an API. Security and compliance can check it themselves. Device attestation and video liveness still require a trusted device or platform on both ends, and they do not produce a proof anyone can check in this cross-company case.</p>
+ <p>Executives corresponding across firms, with no shared platform, each prove they currently control the credential the other expects. The proof rides the channel they already share — email, chat, the video call, or an API. Security and compliance can check it themselves. That is the ad-hoc, cross-company case where device attestation and video liveness alone are not enough: they need a trusted device or platform on both ends, and they do not produce a verifier-independent proof.</p>
  </div>
  <div class="feature-card">
  <h3>Live agent proof</h3>
@@ -161,7 +162,7 @@
  <div class="feature-card feature-card-secondary">
  <p class="feature-kicker">At larger scale</p>
  <h3>Many-to-many agent collaboration</h3>
- <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million pairwise API keys — or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap: 1 million peer-pair HMAC shared secrets — or the same Passport, because the proofs are signed at the origin. Identity scales linearly, not geometrically.</p>
+ <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million directional pairwise API keys — or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap: 1 million directional peer-pair HMAC shared secrets — or the same Passport, because the proofs are signed at the origin. Identity scales linearly, not geometrically.</p>
  </div>
  </div>
  </div>
@@ -189,20 +190,22 @@
  <section id="pricing" class="features pricing-section">
  <div class="section-inner">
  <h2 class="section-title">Buy once. No subscription.</h2>
- <p class="section-lead">The only spend is minting an IdentyClaw Passport. API home, HOLA, verify, and agent templates are included — not upsells. Pay in NEAR on the purchase portal (fiat path where available).</p>
+ <p class="section-lead">The only spend is minting an IdentyClaw Passport. API home, HOLA, verify, and agent templates are included — not upsells. Pay in NEAR on the purchase portal (fiat path where available). Live amounts are shown there before you pay.</p>
  <div class="pricing-strip">
  <div class="pricing-card">
  <h3 class="pricing-tier">Personal</h3>
- <p class="pricing-points">Standard rate of use · face assigned for you · one-time mint</p>
- <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Mint Personal</a>
+ <p class="pricing-amount">One-time NEAR mint</p>
+ <p class="pricing-points">Standard rate of use · face assigned for you</p>
+ <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">See Personal price</a>
  </div>
  <div class="pricing-card">
  <h3 class="pricing-tier">Enterprise</h3>
- <p class="pricing-points">Higher rate of use · choose your face · one-time mint</p>
- <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Mint Enterprise</a>
+ <p class="pricing-amount">One-time NEAR mint</p>
+ <p class="pricing-points">Higher rate of use · choose your face</p>
+ <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">See Enterprise price</a>
  </div>
  </div>
- <p class="pricing-note">Live NEAR amounts are on the <a href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Purchase Portal</a>. Concierge can help if you are stuck on checkout.</p>
+ <p class="pricing-note">Run the Passport on your own agent with <a href="/get-started/">Get Started</a> — OpenClaw, Hermes, or another host; keys stay on disk. Stuck on checkout? Reach Lemuel in <a href="#contact">Contact</a>.</p>
  </div>
  </section>
  </main>
@@ -211,35 +214,10 @@
  <div class="section-inner">
  <h2 class="section-title contact-section-title">Contact</h2>
 
- <div class="contact-newsletter">
- <h3 class="contact-group-title">Sign up for email updates</h3>
- <div id="mc_embed_shell">
- <div id="mc_embed_signup">
- <form action="https://discernible.us1.list-manage.com/subscribe/post?u=75f822eaa3278893252025bf2&amp;id=a0346ab05b&amp;f_id=00d2c6e0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
- <div id="mc_embed_signup_scroll">
- <div class="mc-field-group">
- <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
- <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
- </div>
- <div id="mce-responses" class="clear">
- <div class="response" id="mce-error-response" style="display: none;"></div>
- <div class="response" id="mce-success-response" style="display: none;"></div>
- </div>
- <div style="position: absolute; left: -5000px;" aria-hidden="true">
- <input type="text" name="b_75f822eaa3278893252025bf2_a0346ab05b" tabindex="-1" value="">
- </div>
- <div class="clear">
- <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Email updates">
- </div>
- </div>
- </form>
- </div>
- </div>
- </div>
-
  <div class="contact-groups">
  <div class="contact-group">
  <h3 class="contact-group-title">IdentyClaw Concierge</h3>
+ <p class="contact-group-lead">Email, Discord, or Telegram — Lemuel can help with checkout and Passports.</p>
  <nav class="contact-icons" aria-label="Concierge contact">
  <a class="contact-icon-link" href="mailto:identyclaw@agenthood.me?subject=IdentyClaw%20Concierge" aria-label="Email concierge">
  <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -272,6 +250,32 @@
  <span class="contact-icon-label">Blog</span>
  </a>
  </nav>
+ </div>
+ </div>
+
+ <div class="contact-newsletter">
+ <h3 class="contact-group-title">Sign up for email updates</h3>
+ <div id="mc_embed_shell">
+ <div id="mc_embed_signup">
+ <form action="https://discernible.us1.list-manage.com/subscribe/post?u=75f822eaa3278893252025bf2&amp;id=a0346ab05b&amp;f_id=00d2c6e0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+ <div id="mc_embed_signup_scroll">
+ <div class="mc-field-group">
+ <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+ <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
+ </div>
+ <div id="mce-responses" class="clear">
+ <div class="response" id="mce-error-response" style="display: none;"></div>
+ <div class="response" id="mce-success-response" style="display: none;"></div>
+ </div>
+ <div style="position: absolute; left: -5000px;" aria-hidden="true">
+ <input type="text" name="b_75f822eaa3278893252025bf2_a0346ab05b" tabindex="-1" value="">
+ </div>
+ <div class="clear">
+ <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Email updates">
+ </div>
+ </div>
+ </form>
+ </div>
  </div>
  </div>
 
