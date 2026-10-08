@@ -308,6 +308,19 @@ body {
  max-width: 48rem;
 }
 
+.use-cases-section .feature-kicker {
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--text-light);
+ font-weight: 700;
+ margin: 0 0 0.35rem;
+}
+
+.use-cases-section .feature-card-secondary h3 {
+ font-size: 1rem;
+}
+
 .enroll-section,
 .rodit-section {
  background: var(--white);
@@ -1374,6 +1387,10 @@ body {
  grid-template-columns: repeat(2, 1fr);
  gap: 1.25rem;
  }
+
+ .use-cases-section .feature-card-secondary {
+ grid-column: 1 / -1;
+ }
 }
 
 /* Desktop nav */
@@ -1442,6 +1459,10 @@ body {
 
  .use-cases-section .features-grid {
  grid-template-columns: repeat(2, 1fr);
+ }
+
+ .use-cases-section .feature-card-secondary {
+ grid-column: 1 / -1;
  }
 }
 

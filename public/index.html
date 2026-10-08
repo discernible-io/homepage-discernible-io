@@ -96,7 +96,7 @@
  <span class="nav-toggle-bar"></span>
  </button>
  <ul class="nav-links" id="site-nav">
- <li><a href="#use-cases">Passport</a></li>
+ <li><a href="#use-cases">Use cases</a></li>
  <li><a href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Test Drive</a></li>
  <li><a href="https://lastcradle.io/" target="_blank" rel="noopener">Showcase</a></li>
  <li><a href="/get-started/">Get Started</a></li>
@@ -146,25 +146,22 @@
 
  <section id="use-cases" class="features use-cases-section">
  <div class="section-inner">
- <h2 class="section-title">What a Passport is</h2>
- <p class="section-lead">An IdentyClaw Passport is a persistent, on-chain identity credential for an AI agent — like a passport for a person, but for a software agent. It’s a subject-owned token on a NEAR registry, identified by a unique 12-character “facial” code people can recognize visually.</p>
- <p class="section-lead">What it’s good for: letting agents prove who they are to strangers on channels nobody controls (chat, A2A, webhooks, even QR/sound), without re-registering at every service. Verification answers: “Is this the same attributable agent on the registry I trust, and do they currently control that credential?” — not “Are they allowed to call my API?” or “Who is the human behind them?” Those stay other layers (OAuth, KYC, authz, etc.).</p>
+ <h2 class="section-title">Who you are corresponding with</h2>
+ <p class="section-lead">Verifiable remote identity for corporate interactions — believable because anyone can check. No certificate authority and no trusted platform sit between you and the proof.</p>
+ <p class="section-lead">The credential is an IdentyClaw Passport. The proof is a <strong>HOLA</strong> line, and it is multi-channel: the same proof works on the channel the conversation already uses — email, chat, a video call, or an API. It shows current control of that identity. For a live video agent, it says this stream is the authentic agent, not a clone. It does not say a person on camera is genuine against a volunteer deepfake.</p>
  <div class="features-grid">
  <div class="feature-card">
- <h3>Facial ID</h3>
- <p>Every Passport’s 12-letter <code>tokenId</code> encodes facial traits peers can resolve as a readable persona—a personable, immediately recognizable identity useful for interfacing with humans. Example: <code>chsjlpchbngh</code> resolves to a feminine, square-faced, East-Asian senior with bow-shaped lips and freckled, ruddy skin—traits a human can recognize. The face id encodes a recognizable face, and that unique face matches its face id. <a href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Give it a Test Drive</a>.</p>
+ <h3>Executive mutual authentication</h3>
+ <p>Executives corresponding across firms, with no shared platform, each prove they currently control the credential the other expects. The proof rides the channel they already share — email, chat, the video call, or an API. Security and compliance can check it themselves. Device attestation and video liveness still require a trusted device or platform on both ends, and they do not produce a proof anyone can check in this cross-company case.</p>
  </div>
  <div class="feature-card">
+ <h3>Live agent proof</h3>
+ <p>When a video agent runs an interview or a customer conversation, the same multi-channel proof says this stream is the authentic agent, not a clone. It travels with the stream and with the messages around it. Anyone can check it, including people who never registered that agent. <a href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Give it a test drive</a>.</p>
+ </div>
+ <div class="feature-card feature-card-secondary">
+ <p class="feature-kicker">At larger scale</p>
  <h3>Many-to-many agent collaboration</h3>
- <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million pairwise API keys—or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap in the same scenario: 1 million peer-pair HMAC shared secrets—or the very same Passport you already have, as they are digitally signed in origin. Identity scales linearly, not geometrically.</p>
- </div>
- <div class="feature-card">
- <h3>Sovereign</h3>
- <p>Your NEAR account holds and controls the Passport. Signing keys stay with you—not in a central identity database, not attached to any provider. You mint your identity; you do not register with IdentyClaw to exist. Change key pair as often as you like while keeping the same persistent identity not only peers can verify, but anyone can verify.</p>
- </div>
- <div class="feature-card">
- <h3>Multi-channel</h3>
- <p>One Passport across API, messaging, email, and peer protocols—not bound to any one address or URL. <strong>HOLA</strong> proofs are compact, signed strings you can embed in API payloads, email, Telegram, WhatsApp, Signal, Discord—or, if you prefer, Morse-encoded drums.</p>
+ <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million pairwise API keys — or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap: 1 million peer-pair HMAC shared secrets — or the same Passport, because the proofs are signed at the origin. Identity scales linearly, not geometrically.</p>
  </div>
  </div>
  </div>
