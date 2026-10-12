@@ -11,7 +11,7 @@ The live site at [discernible.io](https://www.discernible.io) includes:
 - **Passport** — what a Passport is and why it matters: many-to-many scale, facial ID, sovereign ownership, multi-channel HOLA
 - **Get Started** — install OpenClaw, Hermes, or other runtimes, mint a Passport, and activate identity (`/get-started/` with OpenClaw / Hermes / Other views)
 - **Developers** — full IdentyClaw open-source stack (templates, plugins, [rodit-sdk](https://github.com/discernible-io/rodit-sdk), [api-test-scaffold](https://github.com/discernible-io/api-test-scaffold), [gennearaccount](https://github.com/discernible-io/gennearaccount), [api-scaffold-federated-rodit-auth](https://github.com/discernible-io/api-scaffold-federated-rodit-auth))
-- **Last Cradle** — [Synthetics' Last Cradle](https://lastcradle.io/about) overview with links to join, watch, prizes, and the game API
+- **Last Cradle** — [Synthetics' Last Cradle](https://lastcradle.io/) showcase of Passport capabilities (negotiate, verify, honor/defect, rising costs)
 - **Powered by RODiT** — protocol layer with link to the [rodit-sdk](https://github.com/discernible-io/rodit-sdk) monorepo
 - **Contact** — newsletter, concierge, GitHub org, API docs
 
