@@ -33,7 +33,7 @@ jobs:
 
       - name: Prepare GitHub Pages content
         run: |
-          mkdir -p gh-pages/developers gh-pages/get-started
+          mkdir -p gh-pages/developers gh-pages/get-started gh-pages/share
           cp public/index.html gh-pages/
           cp public/developers.html gh-pages/
           cp public/developers/index.html gh-pages/developers/
@@ -45,6 +45,7 @@ jobs:
           cp public/lemuel.png gh-pages/
           cp public/og-image.png gh-pages/
           cp public/banner.png gh-pages/
+          cp public/share/alicegardner.png gh-pages/share/
           cp public/CNAME gh-pages/
           cp public/.htaccess gh-pages/
           cp public/robots.txt gh-pages/
