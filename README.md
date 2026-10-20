@@ -17,6 +17,10 @@ The live site at [discernible.io](https://www.discernible.io) includes:
 
 Source files live under `public/` (`index.html`, `get-started/index.html`, `developers/index.html`, `styles.css`, `script.js`). Clean URLs: `/get-started/`, `/developers/` (legacy `*.html` redirects).
 
+## Backlog
+
+- [`TODO.md`](TODO.md) — SEO and content follow-ups (repo only; not deployed)
+
 ## Funnel attribution (cookieless)
 
 Outbound CTAs to `purchase.identyclaw.com`, `verify.identyclaw.com`, and `lastcradle.io` preserve inbound `utm_*` and `funnel_id` (alias `vid`). On land: adopt inbound `funnel_id` when present, else reuse this tab’s `sessionStorage` id, else mint a new one into the address bar and CTAs. That keeps campaign / hop stitch intact across home ↔ Get Started ↔ Developers ↔ purchase / verify / showcase. `script.js` also beacons `funnel.land` to `api.identyclaw.com/api/funnel/land` with `domain` set to the emitting host (`www.discernible.io` or `discernible.io`). No stitching cookies — sibling emit contract: **docs** `docs/funnel-standard.md`.
