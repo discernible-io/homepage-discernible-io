@@ -5,8 +5,9 @@
  "scripts": {
  "start": "npx http-server ./public -p 8080",
  "build": "echo 'No build step required for static site'",
- "generate-banner": "node generate-banner.js",
- "generate-favicon": "node generate-favicon.js"
+    "generate-banner": "node generate-banner.js",
+    "generate-favicon": "node generate-favicon.js",
+    "generate-og-image": "node generate-og-image.js"
  },
  "devDependencies": {
  "sharp": "^0.33.5"
