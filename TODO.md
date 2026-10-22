@@ -31,5 +31,9 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 - [ ] Validate JSON-LD: [Rich Results Test](https://search.google.com/test/rich-results)
 
 ### Off-site / content
-- [ ] Point GitHub READMEs, ClawHub listings, `api.identyclaw.com/docs`, and `lastcradle.io` at these pages with descriptive anchors
+- [x] Point GitHub READMEs at these pages with descriptive anchors (`idclawserver-idc`, `openclaw-identyclaw-plugin` — 2026-10-22)
+- [ ] Point ClawHub listings, `api.identyclaw.com/docs`, and `lastcradle.io` at these pages with descriptive anchors
 - [ ] Keep publishing on [dev.to/discernible-io](https://dev.to/discernible-io) with links back to product pages
+
+### Operator-only (cannot automate from this repo)
+Search Console property, sitemap submit, coverage monitoring, OG re-scrape, and Rich Results Test remain manual after each meaningful deploy.
