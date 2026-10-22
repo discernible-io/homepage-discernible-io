@@ -1,0 +1,4 @@
+title = "homepage-discernible-io gitleaks config"
+
+[extend]
+useDefault = true
