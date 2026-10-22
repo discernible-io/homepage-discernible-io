@@ -17,7 +17,7 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 - [x] FAQ section + `FAQPage` schema on developers
 - [x] `og-image.png` is a clear 1200×630 product/brand graphic (`npm run generate-og-image`)
 - [x] Apex `https://discernible.io` 301-redirects to `https://www.discernible.io` (HTTPS)
-- [x] Production cache rules in `.htaccess` (HTML / CSS·JS / assets); GitHub Pages ignores `.htaccess` — rules apply on Apache / DO only
+- [x] Live-site cache rules in `.htaccess` (HTML / CSS·JS / assets); GitHub Pages ignores `.htaccess` — rules apply on Apache / DO only
 
 ## Still to do (manual / later)
 
