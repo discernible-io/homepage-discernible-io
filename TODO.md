@@ -46,3 +46,14 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 
 ### Operator-only (cannot automate from this repo)
 Search Console property, sitemap submit, coverage monitoring, OG re-scrape, and Rich Results Test remain manual after each meaningful deploy.
+
+
+## Standards compliance (host audit 2026-10-27)
+
+Audited against discernible-io/docs `bad60c82` (static marketing row). SEO/operator items above remain.
+
+### Funnel / docs
+
+- [ ] **Funnel cookieless tension:** `public/script.js` persists `funnel_id` in `sessionStorage` — migrate to URL/memory-only, or document an explicit product/legal exception (see [`funnel-standard.md`](../docs/docs/funnel-standard.md) known gaps).
+- [ ] README: pin discernible-io/docs **commit SHA** for funnel/configuration references (today links floating `main`).
+- [ ] If a `development` branch is ever added, keep this `TODO.md` byte-identical on both tiers (principle 21).
