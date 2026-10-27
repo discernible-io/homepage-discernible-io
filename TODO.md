@@ -19,41 +19,33 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 - [x] Apex `https://discernible.io` 301-redirects to `https://www.discernible.io` (HTTPS)
 - [x] Live-site cache rules in `.htaccess` (HTML / CSS·JS / assets); GitHub Pages ignores `.htaccess` — rules apply on Apache / DO only
 
-## Verified live (2026-10-22)
-
-- [x] `https://www.discernible.io/sitemap.xml` returns 200 with home / developers / get-started URLs
-- [x] Live home OG tags present (`og:title`, `og:description`, `og:image` → `og-image.png` 200)
-- [x] Live developers JSON-LD parses (`@graph` Organization / page types)
-- [x] `lastcradle.io` already links to `www.discernible.io/get-started/` and `/developers/`
-- [x] `api.identyclaw.com/docs` already links toward discernible developers pages
-- [x] Fixed stale `#developers` anchors in OpenClaw / IdentyClaw plugin READMEs on this host (republish ClawHub from those READMEs to refresh listings)
-
-## Still to do (manual / operator)
+## Still to do (manual / later)
 
 ### Crawl & Search Console
-- [ ] Add property in [Google Search Console](https://search.google.com/search-console) (requires Google account on the property)
+- [ ] Add property in [Google Search Console](https://search.google.com/search-console)
 - [ ] Submit `https://www.discernible.io/sitemap.xml`
 - [ ] Monitor Coverage / Page indexing for soft-404s or duplicate URLs
 
 ### Social & rich results
-- [ ] Re-scrape OG image after deploy: [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) and LinkedIn Post Inspector (tool login)
-- [ ] Validate JSON-LD in [Rich Results Test](https://search.google.com/test/rich-results) while signed in (automation hit “Something went wrong” without operator session; local parse of live JSON-LD succeeded)
+- [ ] Re-scrape OG image after deploy: [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) and LinkedIn Post Inspector
+- [ ] Validate JSON-LD: [Rich Results Test](https://search.google.com/test/rich-results)
 
 ### Off-site / content
 - [x] Point GitHub READMEs at these pages with descriptive anchors (`idclawserver-idc`, `openclaw-identyclaw-plugin` — 2026-10-22)
-- [x] Align ClawHub-source plugin READMEs + lastcradle + API docs links to clean `/developers/` / `/get-started/` (2026-10-22). Re-publish ClawHub packages so the live listing drops `#developers`.
+- [ ] Point ClawHub listings, `api.identyclaw.com/docs`, and `lastcradle.io` at these pages with descriptive anchors
 - [ ] Keep publishing on [dev.to/discernible-io](https://dev.to/discernible-io) with links back to product pages
 
 ### Operator-only (cannot automate from this repo)
 Search Console property, sitemap submit, coverage monitoring, OG re-scrape, and Rich Results Test remain manual after each meaningful deploy.
 
 
-## Standards compliance (host audit 2026-10-27)
+## Standards conformance gaps (host audit 2026-10-27)
 
-Audited against discernible-io/docs `bad60c82` (static marketing row). SEO/operator items above remain.
+Scored as **static marketing site** ([applicability matrix](https://github.com/discernible-io/docs/blob/main/docs/documentation-standard.md#applicability-matrix)).
 
-### Funnel / docs
-
-- [ ] **Funnel cookieless tension:** `public/script.js` persists `funnel_id` in `sessionStorage` — migrate to URL/memory-only, or document an explicit product/legal exception (see [`funnel-standard.md`](../docs/docs/funnel-standard.md) known gaps).
-- [ ] README: pin discernible-io/docs **commit SHA** for funnel/configuration references (today links floating `main`).
-- [ ] If a `development` branch is ever added, keep this `TODO.md` byte-identical on both tiers (principle 21).
+| Gap | Standard | Notes |
+| --- | --- | --- |
+| Funnel cookieless tension | [`funnel-standard.md`](https://github.com/discernible-io/docs/blob/main/docs/funnel-standard.md) | `public/script.js` parks `funnel_id` in `sessionStorage` — conflicts with URL/memory-only stitching until product decides URL-only or consent |
+| Floating Actions | cicd **PI 16** (where GH Actions used) | **Done 2026-10-27** — Pages deploy actions SHA-pinned |
+| README → standards | documentation / distribution | README does not clearly state reference-only consumption of discernible-io/docs (add a short pointer + follow `main` or a pin) |
+| Coding on touch | coding **PI 12** | Apply vocabulary + one-implementation rules when editing maintained scripts |
