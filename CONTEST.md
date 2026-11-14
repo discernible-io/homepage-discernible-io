@@ -16,14 +16,7 @@
 
 ## Blocking (do in order)
 
-### 1. Push / deploy
-
-| Done | ID | Task | Where |
-| :---: | --- | --- | --- |
-| [ ] | B9 | Commit + push all `rodit-sdk` contest changes to `main` | **Repo** `rodit-sdk` |
-| [ ] | E1b | Deploy `homepage-discernible-io` so www.discernible.io shows NFT / API-login copy | **Website** / **Repo** `homepage-discernible-io` |
-
-### 2. Demo + X post
+### 1. Demo + X post
 
 | Done | ID | Task | Where |
 | :---: | --- | --- | --- |
@@ -33,7 +26,7 @@
 | [ ] | F3 | Publish public X post: NEAR HACKATHON, `@NEARProtocol`, `#NEARHackathon`, video and/or screenshots | **X** |
 | [ ] | F5 | Copy post URL as `demoUrl` | **X** → **Form** |
 
-### 3. Form fields + submit once
+### 2. Form fields + submit once
 
 | Done | ID | Task | Where |
 | :---: | --- | --- | --- |
@@ -47,7 +40,7 @@
 | [ ] | A8 | One `requestId` UUID (keep for retries; do not commit PII) | **Document** |
 | [ ] | G1 | Validate payload (no `website` spam-trap field) | **Form** |
 | [ ] | G2 | Print JSON; human confirms before POST | **Document** |
-| [ ] | G3 | Submit once at [#apply](https://nearhackathon.com/#apply) or `POST /api/applications` **after** B9 + F3 | **Form** |
+| [ ] | G3 | Submit once at [#apply](https://nearhackathon.com/#apply) or `POST /api/applications` **after** F3 | **Form** |
 | [ ] | G4 | On `201`, stop — do not resubmit same repo | **Form** |
 | [ ] | G5 | Mistakes → [request-changes](https://nearhackathon.com/request-changes) only | **Form** |
 | [ ] | C6 | Do not submit a second repo for the same product | **Form** |
@@ -58,12 +51,8 @@
 
 | Done | ID | Task | Where |
 | :---: | --- | --- | --- |
-| [ ] | C4 | One-line HACKATHON pointer in federated scaffold README → `rodit-sdk` | **Repo** `api-scaffold-federated-rodit-auth` |
-| [ ] | D5 | Keep hosted demos up through judging (ideally to 2026-11-25) | **Website** |
-| [ ] | E3 | lastcradle.io: one line that agents use Passport NFT for login | **Website** `lastcradle.io` |
 | [ ] | E4 | Hero URL stack for X: discernible → purchase → api.identyclaw.com → federated peer; lastcradle secondary | **Document** |
 | [ ] | F4 | Also tag `@NearLegion` / `@NearBuilders` | **X** |
-| [ ] | — | Publish bumped npm packages (10.0.3 / 4.10.15 / 0.1.1 / 0.1.7) if desired | npm |
 
 ---
 
