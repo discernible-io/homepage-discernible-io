@@ -198,7 +198,7 @@ hermes identyclaw install-deps</code></pre>
 hermes plugins install discernible-io/hermes-identyclaw-a2a
 hermes plugins install discernible-io/hermes-identyclaw-webhook</code></pre>
  <p class="step-follow"><strong>Check:</strong> Sidecar starts; both plugin installs complete. Optional public HTTPS: use <a href="https://github.com/discernible-io/hermes-agents" target="_blank" rel="noopener">hermes-agents</a> or your own reverse proxy. Skip if you only need the Passport.</p>
- <p class="step-follow">Force remint / federated peer / debug (returns metadata only — never the full JWT):</p>
+ <p class="step-follow">Force re-login / federated peer / debug (returns metadata only — never the full JWT):</p>
  <pre class="cmd"><code>hermes identyclaw ensure_session --force
 hermes identyclaw ensure_session --base https://peer.example.com</code></pre>
  </details>

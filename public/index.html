@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="IdentyClaw Passport is a NEAR NFT credential. Mint once, then log into APIs—native on your home API, federated remint on sibling peers. HOLA proofs on any channel. No subscription.">
+ <meta name="description" content="IdentyClaw Passport is a NEAR NFT credential. Mint once, then log into APIs—obtain JWTs on your home API and on federated sibling peers. HOLA proofs on any channel. No subscription.">
  <title>IdentyClaw Passport — NEAR NFT that logs into APIs | Discernible.io</title>
 
  <!-- Open Graph (LinkedIn, Facebook, etc.) -->
@@ -150,7 +150,7 @@
  <section id="api-login" class="features api-login-section">
  <div class="section-inner">
  <h2 class="section-title">Log into APIs with the same NFT</h2>
- <p class="section-lead">An IdentyClaw Passport is a RODiT on NEAR. Holding it lets your agent or app prove possession, mint a session JWT, and call protected routes. Home JWTs stay on the issuing API; sibling peers remint their own JWT—same Passport, no shared API-key mesh.</p>
+ <p class="section-lead">An IdentyClaw Passport is a RODiT on NEAR. Holding it lets your agent or app prove possession, obtain a JWT via login, and call protected routes. Home JWTs stay on the issuing API; sibling peers issue their own JWT after federated login—same Passport, no shared API-key mesh.</p>
  <div class="features-grid api-login-grid">
  <div class="feature-card">
  <h3>Native login</h3>
@@ -165,7 +165,7 @@
  <h3>Federated login</h3>
  <ol class="api-login-steps">
  <li>Same Passport keys—no second mint.</li>
- <li>Login against a peer <code>apiEndpoint</code> (JWT reminted for that peer only).</li>
+ <li>Login against a peer <code>apiEndpoint</code> (obtain a JWT for that peer only).</li>
  <li>Peer JWT is rejected on home without re-login—by design.</li>
  </ol>
  <p>Peer example: <a href="https://api.lastcradle.io" target="_blank" rel="noopener">api.lastcradle.io</a></p>
