@@ -44,6 +44,11 @@ This file lives at the repo root and is **not** copied to GitHub Pages, so visit
 - [x] Align ClawHub-source plugin READMEs + lastcradle + API docs links to clean `/developers/` / `/get-started/` (2026-10-22). Re-publish ClawHub packages so the live listing drops `#developers`.
 - [ ] Keep publishing on [dev.to/discernible-io](https://dev.to/discernible-io) with links back to product pages
 
+### Take to market now (homepage positioning)
+- [ ] **Lead with the two services, not Passport:** The page opens with “buy once / Passport” and flagship capabilities sit under “Trust who it is.” If those two services are what you’re selling, make them the two hero cards at the top; Passport is the enabling product underneath.
+- [ ] **Explain or drop the 12-letter code:** “A 12-letter code that encodes a readable persona” is unexplained — add a concrete example (e.g. the code shown next to the face) or remove the mechanism detail.
+- [ ] **Name video-call proof as a use case:** Executive section only reaches “phone call, or video call” as a list item. For regulated-legal / KYC, same-proof-over-video-call is the hook — give it a named use case, not a bullet in a channel list.
+
 ### Operator-only (cannot automate from this repo)
 Search Console property, sitemap submit, coverage monitoring, OG re-scrape, and Rich Results Test remain manual after each meaningful deploy.
 

@@ -165,7 +165,7 @@
  <h3 class="dev-tier-title">SDKs, peer APIs &amp; test harness</h3>
  <p class="dev-tier-desc">Build RODiT-authenticated APIs and gate deploys against live contracts. Authoritative API docs: <a href="https://api.identyclaw.com/docs" target="_blank" rel="noopener">api.identyclaw.com/docs</a>.</p>
  <ul class="dev-repo-list">
- <li><a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener"><strong>rodit-sdk</strong></a> — monorepo for <code>@rodit/rodit-auth-be</code> (Express login/JWT/webhooks), <code>@rodit/rodit-auth-fe</code> (browser/NEP-413), and <code>@rodit/verify-hola</code></li>
+ <li><a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener"><strong>rodit-sdk</strong></a> — monorepo for <code>@rodit/rodit-auth-be</code> (Express login/JWT/webhooks), <code>@rodit/rodit-auth-fe</code> (browser/NEP-413), and <code>@rodit/verify-hola</code> · <a href="#sdk-security-audit">security audit, 15 Nov 2026</a></li>
  <li><a href="https://github.com/discernible-io/api-scaffold-federated-rodit-auth" target="_blank" rel="noopener"><strong>api-scaffold-federated-rodit-auth</strong></a> — federated peer API scaffold on <code>@rodit/rodit-auth-be</code> (Passport login → peer JWT; keep auth spine, replace sample CRUDA)</li>
  <li><a href="https://github.com/discernible-io/api-test-scaffold" target="_blank" rel="noopener"><strong>api-test-scaffold</strong></a> — client-side RODiT test harness: smoke on <code>main</code>, full home matrix on <code>development</code>, and SLC game API (<code>slc</code>)</li>
  </ul>
@@ -241,6 +241,111 @@
  <div class="feature-card">
  <h3>Local keys &amp; rotation</h3>
  <p>Keys never leave your endpoints. Rotate on your schedule: create a new NEAR wallet, fund it, and transfer the Passport with <code>near-cli-rs</code> via <code>rodit_transfer</code>—same 12-letter ID, new signing keys, no IdentyClaw coordination.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="sdk-security-audit" class="features developers-section">
+ <div class="section-inner">
+ <h2 class="section-title">RODiT SDK security audit</h2>
+ <p class="section-lead">15 November 2026. Scope: the <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">rodit-sdk</a> monorepo and its four published npm packages. Maintainer review closed the design questions. One code defect was fixed.</p>
+
+ <div class="dev-tiers">
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Method</h3>
+ <p class="dev-tier-desc"><a href="https://github.com/discernible-io/CodeCome-Recommended" target="_blank" rel="noopener">CodeCome</a> reconnaissance, hypothesis review, counter-analysis, and sandbox checks. Exploit development was not run. The review covered authentication, authorization, webhook verification, HOLA signing and verification, JWT handling, and cryptographic use. Findings below are the ones filed.</p>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Packages</h3>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr>
+ <th scope="col">Package</th>
+ <th scope="col">Directory</th>
+ <th scope="col">Version audited</th>
+ <th scope="col">Version after this review</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><a href="https://www.npmjs.com/package/@rodit/rodit-auth-be" target="_blank" rel="noopener"><code>@rodit/rodit-auth-be</code></a></td>
+ <td><code>rodit-auth-be/</code></td>
+ <td>10.0.3</td>
+ <td><strong>10.0.4</strong></td>
+ </tr>
+ <tr>
+ <td><a href="https://www.npmjs.com/package/@rodit/rodit-auth-fe" target="_blank" rel="noopener"><code>@rodit/rodit-auth-fe</code></a></td>
+ <td><code>rodit-auth-fe/</code></td>
+ <td>4.10.15</td>
+ <td>4.10.15</td>
+ </tr>
+ <tr>
+ <td><a href="https://www.npmjs.com/package/@rodit/hola-client" target="_blank" rel="noopener"><code>@rodit/hola-client</code></a></td>
+ <td><code>hola-client/</code></td>
+ <td>0.1.1</td>
+ <td>0.1.1</td>
+ </tr>
+ <tr>
+ <td><a href="https://www.npmjs.com/package/@rodit/verify-hola" target="_blank" rel="noopener"><code>@rodit/verify-hola</code></a></td>
+ <td><code>verify-hola/</code></td>
+ <td>0.1.7</td>
+ <td>0.1.7</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="dev-tier-desc"><code>@rodit/verify-hola@0.1.7</code> still depends on <code>@rodit/rodit-auth-be@10.0.3</code>. That pin does not need the 10.0.4 client-glob fix. <code>@rodit/rodit-auth-fe</code>, <code>@rodit/hola-client</code>, and <code>@rodit/verify-hola</code> had no confirmed defects.</p>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">Remediation</h3>
+ <div class="dev-table-wrap">
+ <table class="dev-table">
+ <thead>
+ <tr>
+ <th scope="col">ID</th>
+ <th scope="col">Package</th>
+ <th scope="col">Topic</th>
+ <th scope="col">Status</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>CC-0001</td>
+ <td><code>@rodit/rodit-auth-be</code></td>
+ <td><code>RoditClient.isOperationPermitted</code> returns true when the permission matrix is missing, the path is not listed, or the check throws</td>
+ <td><strong>By design.</strong> This is a local filter inside <code>request()</code>. It blocks only an explicit grant that does not start with <code>+</code>. <code>authorize</code> (<code>validatepermissions</code>), after <code>authenticate</code>, is the allow/deny for an incoming request.</td>
+ </tr>
+ <tr>
+ <td>CC-0002</td>
+ <td><code>@rodit/rodit-auth-be</code></td>
+ <td><code>validatepermissions</code> reads JWT claims with <code>decodeJwt</code> and does not verify the signature</td>
+ <td><strong>By design.</strong> <code>authenticate</code> verifies the signature and session. <code>authorize</code> maps claims onto the route. The two middlewares are mounted in that order.</td>
+ </tr>
+ <tr>
+ <td>CC-0003</td>
+ <td><code>@rodit/rodit-auth-be</code></td>
+ <td>Webhook signature and session checks relax when <code>NODE_ENV</code> is <code>test</code></td>
+ <td><strong>By design.</strong> The test profile exists so webhook handlers can run without a live signer session. <code>NODE_ENV=main</code> still requires the session.</td>
+ </tr>
+ <tr>
+ <td>CC-0004</td>
+ <td><code>@rodit/rodit-auth-be</code></td>
+ <td>Permission keys containing <code>*</code> were compiled as an unanchored regular expression</td>
+ <td><strong>Fixed in 10.0.4.</strong> A <code>*</code> key is now an anchored glob: every <code>*</code> matches any sequence, and every other character is literal.</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="dev-tier-desc">Static analysis also reported polynomial regular expressions in <code>@rodit/hola-client</code> (<code>lib/generate-near-account.js</code>, <code>lib/nonce-api.js</code>) and in <code>rodit-auth-be/lib/middleware/webhookhandlermw.js</code>. Those were not confirmed as defects and no package version changed for them.</p>
+ </div>
+
+ <div class="dev-tier">
+ <h3 class="dev-tier-title">What 10.0.4 changes for integrators</h3>
+ <p class="dev-tier-desc">Upgrade <code>@rodit/rodit-auth-be</code> to <strong>10.0.4</strong> to pick up the glob matcher. Route protection is unchanged: <code>authenticate</code>, then <code>authorize</code>. <code>isOperationPermitted</code> remains the client pre-check used by <code>request()</code>. Webhook tests still use <code>NODE_ENV=test</code>.</p>
  </div>
  </div>
  </div>
