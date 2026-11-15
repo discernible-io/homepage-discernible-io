@@ -267,6 +267,54 @@ body {
  line-height: 1.55;
 }
 
+.hero-hackathon-note {
+ font-size: 0.875rem;
+ color: var(--text-light);
+ line-height: 1.5;
+ margin: 0.75rem 0 0;
+ max-width: 28rem;
+}
+
+.api-login-section {
+ background: var(--white);
+}
+
+.api-login-section .section-lead {
+ max-width: 48rem;
+}
+
+.api-login-grid {
+ margin-bottom: 1.25rem;
+}
+
+.api-login-steps {
+ margin: 0.75rem 0 1rem;
+ padding-left: 1.25rem;
+ color: var(--text-light);
+ line-height: 1.6;
+}
+
+.api-login-steps li + li {
+ margin-top: 0.4rem;
+}
+
+.api-login-steps code,
+.api-login-section .feature-card code {
+ font-size: 0.85em;
+}
+
+.api-login-close {
+ margin-top: 0.5rem;
+ margin-bottom: 1.25rem;
+}
+
+.pricing-hackathon {
+ font-size: 0.875rem;
+ color: var(--text-light);
+ line-height: 1.5;
+ margin: 0.75rem 0 0;
+}
+
 .hero-intro {
  font-size: 0.9375rem;
  color: var(--text-muted);

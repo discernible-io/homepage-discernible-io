@@ -3,15 +3,15 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="IdentyClaw Passport — portable agent identity you buy once. No subscription. API, HOLA, verify, and templates included. See Passport capabilities in Last Cradle, then mint.">
- <title>IdentyClaw Passport — buy once | Discernible.io</title>
+ <meta name="description" content="IdentyClaw Passport is a NEAR NFT credential. Mint once, then log into APIs—obtain JWTs on your home API and on federated sibling peers. HOLA proofs on any channel. No subscription.">
+ <title>IdentyClaw Passport — NEAR NFT that logs into APIs | Discernible.io</title>
 
  <!-- Open Graph (LinkedIn, Facebook, etc.) -->
  <meta property="og:type" content="website">
  <meta property="og:url" content="https://www.discernible.io/">
  <meta property="og:site_name" content="Discernible.io">
- <meta property="og:title" content="IdentyClaw Passport — buy once | Discernible.io">
- <meta property="og:description" content="IdentyClaw Passport — portable agent identity you buy once. No subscription. API, HOLA, verify, and templates included. See Passport capabilities in Last Cradle, then mint.">
+ <meta property="og:title" content="IdentyClaw Passport — NEAR NFT that logs into APIs | Discernible.io">
+ <meta property="og:description" content="IdentyClaw Passport is a NEAR NFT credential. Mint once, then log into APIs—native and federated. HOLA proofs on any channel. No subscription.">
  <link rel="canonical" href="https://www.discernible.io/">
  <meta property="og:image" content="https://www.discernible.io/og-image.png">
  <meta property="og:image:width" content="1200">
@@ -20,8 +20,8 @@
 
  <!-- Twitter -->
  <meta name="twitter:card" content="summary_large_image">
- <meta name="twitter:title" content="IdentyClaw Passport — buy once | Discernible.io">
- <meta name="twitter:description" content="IdentyClaw Passport — portable agent identity you buy once. No subscription. See Passport capabilities in Last Cradle, then mint.">
+ <meta name="twitter:title" content="IdentyClaw Passport — NEAR NFT that logs into APIs | Discernible.io">
+ <meta name="twitter:description" content="NEAR NFT Passport: mint once, log into APIs (native + federated), prove with HOLA. No subscription.">
  <meta name="twitter:image" content="https://www.discernible.io/og-image.png">
  <meta name="twitter:image:alt" content="Discernible.io — IdentyClaw Passport">
 
@@ -60,13 +60,13 @@
  "applicationCategory": "SecurityApplication",
  "operatingSystem": "Any",
  "url": "https://www.discernible.io/",
- "description": "Portable on-chain agent identity you buy once. No subscription. API, HOLA, verify, and agent templates included.",
+ "description": "NEAR NFT Passport for agent identity and API login. Native and federated JWT login; HOLA multi-channel proof. Buy once—no subscription.",
  "offers": {
  "@type": "Offer",
  "url": "https://purchase.identyclaw.com",
  "priceCurrency": "NEAR",
  "availability": "https://schema.org/InStock",
- "description": "One-time mint on the purchase portal; no subscription."
+ "description": "One-time NEAR mint on the purchase portal; no subscription. One-month longevity is the lowest mint fee."
  },
  "publisher": { "@id": "https://www.discernible.io/#organization" }
  },
@@ -74,8 +74,8 @@
  "@type": "WebPage",
  "@id": "https://www.discernible.io/",
  "url": "https://www.discernible.io/",
- "name": "IdentyClaw Passport — buy once | Discernible.io",
- "description": "IdentyClaw Passport — portable agent identity you buy once. No subscription. API, HOLA, verify, and templates included.",
+ "name": "IdentyClaw Passport — NEAR NFT that logs into APIs | Discernible.io",
+ "description": "IdentyClaw Passport is a NEAR NFT credential. Mint once, then log into APIs—native and federated. HOLA proofs on any channel. No subscription.",
  "isPartOf": { "@id": "https://www.discernible.io/#organization" },
  "publisher": { "@id": "https://www.discernible.io/#organization" }
  }
@@ -97,6 +97,7 @@
  </button>
  <ul class="nav-links" id="site-nav">
  <li><a href="#use-cases">Passport</a></li>
+ <li><a href="#api-login">API login</a></li>
  <li><a href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Test Drive</a></li>
  <li><a href="https://lastcradle.io/" target="_blank" rel="noopener">Showcase</a></li>
  <li><a href="/get-started/">Get Started</a></li>
@@ -132,15 +133,49 @@
  <div class="hero-message">
  <h1 class="hero-title">IdentyClaw Passport</h1>
  <p class="hero-eyebrow">by Discernible.io</p>
- <p class="hero-subtitle">Portable agent identity you <strong>buy once</strong> — no subscription, no renewals. Prove who you are with HOLA on any channel.</p>
- <p class="hero-bound">Impersonation-resistant: a HOLA proof shows who controls the credential and who is intended for in the current conversation.</p>
+ <p class="hero-subtitle">A NEAR NFT you <strong>buy once</strong>—no subscription. Use it to <strong>log into APIs</strong> (native and federated), and prove who you are with <strong>HOLA</strong> on any channel.</p>
+ <p class="hero-bound">Ownership is checked on-chain at login—not a copied API key. HOLA proofs show who controls the Passport and who the proof is for in this conversation.</p>
  <p class="hero-intro">I'm Lemuel, your IdentyClaw concierge, I can help you via eMail, Discord or Telegram</p>
  <div class="cta-buttons hero-cta">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
- <a class="btn btn-outline" href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Test Drive</a>
+ <a class="btn btn-outline" href="#api-login">See API login</a>
  <a class="btn btn-secondary" href="#showcase">See the showcase</a>
  </div>
+ <p class="hero-hackathon-note">SDK / hackathon demo: on the purchase portal, set longevity to <strong>1 month</strong> for the minimum mint fee.</p>
  </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="api-login" class="features api-login-section">
+ <div class="section-inner">
+ <h2 class="section-title">Log into APIs with the same NFT</h2>
+ <p class="section-lead">An IdentyClaw Passport is a RODiT on NEAR. Holding it lets your agent or app prove possession, obtain a JWT via login, and call protected routes. Home JWTs stay on the issuing API; sibling peers issue their own JWT after federated login—same Passport, no shared API-key mesh.</p>
+ <div class="features-grid api-login-grid">
+ <div class="feature-card">
+ <h3>Native login</h3>
+ <ol class="api-login-steps">
+ <li>Mint a Passport on NEAR.</li>
+ <li><code>GET /api/login/timestamp</code> → sign → <code>POST /api/login</code>.</li>
+ <li>Call protected routes with <code>Authorization: Bearer &lt;jwt&gt;</code>.</li>
+ </ol>
+ <p>Home example: <a href="https://api.identyclaw.com" target="_blank" rel="noopener">api.identyclaw.com</a></p>
+ </div>
+ <div class="feature-card">
+ <h3>Federated login</h3>
+ <ol class="api-login-steps">
+ <li>Same Passport keys—no second mint.</li>
+ <li>Login against a peer <code>apiEndpoint</code> (obtain a JWT for that peer only).</li>
+ <li>Peer JWT is rejected on home without re-login—by design.</li>
+ </ol>
+ <p>Peer example: <a href="https://api.lastcradle.io" target="_blank" rel="noopener">api.lastcradle.io</a></p>
+ </div>
+ </div>
+ <p class="section-lead api-login-close">Transfer the NFT and login rights follow the new owner—ownership with behavior, not a JPEG.</p>
+ <div class="cta-buttons">
+ <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Mint Passport</a>
+ <a class="btn btn-outline" href="/developers/">Developers</a>
+ <a class="btn btn-secondary" href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">Open-source SDK</a>
  </div>
  </div>
  </section>
@@ -150,7 +185,7 @@
   <h2 class="section-title">Trust who it is.</h2>
   <p class="section-lead">Verification is free and open: only the proving side needs a Passport — anyone can check a proof without an account, a wallet, or a subscription. Every proof is fresh — a per-session nonce and timestamp, so it answers who holds the credential right now, not last month.</p>
   <p class="section-lead">Don't trust where the agent is. HOLA verifies on-chain — no certificate authority and no trusted broker in the trust chain. Trust the signature, not the transport: the same proof works on whatever channel the conversation already uses — email, chat, a video call, or an API. Anyone can check it, so it holds up in corporate interactions.</p>
-  <p class="section-lead">The credential is an IdentyClaw Passport; the proof is a <strong>HOLA</strong> line.</p>
+  <p class="section-lead">The credential is an IdentyClaw Passport (a NEAR NFT). Use it to <a href="#api-login">log into APIs</a>; use a <strong>HOLA</strong> line when you need a portable proof on email, chat, or a call. API login and HOLA share the same Passport—two interfaces, one on-chain identity.</p>
  <div class="features-grid">
  <div class="feature-card">
  <h3>Executive mutual authentication</h3>
@@ -161,9 +196,9 @@
  <p>When a video agent runs an interview or a customer conversation, the same multi-channel proof says this stream is the authentic agent, not a clone. The Passport’s facial ID is the face people recognize on that stream — a 12-letter code that encodes a readable persona, so the face on the stream is the face bound to the tokenId you verified. Passportless verifiers get image-integrity checks served with the verification verdict — a swapped or re-used face across Passports is detectable, not just a look-alike guess. Anyone can verify it, including people who never registered that agent. <a href="https://verify.identyclaw.com/?view=expert" target="_blank" rel="noopener">Give it a test drive</a>.</p>
  </div>
  <div class="feature-card feature-card-secondary">
- <p class="feature-kicker">At larger scale</p>
+ <p class="feature-kicker">At larger scale — without pairwise API keys</p>
  <h3>Many-to-many agent collaboration</h3>
- <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million directional pairwise API keys — or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap: 1 million directional peer-pair HMAC shared secrets — or the same Passport, because the proofs are signed at the origin. Identity scales linearly, not geometrically — the same identity layer a marketplace deploys once for all its agents.</p>
+ <p>At scale, 1,000 × 1,000 agents collaborating requires 1 million directional pairwise API keys — or only 2,000 Passports, one per agent. Webhooks face the same pairwise trap: 1 million directional peer-pair HMAC shared secrets — or the same Passport, because the proofs are signed at the origin. Identity scales linearly, not geometrically — the same identity layer a marketplace deploys once for all its agents. Each Passport logs into home and federated peer APIs without minting a new pairwise secret per destination.</p>
  </div>
  </div>
  </div>
@@ -173,10 +208,11 @@
  <div class="section-inner">
  <p class="section-kicker">Showcase</p>
  <h2 class="section-title">Last Cradle — Passport capabilities in action</h2>
- <p class="section-lead">Synthetics&apos; Last Cradle shows what Passport-backed agents can do together: negotiate, verify identity, honor or defect, and manage rising costs — the same identity stack you mint once and run anywhere.</p>
+ <p class="section-lead">Synthetics&apos; Last Cradle shows Passport-backed agents negotiating under cost pressure—and logging into the game API with the same NEAR NFT used for IdentyClaw home and federated peers.</p>
  <div class="cta-buttons">
  <a class="btn btn-primary" href="https://purchase.identyclaw.com" target="_blank" rel="noopener">Get a Passport</a>
  <a class="btn btn-outline" href="https://lastcradle.io/" target="_blank" rel="noopener">Explore Last Cradle</a>
+ <a class="btn btn-secondary" href="#api-login">How agents log in</a>
  </div>
  </div>
  </section>
@@ -184,12 +220,13 @@
  <section id="pricing" class="features pricing-section">
  <div class="section-inner">
  <h2 class="section-title">Buy once. No subscription.</h2>
- <p class="section-lead">The only spend is minting an IdentyClaw Passport. API home, HOLA, verify, and agent templates are included — not upsells. Pay in NEAR on the purchase portal (fiat path where available). Live amounts are shown there before you pay.</p>
+ <p class="section-lead">The only spend is minting an IdentyClaw Passport. The Passport is minted as a NEAR NFT—that mint unlocks API login and HOLA, not a monthly seat. API home, HOLA, verify, and agent templates are included — not upsells. Pay in NEAR on the purchase portal (fiat path where available). Live amounts are shown there before you pay.</p>
  <div class="pricing-strip">
  <div class="pricing-card">
  <h3 class="pricing-tier">Personal</h3>
  <p class="pricing-amount">One-time NEAR mint</p>
  <p class="pricing-points">Standard rate of use · face assigned for you</p>
+ <p class="pricing-hackathon">Trying the SDK? Choose <strong>1 month</strong> longevity on the purchase portal for the lowest mint fee.</p>
  </div>
  <div class="pricing-card">
  <h3 class="pricing-tier">Enterprise</h3>
@@ -197,7 +234,7 @@
  <p class="pricing-points">Higher rate of use · choose your face</p>
  </div>
  </div>
- <p class="pricing-note">Run the Passport on your own agent with <a href="/get-started/">Get Started</a> — OpenClaw, Hermes, or another host; keys stay on disk. Stuck on checkout? Reach Lemuel in <a href="#contact">Contact</a>.</p>
+ <p class="pricing-note">Run the Passport on your own agent with <a href="/get-started/">Get Started</a> — OpenClaw, Hermes, or another host; keys stay on disk. Server SDKs: <a href="https://github.com/discernible-io/rodit-sdk" target="_blank" rel="noopener">@rodit/rodit-auth-be / @rodit/rodit-auth-fe</a>. Stuck on checkout? Reach Lemuel in <a href="#contact">Contact</a>.</p>
  </div>
  </section>
  </main>
