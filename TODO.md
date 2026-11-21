@@ -47,5 +47,4 @@ Scored as **static marketing site** ([applicability matrix](https://github.com/d
 | --- | --- | --- |
 | Funnel cookieless tension | [`funnel-standard.md`](https://github.com/discernible-io/docs/blob/main/docs/funnel-standard.md) | `public/script.js` parks `funnel_id` in `sessionStorage` — conflicts with URL/memory-only stitching until product decides URL-only or consent |
 | Floating Actions | cicd **PI 16** (where GH Actions used) | **Done 2026-10-27** — Pages deploy actions SHA-pinned |
-| README → standards | documentation / distribution | README does not clearly state reference-only consumption of discernible-io/docs (add a short pointer + follow `main` or a pin) |
 | Coding on touch | coding **PI 12** | Apply vocabulary + one-implementation rules when editing maintained scripts |
